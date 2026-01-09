@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="it.unibo.abyssclimber.ui.room.RoomPlaceholderController"
+      alignment="CENTER"
+      spacing="14"
+      style="-fx-padding: 24;">
+
+    <Label fx:id="titleLabel" text="Stanza" style="-fx-font-size: 26px; -fx-font-weight: bold;"/>
+    <Label fx:id="descLabel" text="Descrizione..." wrapText="true" maxWidth="800"/>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Continua" onAction="#onContinue" styleClass="primary-button"/>
+        <Button text="Muori (debug)" onAction="#onDieDebug" styleClass="secondary-button"/>
+    </HBox>
+
+</VBox>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="it.unibo.abyssclimber.ui.room.RoomSelectionController">
+
+    <!-- HUD -->
+    <top>
+        <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-padding: 16;" styleClass="hud">
+            <Label fx:id="floorLabel" styleClass="hud-text"/>
+            <Label fx:id="hpLabel" styleClass="hud-text"/>
+        </HBox>
+    </top>
+
+    <center>
+        <StackPane>
+            <!-- SFONDO -->
+            <ImageView fx:id="backgroundView"
+                       preserveRatio="true"
+                       smooth="true"
+                       fitWidth="1280"
+                       fitHeight="720"/>
+
+            <!-- OVERLAY -->
+            <AnchorPane fx:id="overlayPane">
+
+                <!-- Porta sinistra -->
+                <Button fx:id="doorBtn1" text="Combattimento"
+                        onAction="#onChooseDoor1"
+                        styleClass="door-button"
+                        layoutX="220" layoutY="270"/>
+
+                <!-- Porta centrale -->
+                <Button fx:id="doorBtn2" text="Negozio"
+                        onAction="#onChooseDoor2"
+                        styleClass="door-button"
+                        layoutX="560" layoutY="300"/>
+
+                <!-- Porta destra -->
+                <Button fx:id="doorBtn3" text="Porta misteriosa"
+                        onAction="#onChooseDoor3"
+                        styleClass="door-button"
+                        layoutX="920" layoutY="270"/>
+            </AnchorPane>
+        </StackPane>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER" style="-fx-padding: 12;">
+            <Button text="Forza morte (debug)" onAction="#onForceDeath" styleClass="secondary-button"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

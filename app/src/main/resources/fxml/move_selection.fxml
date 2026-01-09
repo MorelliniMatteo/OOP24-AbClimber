@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="it.unibo.abyssclimber.ui.moves.MoveSelectionController">
+
+    <top>
+        <VBox alignment="CENTER" spacing="6" style="-fx-padding: 18;">
+            <Label text="Selezione Mosse" styleClass="title"/>
+            <Label fx:id="infoLabel" text="Seleziona 6 mosse (0/6)." styleClass="subtitle"/>
+        </VBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane">
+            <content>
+                <VBox spacing="16" style="-fx-padding: 18;">
+
+                    <!-- HYDRO -->
+                    <VBox spacing="10" styleClass="section">
+                        <Label text="Hydro" styleClass="section-title"/>
+                        <GridPane fx:id="hydroGrid" hgap="12" vgap="12" styleClass="moves-grid"/>
+                    </VBox>
+
+                    <!-- NATURA -->
+                    <VBox spacing="10" styleClass="section">
+                        <Label text="Natura" styleClass="section-title"/>
+                        <GridPane fx:id="natureGrid" hgap="12" vgap="12" styleClass="moves-grid"/>
+                    </VBox>
+
+                    <!-- FULMINE -->
+                    <VBox spacing="10" styleClass="section">
+                        <Label text="Fulmine" styleClass="section-title"/>
+                        <GridPane fx:id="thunderGrid" hgap="12" vgap="12" styleClass="moves-grid"/>
+                    </VBox>
+
+                    <!-- FUOCO -->
+                    <VBox spacing="10" styleClass="section">
+                        <Label text="Fuoco" styleClass="section-title"/>
+                        <GridPane fx:id="fireGrid" hgap="12" vgap="12" styleClass="moves-grid"/>
+                    </VBox>
+
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER" spacing="12" style="-fx-padding: 18;">
+            <Button text="Indietro" onAction="#onBack" styleClass="secondary-button"/>
+            <Button fx:id="startBtn" text="Inizia Partita" onAction="#onStartRun" styleClass="primary-button"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="it.unibo.abyssclimber.ui.character.CharacterCreationController">
+
+    <top>
+        <HBox alignment="CENTER" style="-fx-padding: 18;">
+            <Label text="Creazione Personaggio" styleClass="title"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox alignment="CENTER" spacing="18" style="-fx-padding: 20;">
+
+            <Label fx:id="summaryLabel" text="Tipo: — | Classe: —" styleClass="subtitle"/>
+
+            <VBox spacing="10" alignment="CENTER">
+                <Label text="Scegli Tipo" styleClass="card-title"/>
+                <HBox spacing="10" alignment="CENTER">
+                    <ToggleButton fx:id="hydroBtn" text="Hydro" styleClass="primary-button"/>
+                    <ToggleButton fx:id="natureBtn" text="Natura" styleClass="primary-button"/>
+                    <ToggleButton fx:id="thunderBtn" text="Fulmine" styleClass="primary-button"/>
+                    <ToggleButton fx:id="fireBtn" text="Fuoco" styleClass="primary-button"/>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="10" alignment="CENTER">
+                <Label text="Scegli Classe" styleClass="card-title"/>
+                <HBox spacing="10" alignment="CENTER">
+                    <ToggleButton fx:id="mageBtn" text="Mago" styleClass="secondary-button"/>
+                    <ToggleButton fx:id="soldierBtn" text="Soldato" styleClass="secondary-button"/>
+                    <ToggleButton fx:id="knightBtn" text="Cavaliere" styleClass="secondary-button"/>
+                </HBox>
+            </VBox>
+
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox spacing="12" alignment="CENTER" style="-fx-padding: 18;">
+            <Button text="Indietro" onAction="#onBack" styleClass="secondary-button"/>
+            <Button text="Conferma" onAction="#onConfirm" styleClass="primary-button"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
