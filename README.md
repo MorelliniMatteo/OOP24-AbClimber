@@ -81,5 +81,5 @@ Il progetto mira a sviluppare un prototipo funzionante con meccaniche di combatt
 
 1. Clonare il repository:
    ```bash
-   git clone https://github.com/<user>/abyss-climber.git
+   git clone https://github.com/MorelliniMatteo/abyss-climber.git
    cd abyss-climber
