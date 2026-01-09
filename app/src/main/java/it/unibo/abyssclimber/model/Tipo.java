@@ -1,4 +1,4 @@
-package it.unibo.abyssclimber;
+package it.unibo.abyssclimber.model;
 
 public enum Tipo {
     HYDRO("Hydro"),

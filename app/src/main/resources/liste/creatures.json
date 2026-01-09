@@ -1,0 +1,171 @@
+[
+  {
+    "ID": 1,
+    "name": "Slimy Slime",
+    "stage": "EARLY",
+    "element": "HYDRO",
+    "HP": 90, "ATK": 18, "MATK": 5, "DEF": 0, "MDEF": 0,
+    "STAM": 5, "maxSTAM": 5, "crit": 5, "critDMG": 1.2
+  },
+  {
+    "ID": 2,
+    "name": "Black Rat",
+    "stage": "EARLY",
+    "element": "NATURE",
+    "HP": 80, "ATK": 22, "MATK": 0, "DEF": 2, "MDEF": 0,
+    "STAM": 5, "maxSTAM": 5, "crit": 15, "critDMG": 1.2
+  },
+  {
+    "ID": 3,
+    "name": "Wandering Flame",
+    "stage": "EARLY",
+    "element": "FIRE",
+    "HP": 75, "ATK": 10, "MATK": 25, "DEF": 5, "MDEF": 10,
+    "STAM": 5, "maxSTAM": 5, "crit": 10, "critDMG": 1.2
+  },
+  {
+    "ID": 4,
+    "name": "Static Spark",
+    "stage": "EARLY",
+    "element": "LIGHTNING",
+    "HP": 60, "ATK": 10, "MATK": 28, "DEF": 0, "MDEF": 5,
+    "STAM": 5, "maxSTAM": 5, "crit": 20, "critDMG": 1.2
+  },
+  {
+    "ID": 5,
+    "name": "Minor Shadow",
+    "stage": "EARLY",
+    "element": "HYDRO",
+    "HP": 100, "ATK": 20, "MATK": 10, "DEF": 5, "MDEF": 5,
+    "STAM": 5, "maxSTAM": 5, "crit": 8, "critDMG": 1.3
+  },
+  {
+    "ID": 6,
+    "name": "Storm cloud",
+    "stage": "EARLY",
+    "element": "LIGHTNING",
+    "HP": 90, "ATK": 10, "MATK": 22, "DEF": 2, "MDEF": 8,
+    "STAM": 5, "maxSTAM": 5, "crit": 10, "critDMG": 1.3
+  },
+  {
+    "ID": 7,
+    "name": "Moss Wolf",
+    "stage": "MID",
+    "element": "NATURE",
+    "HP": 250, "ATK": 35, "MATK": 0, "DEF": 10, "MDEF": 5,
+    "STAM": 5, "maxSTAM": 5, "crit": 20, "critDMG": 1.5
+  },
+  {
+    "ID": 8,
+    "name": "Triton Warrior",
+    "stage": "MID",
+    "element": "HYDRO",
+    "HP": 280, "ATK": 30, "MATK": 5, "DEF": 15, "MDEF": 10,
+    "STAM": 5, "maxSTAM": 5, "crit": 10, "critDMG": 1.5
+  },
+  {
+    "ID": 9,
+    "name": "Screaming Ghost",
+    "stage": "MID",
+    "element": "LIGHTNING",
+    "HP": 220, "ATK": 15, "MATK": 40, "DEF": 5, "MDEF": 20,
+    "STAM": 5, "maxSTAM": 5, "crit": 15, "critDMG": 1.5
+  },
+  {
+    "ID": 10,
+    "name": "Magma Golem",
+    "stage": "MID",
+    "element": "FIRE",
+    "HP": 350, "ATK": 25, "MATK": 5, "DEF": 25, "MDEF": 5,
+    "STAM": 5, "maxSTAM": 5, "crit": 0, "critDMG": 1.0
+  },
+  {
+    "ID": 11,
+    "name": "Living Storm",
+    "stage": "MID",
+    "element": "LIGHTNING",
+    "HP": 240, "ATK": 18, "MATK": 45, "DEF": 8, "MDEF": 25,
+    "STAM": 5, "maxSTAM": 5, "crit": 18, "critDMG": 1.5
+  },
+  {
+    "ID": 12,
+    "name": "Minor Kraken",
+    "stage": "MID",
+    "element": "HYDRO",
+    "HP": 300, "ATK": 32, "MATK": 10, "DEF": 18, "MDEF": 12,
+    "STAM": 5, "maxSTAM": 5, "crit": 5, "critDMG": 1.5
+  },
+  {
+    "ID": 13,
+    "name": "Hell Salamander",
+    "stage": "MID",
+    "element": "FIRE",
+    "HP": 290, "ATK": 38, "MATK": 20, "DEF": 12, "MDEF": 12,
+    "STAM": 5, "maxSTAM": 5, "crit": 12, "critDMG": 1.5
+  },
+  {
+    "ID": 14,
+    "name": "Treant Elder",
+    "stage": "MID",
+    "element": "NATURE",
+    "HP": 350, "ATK": 28, "MATK": 5, "DEF": 22, "MDEF": 8,
+    "STAM": 5, "maxSTAM": 5, "crit": 0, "critDMG": 1.2
+  },
+  {
+    "ID": 15,
+    "name": "Soul Eater",
+    "stage": "LATE",
+    "element": "FIRE",
+    "HP": 450, "ATK": 55, "MATK": 35, "DEF": 18, "MDEF": 20,
+    "STAM": 5, "maxSTAM": 5, "crit": 25, "critDMG": 1.7
+  },
+  {
+    "ID": 16,
+    "name": "Dragon of the Thunder",
+    "stage": "LATE",
+    "element": "LIGHTNING",
+    "HP": 480, "ATK": 45, "MATK": 70, "DEF": 22, "MDEF": 30,
+    "STAM": 5, "maxSTAM": 5, "crit": 20, "critDMG": 1.7
+  },
+  {
+    "ID": 17,
+    "name": "Dark Phoenix",
+    "stage": "LATE",
+    "element": "FIRE",
+    "HP": 420, "ATK": 40, "MATK": 75, "DEF": 20, "MDEF": 35,
+    "STAM": 5, "maxSTAM": 5, "crit": 20, "critDMG": 1.7
+  },
+  {
+    "ID": 18,
+    "name": "Hydra of the Swamp",
+    "stage": "LATE",
+    "element": "NATURE",
+    "HP": 520, "ATK": 50, "MATK": 20, "DEF": 28, "MDEF": 18,
+    "STAM": 5, "maxSTAM": 5, "crit": 10, "critDMG": 1.5
+  },
+  {
+    "ID": 19,
+    "name": "Armored Leviathan",
+    "stage": "LATE",
+    "element": "HYDRO",
+    "HP": 580, "ATK": 52, "MATK": 15, "DEF": 35, "MDEF": 22,
+    "STAM": 5, "maxSTAM": 5, "crit": 10, "critDMG": 1.5
+  },
+  {
+    "ID": 20,
+    "name": "Forest Titan",
+    "stage": "LATE",
+    "element": "NATURE",
+    "HP": 550, "ATK": 60, "MATK": 15, "DEF": 30, "MDEF": 18,
+    "STAM": 5, "maxSTAM": 5, "crit": 5, "critDMG": 1.5
+  },
+  {
+    "ID": 21,
+    "name": "LORD OF THE ABYSS",
+    "stage": "BOSS",
+    "element": "VOID",
+    "HP": 700, "ATK": 85, "MATK": 75, "DEF": 30, "MDEF": 30,
+    "STAM": 5, "maxSTAM": 5, "crit": 25, "critDMG": 2.0,
+    "note": "TARGET BOSS: Bilanciato per equipaggiamento misto (RNG)"
+  }
+]
