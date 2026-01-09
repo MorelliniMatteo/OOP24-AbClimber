@@ -1,0 +1,39 @@
+{
+	"BaseMoves": [
+        {
+            "name":"Strike",
+            "power": 40,
+            "acc": 70,
+            "type": 1,
+            "cost": 1
+		},
+        {
+            "name":"Swirl",
+            "power": 40,
+            "type": 2,
+            "acc": 70,
+            "cost": 1
+        }
+
+	],
+    "Moves": [
+        {
+            "name":"Fire Spear",
+            "power":65,
+            "acc":60,
+            "type":1,
+            "cost":2,
+            "element":"FIRE",
+            "id":8
+        },
+        {
+            "name":"Void Annihilation",
+            "power":1,
+            "acc":50,
+            "type":1,
+            "cost":1,
+            "element":"VOID",
+            "id":9
+        }
+    ]
+}
