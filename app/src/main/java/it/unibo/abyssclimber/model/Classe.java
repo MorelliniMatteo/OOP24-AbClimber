@@ -1,6 +1,6 @@
 package it.unibo.abyssclimber.model;
 
-enum Class {
+public enum Classe {
     CAVALIERE("Knight", 250, 20, 1, 25, 15, 20, 1.5),
     MAGO("Mage", 250, 1, 20, 15, 25, 20, 1.5),
     SOLDATO("Soldier", 300, 15, 15, 20, 20, 25, 1.5);
@@ -14,7 +14,7 @@ enum Class {
     private final int cCrit;
     private final double cCritDMG;
 
-    Class(String name, int hp, int atk, int matk, int def, int mdef, int crit, double critdmg) {
+    Classe(String name, int hp, int atk, int matk, int def, int mdef, int crit, double critdmg) {
         this.name = name;
         this.cHP = hp;
         this.cATK = atk;

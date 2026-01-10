@@ -3,6 +3,8 @@ package it.unibo.abyssclimber.ui.character;
 import it.unibo.abyssclimber.core.GameState;
 import it.unibo.abyssclimber.core.SceneId;
 import it.unibo.abyssclimber.core.SceneRouter;
+import it.unibo.abyssclimber.model.Classe;
+import it.unibo.abyssclimber.model.Tipo;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
@@ -30,26 +32,43 @@ public class CharacterCreationController {
     @FXML
     private void initialize() {
         // group elements
-        hydroBtn.setToggleGroup(elementGroup);
-        natureBtn.setToggleGroup(elementGroup);
-        thunderBtn.setToggleGroup(elementGroup);
-        fireBtn.setToggleGroup(elementGroup);
+        configureElementToggle(hydroBtn, Tipo.HYDRO);
+        configureElementToggle(natureBtn, Tipo.NATURE);
+        configureElementToggle(thunderBtn, Tipo.LIGHTNING);
+        configureElementToggle(fireBtn, Tipo.FIRE);
 
         // group classes
-        mageBtn.setToggleGroup(classGroup);
-        soldierBtn.setToggleGroup(classGroup);
-        knightBtn.setToggleGroup(classGroup);
+        configureClassToggle(mageBtn, Classe.MAGO);
+        configureClassToggle(soldierBtn, Classe.SOLDATO);
+        configureClassToggle(knightBtn, Classe.CAVALIERE);
 
         elementGroup.selectedToggleProperty().addListener((obs, o, n) -> updateSummary());
         classGroup.selectedToggleProperty().addListener((obs, o, n) -> updateSummary());
 
         updateSummary();
     }
+    
+    private void configureElementToggle(ToggleButton button, Tipo tipo) {
+        button.setToggleGroup(elementGroup);
+        button.setUserData(tipo);
+    }
+
+    private void configureClassToggle(ToggleButton button, Classe classe) {
+        button.setToggleGroup(classGroup);
+        button.setUserData(classe);
+    }
 
     private void updateSummary() {
-        String el = elementGroup.getSelectedToggle() instanceof ToggleButton tb ? tb.getText() : "—";
-        String cl = classGroup.getSelectedToggle() instanceof ToggleButton tb ? tb.getText() : "—";
-        summaryLabel.setText("Tipo: " + el + " | Classe: " + cl);
+        Tipo el = elementGroup.getSelectedToggle() != null
+            ? (Tipo) elementGroup.getSelectedToggle().getUserData()
+            : null;
+        Classe cl = classGroup.getSelectedToggle() != null
+            ? (Classe) classGroup.getSelectedToggle().getUserData()
+            : null;
+
+        String elLabel = el != null ? el.displayName() : "—";
+        String clLabel = cl != null ? cl.getName() : "—";
+        summaryLabel.setText("Tipo: " + elLabel + " | Classe: " + clLabel);
     }
 
     @FXML
@@ -59,9 +78,12 @@ public class CharacterCreationController {
 
     @FXML
     private void onConfirm() {
-        // Placeholder save: store strings for now, to avoid depending on teammates' enums
-        String el = elementGroup.getSelectedToggle() instanceof ToggleButton tb ? tb.getText() : null;
-        String cl = classGroup.getSelectedToggle() instanceof ToggleButton tb ? tb.getText() : null;
+        Tipo el = elementGroup.getSelectedToggle() != null
+            ? (Tipo) elementGroup.getSelectedToggle().getUserData()
+            : null;
+        Classe cl = classGroup.getSelectedToggle() != null
+            ? (Classe) classGroup.getSelectedToggle().getUserData()
+            : null;
 
         if (el == null || cl == null) {
             System.err.println("Seleziona sia Tipo che Classe prima di confermare.");

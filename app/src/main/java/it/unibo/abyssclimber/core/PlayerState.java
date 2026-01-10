@@ -1,5 +1,8 @@
 package it.unibo.abyssclimber.core;
 
+import it.unibo.abyssclimber.model.Classe;
+import it.unibo.abyssclimber.model.Tipo;
+
 /**
  * Minimal player state used by UI flow.
  * Will be replaced/extended when real Player logic is merged.
@@ -9,9 +12,8 @@ public class PlayerState {
     private int maxHp = 100;
     private int hp = maxHp;
 
-    // Placeholder fields for future integration (do NOT depend on teammates' enums now)
-    private String chosenElement; // TODO: replace with PlayerElement enum
-    private String chosenClass;   // TODO: replace with PlayerClass enum
+    private Tipo chosenElement;
+    private Classe chosenClass;
 
     public int getHp() {
         return hp;
@@ -47,19 +49,19 @@ public class PlayerState {
         chosenClass = null;
     }
 
-    public String getChosenElement() {
+    public Tipo getChosenElement() {
         return chosenElement;
     }
 
-    public void setChosenElement(String chosenElement) {
+    public void setChosenElement(Tipo chosenElement) {
         this.chosenElement = chosenElement;
     }
 
-    public String getChosenClass() {
+    public Classe getChosenClass() {
         return chosenClass;
     }
 
-    public void setChosenClass(String chosenClass) {
+    public void setChosenClass(Classe chosenClass) {
         this.chosenClass = chosenClass;
     }
 }
