@@ -16,7 +16,7 @@ public class DataLoader {
      * Crea e restituisce una lista di oggetti caricati dal file items.json
      */
     public List<Item> loadItems() throws Exception {
-        try (InputStream in = DataLoader.class.getResourceAsStream("/liste/items.json")) {
+        try (InputStream in = DataLoader.class.getResourceAsStream("/liste/items.json")) { 
             if (in == null) {
                 throw new RuntimeException("File /liste/items.json not found in resources!");
             }
@@ -28,11 +28,11 @@ public class DataLoader {
      * Crea e restituisce una lista di mostri caricati dal file monsters.json
      */
     public List<Creature> loadMonsters() throws Exception {
-        try (InputStream in = DataLoader.class.getResourceAsStream("/liste/monsters.json")) {
+        try (InputStream in = DataLoader.class.getResourceAsStream("/liste/creatures.json")) {
             if (in == null) {
-                throw new RuntimeException("File /liste/monsters.json not found in resources!");
+                throw new RuntimeException("File /liste/creatures.json not found in resources!");
             }
-            return mapper.readValue(in, new TypeReference<List<Creature>>() {});
+            return mapper.readValue(in, new TypeReference<List<Creature>>() {}); //mapper fa parte di jackson, in é lo stream di input che legge il file json e TypeReference serve per specificare il tipo di dato che voglio leggere, in questo caso una lista di Creature
         }
     }
 }

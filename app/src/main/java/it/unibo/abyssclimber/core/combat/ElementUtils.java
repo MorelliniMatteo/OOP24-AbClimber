@@ -1,6 +1,5 @@
 package it.unibo.abyssclimber.core.combat;
 
-import it.unibo.abyssclimber.core.combat.MoveLoader.Move;
 import it.unibo.abyssclimber.model.Creature;
 import it.unibo.abyssclimber.model.Tipo;
 

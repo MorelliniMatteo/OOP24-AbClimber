@@ -3,11 +3,7 @@ package it.unibo.abyssclimber.core.combat;
 import java.util.Random;
 import java.util.Scanner;
 
-import it.unibo.abyssclimber.core.combat.MoveLoader.Move;
 import it.unibo.abyssclimber.model.Creature;
-
-import java.io.*;
-
 import java.lang.Thread;
 
 public class Combat {
