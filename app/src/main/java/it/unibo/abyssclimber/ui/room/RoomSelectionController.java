@@ -79,11 +79,10 @@ public class RoomSelectionController implements Refreshable {
 
     private void refreshHud() {
         int floor = GameState.get().getFloor();
-        int hp = GameState.get().getPlayer().getHp();
-        int maxHp = GameState.get().getPlayer().getMaxHp();
+        int hp = GameState.get().getPlayer().getHP();
 
         floorLabel.setText("Piano: " + floor);
-        hpLabel.setText("HP: " + hp + " / " + maxHp);
+        hpLabel.setText("HP: " + hp);
     }
 
     @FXML private void onChooseDoor1() { onChoose(0); }
@@ -103,9 +102,11 @@ public class RoomSelectionController implements Refreshable {
         SceneRouter.goTo(SceneId.ROOM_PLACEHOLDER);
     }
 
+    /*
     @FXML
     private void onForceDeath() {
         GameState.get().getPlayer().damage(9999);
         SceneRouter.goTo(SceneId.GAME_OVER);
     }
+    */
 }
