@@ -12,9 +12,10 @@ public class GameOverController {
     /**
      * Handles the action when the "Restart" button is clicked.
      * Resets the game state and navigates to the room selection screen.
+     * @throws Exception 
      */
     @FXML
-    private void onRestart() {
+    private void onRestart() throws Exception {
         GameState.get().resetRun();
         SceneRouter.goTo(SceneId.ROOM_SELECTION);
     }

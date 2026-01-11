@@ -3,6 +3,7 @@ package it.unibo.abyssclimber.model;
 public class Creature {
     private String name;
     private int ID;
+    private int maxHP = 100;
     private int HP = 100;
     private int ATK = 15;
     private int MATK = 10;
@@ -26,6 +27,7 @@ public class Creature {
         this.name = copyCreature.name; // in questo si lavora su una copia e non si impatta la lista originale dato che
                                        // i mostri vengono presi casualmente e possono ripetersi
         this.ID = copyCreature.ID;
+        this.maxHP = copyCreature.maxHP;
         this.HP = copyCreature.HP;
         this.ATK = copyCreature.ATK;
         this.MATK = copyCreature.MATK;
@@ -46,9 +48,19 @@ public class Creature {
         this.name = name;
     }
 
+    public void heal(int amount) {
+        this.HP += amount;
+        // Controllo di sicurezza: non superare mai il massimo
+        if (this.HP > this.maxHP) {
+            this.HP = this.maxHP;
+        }
+        System.out.println(this.name + " healed for " + amount + ". HP: " + this.HP + "/" + this.maxHP);
+    }
+
     public void promoteToElite() {
         if (!isElite) {
-            this.HP = (int) (this.HP * 1.2);
+            this.maxHP = (int) (this.maxHP * 1.2);
+            this.HP = this.maxHP;
             this.ATK = (int) (this.ATK * 1.2);
             this.MATK = (int) (this.MATK * 1.2);
             this.DEF = (int) (this.DEF * 1.2);
@@ -63,6 +75,10 @@ public class Creature {
 
     public int getId() {
         return ID;
+    }
+
+    public int getMaxHP() {
+        return maxHP;
     }
 
     public int getHP() {
@@ -119,6 +135,10 @@ public class Creature {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setMaxHP(int maxHp) {
+        this.maxHP = maxHp;
     }
 
     public void setHP(int hp) {

@@ -37,9 +37,10 @@ public class GameState {
         floor++;
     }
 
-    public void resetRun() {
+    public void resetRun() throws Exception {
         floor = 1;
         player = null; // Resetting run means clearing the player for now
         RoomContext.get().setLastChosen(null);
+        GameCatalog.initialize();
     }
 }

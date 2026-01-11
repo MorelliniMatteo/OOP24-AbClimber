@@ -2,7 +2,8 @@ package it.unibo.abyssclimber.model;
 
 public class Item {
     private String name;
-    private int HP;
+    private int maxHP; //permette l'aumento permanente della salute massima
+    private int HP; //permette la cura
     private int ATK;
     private int MATK;
     private int DEF;
@@ -16,8 +17,9 @@ public class Item {
         // Costruttore vuoto per Jackson
     }
 
-    public Item(String name, int HP, int ATK, int MATK, int DEF, int MDEF, boolean discovered, int id, String effect, int price) {
+    public Item(String name, int maxHP, int HP, int ATK, int MATK, int DEF, int MDEF, boolean discovered, int id, String effect, int price) {
         this.name = name;
+        this.maxHP = maxHP;
         this.HP = HP;
         this.ATK = ATK;
         this.MATK = MATK;
@@ -30,6 +32,7 @@ public class Item {
     }
     
     public String getName() {return name;}
+    public int getMaxHP() {return maxHP;}
     public int getHP() {return HP;}
     public int getATK() {return ATK;}
     public int getMATK() {return MATK;}
@@ -41,6 +44,7 @@ public class Item {
     public int getPrice() {return price;}
 
     public void setName(String name) {this.name = name;}
+    public void setMaxHP(int maxHP) {this.maxHP = maxHP;}
     public void setHP(int HP) {this.HP = HP;}
     public void setATK(int ATK) {this.ATK = ATK;}
     public void setMATK(int MATK) {this.MATK = MATK;}

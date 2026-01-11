@@ -20,6 +20,7 @@ public class Player extends Creature {
         this.classe = classe;
         this.inventory = new ArrayList<>();
 
+        this.setMaxHP(120);
         this.setHP(120); // setto le statistiche base del player tramite i setter ereditati da Creature
         this.setATK(15);
         this.setMATK(15);
@@ -34,11 +35,14 @@ public class Player extends Creature {
 
     public void applicaClasse(Classe classe) { // metodo che applica le modifiche della classe scelta dal player alle
                                                // sue statistiche
-        this.setHP(this.getHP() + classe.getcHP());
+        this.setMaxHP(this.getMaxHP() + classe.getcMaxHP());
+        this.setHP(this.getMaxHP()); // imposto la vita attuale al massimo dopo aver aumentato il maxHP
         this.setATK(this.getATK() + classe.getcATK());
         this.setMATK(this.getMATK() + classe.getcMATK());
         this.setDEF(this.getDEF() + classe.getcDEF());
         this.setMDEF(this.getMDEF() + classe.getcMDEF());
+        this.setCrit(this.getCrit() + classe.getcCrit());
+        this.setCritDMG(this.getCritDMG() + classe.getcCritDMG());
 
         System.out.println("Class " + classe.getName() + " applied, the statistics have been updated.");
     }
@@ -58,7 +62,15 @@ public class Player extends Creature {
 
     public void applyItemStats(Item item) { // applica le statistiche dell'oggetto al player
         if (item != null) {
-            this.setHP(this.getHP() + item.getHP());
+            if(item.getMaxHP() > 0) {
+                this.setMaxHP(this.getMaxHP() + item.getMaxHP());
+                this.heal(item.getMaxHP()); // cura il player di x HP pari all'aumento dell'aumento di maxHP
+                System.out.println("Equipped " + item.getName() + ". MaxHP increased by " + item.getMaxHP());
+            }
+            if(item.getMaxHP() == 0 && item.getHP() > 0) {
+                this.heal(item.getHP());
+                System.out.println("Used " + item.getName() + ". Healed for " + item.getHP() + " HP.");
+            }
             this.setATK(this.getATK() + item.getATK());
             this.setMATK(this.getMATK() + item.getMATK());
             this.setDEF(this.getDEF() + item.getDEF());
@@ -99,7 +111,7 @@ public class Player extends Creature {
     }
 
     public void setGold(int gold) {
-        this.gold += gold;
+        this.gold = gold; //TODO: di solito il gold si aumentano o diminuiscono dopo la chiamata quindi qui sta cosí
     }
 
     public String toString() {
