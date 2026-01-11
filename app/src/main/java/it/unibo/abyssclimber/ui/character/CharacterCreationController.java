@@ -3,6 +3,9 @@ package it.unibo.abyssclimber.ui.character;
 import it.unibo.abyssclimber.core.GameState;
 import it.unibo.abyssclimber.core.SceneId;
 import it.unibo.abyssclimber.core.SceneRouter;
+import it.unibo.abyssclimber.model.Classe;
+import it.unibo.abyssclimber.model.Tipo;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
@@ -59,17 +62,30 @@ public class CharacterCreationController {
 
     @FXML
     private void onConfirm() {
-        // Placeholder save: store strings for now, to avoid depending on teammates' enums
-        String el = elementGroup.getSelectedToggle() instanceof ToggleButton tb ? tb.getText() : null;
-        String cl = classGroup.getSelectedToggle() instanceof ToggleButton tb ? tb.getText() : null;
+        //selezione Elemento
+        Tipo chosenTipo = null;
+        ToggleButton selectedEl = (ToggleButton) elementGroup.getSelectedToggle();
+        
+        if (selectedEl == hydroBtn)        chosenTipo = Tipo.HYDRO; //ora controlla quale bottone hai premuto e assegna il tipo corrispondente
+        else if (selectedEl == fireBtn)    chosenTipo = Tipo.FIRE; 
+        else if (selectedEl == natureBtn)  chosenTipo = Tipo.NATURE;
+        else if (selectedEl == thunderBtn) chosenTipo = Tipo.LIGHTNING;
 
-        if (el == null || cl == null) {
+        //Selezione Classe
+        Classe chosenClasse = null;
+        ToggleButton selectedCl = (ToggleButton) classGroup.getSelectedToggle();
+        
+        if (selectedCl == knightBtn)       chosenClasse = Classe.CAVALIERE; //la stessa cosa si applica per la classe
+        else if (selectedCl == mageBtn)    chosenClasse = Classe.MAGO;
+        else if (selectedCl == soldierBtn) chosenClasse = Classe.SOLDATO;
+
+        if (chosenTipo == null || chosenClasse == null) {
             System.err.println("Seleziona sia Tipo che Classe prima di confermare.");
             return;
         }
 
-        GameState.get().getPlayer().setChosenElement(el);
-        GameState.get().getPlayer().setChosenClass(cl);
+        // Initialize the player. Name is hardcoded to "Hero" for now as there is no input field.
+        GameState.get().initializePlayer("Hero", chosenTipo, chosenClasse);
 
         SceneRouter.goTo(SceneId.MOVE_SELECTION);
     }

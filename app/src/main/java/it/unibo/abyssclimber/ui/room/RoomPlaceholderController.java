@@ -57,10 +57,12 @@ public class RoomPlaceholderController {
         SceneRouter.goTo(SceneId.ROOM_SELECTION);
     }
  
+    /*
     // Debug only
     @FXML
     private void onDieDebug() {
         GameState.get().getPlayer().damage(9999);
         SceneRouter.goTo(SceneId.GAME_OVER);
     }
+    */
 }
