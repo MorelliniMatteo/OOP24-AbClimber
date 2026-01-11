@@ -1,5 +1,6 @@
 package it.unibo.abyssclimber.ui.moves;
 
+import it.unibo.abyssclimber.core.GameState;
 import it.unibo.abyssclimber.core.SceneId;
 import it.unibo.abyssclimber.core.SceneRouter;
 import it.unibo.abyssclimber.core.combat.MoveLoader;
@@ -18,44 +19,44 @@ import java.util.Set;
 
 /**
  * Controller for the move selection screen.
- * Handles loading, displaying and selecting combat moves.
+ * Allows the player to choose a fixed number of moves.
  */
 public class MoveSelectionController {
 
     // Maximum number of selectable moves
     private static final int MAX_SELECTED = 6;
 
-    // Number of columns for each grid
+    // Number of columns in each grid
     private static final int COLS = 4;
 
     @FXML private Label infoLabel;
     @FXML private Button startBtn;
 
-    // Grids for each elemental type
+    // Grids divided by element type
     @FXML private GridPane hydroGrid;
     @FXML private GridPane natureGrid;
     @FXML private GridPane thunderGrid;
     @FXML private GridPane fireGrid;
 
-    // Set of currently selected toggle buttons
+    // Currently selected move buttons
     private final Set<ToggleButton> selected = new HashSet<>();
 
     /**
-     * Called automatically by JavaFX after FXML loading.
-     * Loads moves and fills all grids.
+     * Called automatically after FXML loading.
+     * Loads moves and populates the grids.
      */
     @FXML
     private void initialize() {
         List<MoveLoader.Move> moves = loadMovesSafe();
 
-        // Disable screen if moves cannot be loaded
+        // Handle loading error
         if (moves.isEmpty()) {
             infoLabel.setText("Errore nel caricamento mosse.");
             startBtn.setDisable(true);
             return;
         }
 
-        // Fill grids by element type
+        // Fill grids with moves filtered by element
         fillGrid(hydroGrid, filterByElement(moves, Tipo.HYDRO));
         fillGrid(natureGrid, filterByElement(moves, Tipo.NATURE));
         fillGrid(thunderGrid, filterByElement(moves, Tipo.LIGHTNING));
@@ -65,7 +66,7 @@ public class MoveSelectionController {
     }
 
     /**
-     * Loads moves from MoveLoader, handling IO errors safely.
+     * Safely loads moves from the MoveLoader.
      */
     private List<MoveLoader.Move> loadMovesSafe() {
         if (MoveLoader.moves.isEmpty()) {
@@ -80,7 +81,7 @@ public class MoveSelectionController {
     }
 
     /**
-     * Filters moves by their elemental type.
+     * Returns only moves of the given element.
      */
     private List<MoveLoader.Move> filterByElement(List<MoveLoader.Move> moves, Tipo element) {
         return moves.stream()
@@ -89,7 +90,7 @@ public class MoveSelectionController {
     }
 
     /**
-     * Populates a grid with toggle buttons representing moves.
+     * Creates toggle buttons for each move and adds them to the grid.
      */
     private void fillGrid(GridPane grid, List<MoveLoader.Move> list) {
         grid.getChildren().clear();
@@ -101,7 +102,7 @@ public class MoveSelectionController {
             tb.getStyleClass().add("move-tile");
             tb.setWrapText(true);
 
-            // Move short description
+            // Short move description
             String desc = "Potenza " + m.getPower()
                 + " | Acc " + m.getAcc()
                 + " | Costo " + m.getCost();
@@ -109,7 +110,7 @@ public class MoveSelectionController {
             tb.setText(m.getName() + "\n" + desc);
             tb.setUserData(m);
 
-            // Handle selection and max limit
+            // Selection logic with max limit check
             tb.setOnAction(e -> {
                 if (tb.isSelected()) {
                     if (selected.size() >= MAX_SELECTED) {
@@ -130,7 +131,7 @@ public class MoveSelectionController {
     }
 
     /**
-     * Updates UI info and start button state.
+     * Updates label text and start button state.
      */
     private void refresh() {
         infoLabel.setText("Seleziona 6 mosse (" + selected.size() + "/" + MAX_SELECTED + ").");
@@ -138,7 +139,7 @@ public class MoveSelectionController {
     }
 
     /**
-     * Returns to character creation screen.
+     * Goes back to the character creation screen.
      */
     @FXML
     private void onBack() {
@@ -146,13 +147,19 @@ public class MoveSelectionController {
     }
 
     /**
-     * Starts the run after move selection.
+     * Saves selected moves and starts the run.
      */
     @FXML
     private void onStartRun() {
         if (selected.size() != MAX_SELECTED) return;
 
-        // TODO: save selected moves into Player / PlayerState
+        // Extract selected moves from toggle buttons
+        List<MoveLoader.Move> chosen = selected.stream()
+            .map(tb -> (MoveLoader.Move) tb.getUserData())
+            .toList();
+
+        // Store moves in the global game state
+        GameState.get().getPlayer().setSelectedMoves(chosen);
 
         SceneRouter.goTo(SceneId.ROOM_SELECTION);
     }
