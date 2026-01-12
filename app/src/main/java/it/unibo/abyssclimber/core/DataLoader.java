@@ -9,7 +9,7 @@ import it.unibo.abyssclimber.model.Creature;
 import it.unibo.abyssclimber.model.Item;
 
 public class DataLoader {
-    private static final ObjectMapper mapper = new ObjectMapper()
+    private final ObjectMapper mapper = new ObjectMapper()
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     /**

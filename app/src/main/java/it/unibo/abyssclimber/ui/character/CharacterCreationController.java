@@ -76,22 +76,41 @@ public class CharacterCreationController {
         SceneRouter.goTo(SceneId.MAIN_MENU);
     }
 
+    // TODO: qui vanno messi gli enum e non le stringhe
     @FXML
     private void onConfirm() {
-        Tipo el = elementGroup.getSelectedToggle() != null
-            ? (Tipo) elementGroup.getSelectedToggle().getUserData()
-            : null;
-        Classe cl = classGroup.getSelectedToggle() != null
-            ? (Classe) classGroup.getSelectedToggle().getUserData()
-            : null;
+        String elText = elementGroup.getSelectedToggle() instanceof ToggleButton tb ? tb.getText() : null;
+        String clText = classGroup.getSelectedToggle() instanceof ToggleButton tb ? tb.getText() : null;
 
-        if (el == null || cl == null) {
+        if (elText == null || clText == null) {
             System.err.println("Seleziona sia Tipo che Classe prima di confermare.");
             return;
         }
 
-        GameState.get().getPlayer().setChosenElement(el);
-        GameState.get().getPlayer().setChosenClass(cl);
+        // conversione da stringa ad enum tipo
+        Tipo chosenTipo = null;
+        switch (elText) {
+            case "Hydro":   chosenTipo = Tipo.HYDRO; break;
+            case "Fire":    chosenTipo = Tipo.FIRE; break;
+            case "Nature":  chosenTipo = Tipo.NATURE; break;
+            case "Thunder": chosenTipo = Tipo.LIGHTNING; break; 
+            default: 
+                System.err.println("Errore: Tipo non riconosciuto -> " + elText);
+                return;
+        }
+
+        // conversione da stringa ad enum classe
+        Classe chosenClasse = null;
+        switch (clText) {
+            case "Knight":  chosenClasse = Classe.CAVALIERE; break;
+            case "Mage":    chosenClasse = Classe.MAGO; break;
+            case "Soldier": chosenClasse = Classe.SOLDATO; break;
+            default:
+                System.err.println("Errore: Classe non riconosciuta -> " + clText);
+                return;
+        }
+
+        GameState.get().initializePlayer("Hero", chosenTipo, chosenClasse);
 
         SceneRouter.goTo(SceneId.MOVE_SELECTION);
     }

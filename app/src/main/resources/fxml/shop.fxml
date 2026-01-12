@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane xmlns:fx="http://javafx.com/fxml" 
+          fx:controller="it.unibo.abyssclimber.ui.shop.ShopController"
+          hgap="20" vgap="20" alignment="CENTER">
+
+    <VBox fx:id="box1" styleClass="item-card" 
+          onMouseClicked="#onSlot1Clicked"
+          GridPane.columnIndex="0" GridPane.rowIndex="0">
+        
+        <Label fx:id="shopSlot1Name" text="VUOTO" styleClass="item-title"/>
+        <Separator opacity="0.5"/>
+        <Label fx:id="shopSlot1Stats" text="---" styleClass="stat-primary"/>
+        <Label fx:id="shopSlot1Price" text="" styleClass="stat-secondary"/> 
+    </VBox>
+
+    <VBox fx:id="box2" styleClass="item-card" 
+          onMouseClicked="#onSlot2Clicked"
+          GridPane.columnIndex="1" GridPane.rowIndex="0">
+        
+        <Label fx:id="shopSlot2Name" text="VUOTO" styleClass="item-title"/>
+        <Separator opacity="0.5"/>
+        <Label fx:id="shopSlot2Stats" text="---" styleClass="stat-primary"/>
+        <Label fx:id="shopSlot2Price" text="" styleClass="stat-secondary"/>
+    </VBox>
+
+    <VBox fx:id="box3" styleClass="item-card" 
+          onMouseClicked="#onSlot3Clicked"
+          GridPane.columnIndex="0" GridPane.rowIndex="1">
+        
+        <Label fx:id="shopSlot3Name" text="VUOTO" styleClass="item-title"/>
+        <Separator opacity="0.5"/>
+        <Label fx:id="shopSlot3Stats" text="---" styleClass="stat-primary"/>
+        <Label fx:id="shopSlot3Price" text="" styleClass="stat-secondary"/>
+    </VBox>
+
+    <VBox fx:id="box4" styleClass="item-card" 
+          onMouseClicked="#onSlot4Clicked"
+          GridPane.columnIndex="1" GridPane.rowIndex="1">
+        
+        <Label fx:id="shopSlot4Name" text="VUOTO" styleClass="item-title"/>
+        <Separator opacity="0.5"/>
+        <Label fx:id="shopSlot4Stats" text="---" styleClass="stat-primary"/>
+        <Label fx:id="shopSlot4Price" text="" styleClass="stat-secondary"/>
+    </VBox>
+
+    <Button text="TORNA INDIETRO" 
+            onAction="#onBackClicked" 
+            GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" 
+            GridPane.halignment="CENTER"
+            styleClass="button, secondary-button"/>
+      
+      <Label fx:id="playerGoldLabel" text="Oro: 0" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="stat-secondary"/>
+
+</GridPane>

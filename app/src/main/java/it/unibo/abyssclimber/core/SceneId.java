@@ -5,7 +5,7 @@ public enum SceneId {
     CHARACTER_CREATION,
     MOVE_SELECTION,
     ROOM_SELECTION,
-
+    SHOP,
     // new room scenes for playing
     FIGHT_ROOM,
     SHOP_ROOM,

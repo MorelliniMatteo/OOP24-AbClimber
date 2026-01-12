@@ -23,7 +23,7 @@ public class MainMenuController {
     }
 
     @FXML
-    private void onStartGame() {
+    private void onStartGame() throws Exception {
         GameState.get().resetRun();
         SceneRouter.goTo(SceneId.CHARACTER_CREATION);
     }

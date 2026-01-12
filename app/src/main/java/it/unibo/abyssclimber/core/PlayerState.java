@@ -1,11 +1,7 @@
 package it.unibo.abyssclimber.core;
 
-import it.unibo.abyssclimber.core.combat.MoveLoader;
 import it.unibo.abyssclimber.model.Classe;
 import it.unibo.abyssclimber.model.Tipo;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Minimal player state used by the UI flow.
@@ -20,9 +16,6 @@ public class PlayerState {
     // Player choices during character creation
     private Tipo chosenElement;
     private Classe chosenClass;
-
-    // Moves selected by the player
-    private final List<MoveLoader.Move> selectedMoves = new ArrayList<>();
 
     /**
      * @return current HP
@@ -77,7 +70,6 @@ public class PlayerState {
         hp = maxHp;
         chosenElement = null;
         chosenClass = null;
-        selectedMoves.clear();
     }
 
     /**
@@ -106,22 +98,5 @@ public class PlayerState {
      */
     public void setChosenClass(Classe chosenClass) {
         this.chosenClass = chosenClass;
-    }
-
-    /**
-     * @return a copy of the selected moves list
-     */
-    public List<MoveLoader.Move> getSelectedMoves() {
-        return new ArrayList<>(selectedMoves);
-    }
-
-    /**
-     * Replaces the currently selected moves.
-     */
-    public void setSelectedMoves(List<MoveLoader.Move> moves) {
-        selectedMoves.clear();
-        if (moves != null) {
-            selectedMoves.addAll(moves);
-        }
     }
 }

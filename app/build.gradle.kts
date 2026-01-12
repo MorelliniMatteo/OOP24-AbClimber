@@ -30,6 +30,9 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.11.0")
     implementation(libs.guava)
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.13.0")
+    testImplementation("org.mockito:mockito-core:5.11.0")
+    testImplementation("org.mockito:mockito-junit-jupiter:5.11.0")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 application {
@@ -40,7 +43,7 @@ tasks.test {
     useJUnitPlatform()
 
     testLogging {
-        events(TestLogEvent.FAILED, TestLogEvent.SKIPPED)
+        events(TestLogEvent.FAILED, TestLogEvent.SKIPPED) 
     }
 }
 

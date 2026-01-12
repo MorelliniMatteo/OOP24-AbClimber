@@ -3,6 +3,7 @@ package it.unibo.abyssclimber.core;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Collections;
 
 import it.unibo.abyssclimber.model.Creature;
 import it.unibo.abyssclimber.model.Item;
@@ -19,15 +20,38 @@ import java.util.ArrayList;
 public class GameCatalog {
     private static Map<Integer, Item> itemsMap = new HashMap<>();
     private static Map<Stage, List<Creature>> monstersMap = new EnumMap<>(Stage.class); //dato che so giá la struttura che deve avere l'hashmap perché uso Enum, uso EnumMap che permette una lettura piú veloce
-    private static List<Item> items = new ArrayList<>();
+    
+    private static List<Item> items = new ArrayList<>(); //lista che contiene tutti gli oggetti caricati da DataLoader
+    private static List<Item> shopItems = new ArrayList<>(); //lista che contiene gli oggetti disponibili nel negozio
+    private static List<Item> droppableItems = new ArrayList<>(); //lista che contiene gli oggetti che possono essere droppati dai mostri, esclude quelli del negozio
 
     public static void initialize() throws Exception {
+        itemsMap.clear();
+        monstersMap.clear();
+        items.clear();
+        shopItems.clear();
+        droppableItems.clear();
+        
         DataLoader dataLoader = new DataLoader();
         items = dataLoader.loadItems();
         for (Item item : items) {
             itemsMap.put(item.getID(), item); //mette dentro itemsMap l'id che prende tramite il metodo getId e l'oggetto stesso
         }
+
+        List<Item> shuffleItems = new ArrayList<>(items); //creo una lista temporanea per mischiare gli oggetti
+        Collections.shuffle(shuffleItems);
+        int shopSize = 4;
+        for(int i = 0; i < shuffleItems.size(); i++){ //il for prende i primi 4 oggetti mischiati e li mette nella lista del negozio, gli altri nella lista degli oggetti droppabili
+            if(i < shopSize){
+                shopItems.add(shuffleItems.get(i));
+            } else {
+                droppableItems.add(shuffleItems.get(i));
+            }
+        }
         System.out.println("Registry initialized. Objects in memory: " + itemsMap.size());
+        System.out.println("Shop Items: " + shopItems.size());
+        System.out.println("Droppable Items: " + droppableItems.size());
+
 
         List<Creature> monsters = dataLoader.loadMonsters();
         for (Stage stage : Stage.values()){ //inizializzo la mappa con le chiavi Stage e liste vuote che conteranno i mostri con quel determinato stage
@@ -41,6 +65,10 @@ public class GameCatalog {
         }
     }
 
+
+    /*
+        *Classe che permette di restituire un mostro casuale in base allo stage attuale del giocatore
+    */
     public static Creature getRandomMonsterByStage(int level) {
         Stage currentStage;
         if (level <= 3) {
@@ -67,9 +95,19 @@ public class GameCatalog {
         return itemsMap.get(id);
     }
 
-    public static Item getRandomItem() { //restituisce un oggetto casuale dalla mappa degli oggetti
+    public static Item getRandomItem() { //restituisce un oggetto casuale dalla lista degli oggetti droppabili
+        if(droppableItems.isEmpty()){
+            return null;
+        }
         Random rng = new Random();
-        return itemsMap.get(rng.nextInt(items.size()));
+        int index = rng.nextInt(droppableItems.size());
+        Item itemFound = droppableItems.remove(index);
+        System.out.println("Droppable item generated: " + itemFound.getName());
+        return itemFound;
+    }
+
+    public static List<Item> getShopItems() { 
+        return shopItems;
     }
 
     public static int getRandomGoldsAmount() {

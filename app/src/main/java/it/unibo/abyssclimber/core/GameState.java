@@ -1,5 +1,9 @@
 package it.unibo.abyssclimber.core;
 
+import it.unibo.abyssclimber.model.Classe;
+import it.unibo.abyssclimber.model.Player;
+import it.unibo.abyssclimber.model.Tipo;
+
 /**
  * Singleton class representing the overall game state.
  */
@@ -11,13 +15,18 @@ public class GameState {
         return INSTANCE;
     }
 
-    private final PlayerState player = new PlayerState();
+    private Player player;
     private int floor = 1;
 
-    private GameState() {}
+    private GameState() {
+    }
 
-    public PlayerState getPlayer() {
+    public Player getPlayer() {
         return player;
+    }
+
+    public void initializePlayer(String name, Tipo tipo, Classe classe) {
+        this.player = new Player(name, tipo, classe);
     }
 
     public int getFloor() {
@@ -28,9 +37,10 @@ public class GameState {
         floor++;
     }
 
-    public void resetRun() {
+    public void resetRun() throws Exception {
         floor = 1;
-        player.resetForNewRun();
+        player = null; // Resetting run means clearing the player for now
         RoomContext.get().setLastChosen(null);
+        GameCatalog.initialize();
     }
 }
