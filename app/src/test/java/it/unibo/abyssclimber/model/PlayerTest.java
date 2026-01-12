@@ -75,7 +75,7 @@ class PlayerTest {
         // verifico che non si possa superare il MaxHP
         Player p = new Player("Hero", Tipo.FIRE, Classe.CAVALIERE);
         p.setMaxHP(100);
-        p.setHP(90); // Quasi pieno
+        p.setHP(90);
 
         Item potion = new Item("Big Potion", 0, 50, 0, 0, 0, 0, true, 97, "None", 100);
         
@@ -84,8 +84,7 @@ class PlayerTest {
         assertEquals(100, p.getHP(), "La cura non deve superare 100 HP");
     }
 
-    // verifico che equipaggiare un oggetto che aumenta MaxHP curi anche il giocatore
-    // della stessa quantità (per riempire la "nuova" barra)
+    // verifico che equipaggiare un oggetto che aumenta MaxHP curi anche il giocatore della stessa quantità
     @Test
     void testMaxHPIncreaseHealsPlayer() {
         Player p = new Player("Tank", Tipo.NATURE, Classe.SOLDATO);

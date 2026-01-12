@@ -51,7 +51,7 @@ public class ShopController {
     public void updateShopUI(List<Item> shopItems) {
         this.itemsInShop = new ArrayList<>(shopItems); // copia locale per gestione click, cosí gli indici rimangono corretti anche quando si effettua un acquisto
 
-        //passandoci le variabili dichiarate sopra, succede quello che ho scritto nel primo commento di questo file e le mostra cosí nella grafica
+        //passandoci le variabili dichiarate sopra, succede quello che ho scritto nel primo commento di questo file e le mostra cosí nella grafica, queste variabili diventano le stats di item per il metodo in fondo alla pagina
         updateSingleShopSlot(shopSlot1Name, shopSlot1Stats, shopSlot1Price, getItemSafe(0)); //riempo ogni slot con l'oggetto corrispondente
         updateSingleShopSlot(shopSlot2Name, shopSlot2Stats, shopSlot2Price, getItemSafe(1));
         updateSingleShopSlot(shopSlot3Name, shopSlot3Stats, shopSlot3Price, getItemSafe(2));

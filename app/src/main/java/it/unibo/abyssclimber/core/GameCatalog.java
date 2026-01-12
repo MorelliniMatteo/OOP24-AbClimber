@@ -100,7 +100,10 @@ public class GameCatalog {
             return null;
         }
         Random rng = new Random();
-        return droppableItems.get(rng.nextInt(droppableItems.size()));
+        int index = rng.nextInt(droppableItems.size());
+        Item itemFound = droppableItems.remove(index);
+        System.out.println("Droppable item generated: " + itemFound.getName());
+        return itemFound;
     }
 
     public static List<Item> getShopItems() { 
