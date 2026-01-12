@@ -1,7 +1,6 @@
 package it.unibo.abyssclimber.ui.room;
 
 import it.unibo.abyssclimber.core.AssetManager;
-import it.unibo.abyssclimber.core.GameServices;
 import it.unibo.abyssclimber.core.RoomContext;
 import it.unibo.abyssclimber.core.RoomOption;
 import it.unibo.abyssclimber.core.SceneId;
@@ -39,7 +38,7 @@ public class ShopRoomController {
             return;
         }
 
-        GameServices.getShopBridge().openShop(opt);
-        SceneRouter.goTo(SceneId.ROOM_SELECTION);
+        // Enter directly form the shop room 
+        SceneRouter.goTo(SceneId.SHOP);
     }
 }
