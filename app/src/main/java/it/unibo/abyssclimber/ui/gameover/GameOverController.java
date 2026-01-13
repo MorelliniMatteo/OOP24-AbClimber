@@ -11,11 +11,12 @@ import javafx.fxml.FXML;
 public class GameOverController {
     /**
      * Handles the action when the "Restart" button is clicked.
-     * Resets the game state and navigates to the room selection screen.
+     * Resets the run but keeps class, element and moves.
+     * @throws Exception 
      */
     @FXML
-    private void onRestart() {
-        GameState.get().resetRun();
+    private void onRestart() throws Exception {
+        GameState.get().resetRunKeepBuild();
         SceneRouter.goTo(SceneId.ROOM_SELECTION);
     }
 

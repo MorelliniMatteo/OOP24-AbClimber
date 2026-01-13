@@ -1,0 +1,55 @@
+package it.unibo.abyssclimber.ui.room;
+
+import it.unibo.abyssclimber.core.AssetManager;
+import it.unibo.abyssclimber.core.RoomContext;
+import it.unibo.abyssclimber.core.RoomOption;
+import it.unibo.abyssclimber.core.SceneId;
+import it.unibo.abyssclimber.core.SceneRouter;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+
+//TODO: in shop_room.fxml bisogna ancora spostare i bottoni al posto giusto, si attende programma completo 
+public class ShopRoomController {
+
+    @FXML private Label titleLabel;
+    @FXML private Label descLabel;
+    @FXML private ImageView backgroundView;
+
+    @FXML
+    private void initialize() {
+        var bg = AssetManager.tryLoadImage("images/backgrounds/store_room.jpeg");
+        if (bg != null) {
+            backgroundView.setImage(bg);
+        }
+        backgroundView.setMouseTransparent(true);
+
+        RoomOption opt = RoomContext.get().getLastChosen();
+        if (opt != null) {
+            titleLabel.setText("Negozio");
+            descLabel.setText(opt.description());
+        }
+    }
+
+    @FXML
+    private void onContinue() {
+        RoomOption opt = RoomContext.get().getLastChosen();
+        if (opt == null) {
+            SceneRouter.goTo(SceneId.ROOM_SELECTION);
+            return;
+        }
+
+        // Enter directly form the shop room 
+        SceneRouter.goTo(SceneId.SHOP);
+    }
+    
+    @FXML
+    private void onEnterShop() {
+        SceneRouter.goTo(SceneId.SHOP); 
+    }
+
+    @FXML
+    private void onBackToMap() {
+        SceneRouter.goTo(SceneId.ROOM_SELECTION);
+    }
+}

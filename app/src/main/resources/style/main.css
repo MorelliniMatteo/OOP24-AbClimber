@@ -36,7 +36,7 @@
     -fx-text-fill: white;
 }
 
-/* BOTTONE QUIT */
+/* BOTTONE QUIT / BACK */
 .secondary-button {
     -fx-background-color: #a93226;
     -fx-text-fill: white;
@@ -62,7 +62,7 @@
     -fx-font-weight: bold;
 }
 
-/* Card */
+/* Card Generica (Menu) */
 .card {
     -fx-background-color: rgba(255, 255, 255, 0.06);
     -fx-padding: 18;
@@ -169,4 +169,49 @@
 .move-tile:selected {
     -fx-background-color: rgba(46, 134, 193, 0.55);
     -fx-effect: dropshadow(gaussian, rgba(46,134,193,0.35), 16, 0.3, 0, 0);
+}
+
+/* Il contenitore della singola carta nello shop - da qui in avanti é tutto shop*/
+.item-card {
+    -fx-background-color: rgba(255, 255, 255, 0.06); /* Stessa trasparenza delle card */
+    -fx-border-color: rgba(255, 255, 255, 0.12);      /* Stesso bordo sottile */
+    -fx-border-width: 1px;
+    -fx-border-radius: 12px;                          /* Arrotondamento coerente */
+    -fx-background-radius: 12px;
+    -fx-padding: 10px;
+    -fx-pref-width: 200px;
+    -fx-pref-height: 120px;
+    -fx-alignment: CENTER;
+    -fx-spacing: 5;
+}
+
+/* Quando passi il mouse sopra */
+.item-card:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.12); /* Si illumina leggermente */
+    -fx-border-color: #f9e79f;                       /* Diventa color ORO del tema */
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(249, 231, 159, 0.4), 10, 0, 0, 0); /* Bagliore dorato */
+}
+
+/* Il Nome dell'oggetto */
+.item-title {
+    -fx-text-fill: #f9e79f;      /* Usa l'ORO del titolo principale */
+    -fx-font-family: "Verdana";  /* Stesso font del gioco */
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER;
+}
+
+/* Le statistiche */
+.stat-primary {
+    -fx-text-fill: #f0f0f0;      /* Bianco standard del tema */
+    -fx-font-weight: normal;
+    -fx-font-size: 12px;
+}
+
+/* Prezzo */
+.stat-secondary {
+    -fx-text-fill: #bbbbbb;      /* Grigio del sottotitolo tema */
+    -fx-font-size: 11px;
+    -fx-font-style: italic;
 }
