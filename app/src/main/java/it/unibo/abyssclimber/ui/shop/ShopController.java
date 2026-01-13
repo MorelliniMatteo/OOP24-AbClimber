@@ -90,45 +90,47 @@ public class ShopController {
 
         // se lo slot è vuoto o già venduto, non fare nulla
         if (item == null || nameLbl.getText().equals("VENDUTO")) {
+                return;
+        }
+
+        int prezzo = item.getPrice();
+
+        // prende il Player dal GameState
+        Player player = GameState.get().getPlayer(); 
+        
+        // controlla se esiste
+        if (player == null) {
+            System.out.println("Errore: Nessun giocatore trovato!");
             return;
+        }
+
+        // prende il gold del player
+        int playerGold = player.getGold();
+
+        if (playerGold >= prezzo) {
+            // tolgo i soldi
+            player.setGold(playerGold - prezzo);
+            playerGoldLabel.setText("Oro: " + player.getGold());
+            System.out.println("Hai comprato: " + item.getName() + ". Oro rimasto: " + player.getGold());
+
+            // richiamo il metodo di player per aggiungere l'oggetto all'inventario e applicare le statistiche
+            player.addItemToInventory(item); 
+
+            //rimuovo l'oggetto dal negozio (dalla lista presente in GameCatalog), così non può essere ricomprato
+            GameCatalog.getShopItems().remove(item);
+
+            // ora appare venduto dove c'era l'oggetto
+            nameLbl.setText("VENDUTO");
+            nameLbl.setStyle("-fx-text-fill: gray;");
+            priceLbl.setText("");
+
+            // toglie l'oggetto anche dalla lista locale ma lo rendo null cosí gli indici rimangono corretti e non scorrono verso il basso
+            itemsInShop.set(index, null); 
+        } else {
+            System.out.println("Non hai abbastanza soldi! (Hai: " + playerGold + ", Serve: " + prezzo + ")");
+        }
     }
 
-    int prezzo = item.getPrice();
-
-    // prende il Player dal GameState
-    Player player = GameState.get().getPlayer(); 
-    
-    // controlla se esiste
-    if (player == null) {
-        System.out.println("Errore: Nessun giocatore trovato!");
-        return;
-    }
-
-    // prende il gold del player
-    int playerGold = player.getGold();
-
-    if (playerGold >= prezzo) {
-        // tolgo i soldi
-        player.setGold(playerGold - prezzo);
-        System.out.println("Hai comprato: " + item.getName() + ". Oro rimasto: " + player.getGold());
-
-        // richiamo il metodo di player per aggiungere l'oggetto all'inventario e applicare le statistiche
-        player.addItemToInventory(item); 
-
-        //rimuovo l'oggetto dal negozio (dalla lista presente in GameCatalog), così non può essere ricomprato
-        GameCatalog.getShopItems().remove(item);
-
-        // ora appare venduto dove c'era l'oggetto
-        nameLbl.setText("VENDUTO");
-        nameLbl.setStyle("-fx-text-fill: gray;");
-        priceLbl.setText("");
-
-        // toglie l'oggetto anche dalla lista locale ma lo rendo null cosí gli indici rimangono corretti e non scorrono verso il basso
-        itemsInShop.set(index, null); 
-    } else {
-        System.out.println("Non hai abbastanza soldi! (Hai: " + playerGold + ", Serve: " + prezzo + ")");
-    }
-}
     private void updateSingleShopSlot(Label nameLbl, Label statsLbl, Label priceLbl, Item item) { //qui scelgo come mostrare le info dell'oggetto
         if (item == null) {
             nameLbl.setText("---"); // se mancano delle cose negli oggetti allora mette queste cose

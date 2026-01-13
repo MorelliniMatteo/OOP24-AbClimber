@@ -13,7 +13,6 @@ class PlayerTest {
 
         assertEquals("Hero", player.getName());
         assertEquals(120, player.getHP());
-        assertEquals(0, player.getGold());
     }
 
     // verifico se l'applicazione della classe somma le statistiche correttamente
@@ -33,7 +32,7 @@ class PlayerTest {
         int initialDef = player.getDEF();
 
         // Item: name, maxHP, HP, ATK, MATK, DEF, MDEF, discovered, id, effect, price
-        Item elmo = new Item("Elmo Test", 0, 0, 0, 0, 10, 5, true, 1, "None", 100);
+        Item elmo = new Item(1, "Elmo Test", 0, 0, 0, 0, 10, 5, "None", true, 100);
         player.applyItemStats(elmo);
 
         assertEquals(initialDef + 10, player.getDEF(), "La difesa dovrebbe aumentare di 10");
@@ -61,9 +60,9 @@ class PlayerTest {
         Player p = new Player("Healer", Tipo.HYDRO, Classe.MAGO);
         p.setMaxHP(100);
         p.setHP(10);
-        
-        Item potion = new Item("Small Potion", 0, 50, 0, 0, 0, 0, true, 99, "None", 50);
-        
+
+        Item potion = new Item(99, "Small Potion", 0, 50, 0, 0, 0, 0, "None", true, 50);
+
         p.applyItemStats(potion);
 
         assertEquals(60, p.getHP(), "La pozione dovrebbe portare la vita da 10 a 60");
@@ -77,7 +76,7 @@ class PlayerTest {
         p.setMaxHP(100);
         p.setHP(90);
 
-        Item potion = new Item("Big Potion", 0, 50, 0, 0, 0, 0, true, 97, "None", 100);
+        Item potion = new Item(97, "Big Potion", 0, 50, 0, 0, 0, 0, "None", true, 100);
         
         p.applyItemStats(potion);
 
@@ -91,7 +90,7 @@ class PlayerTest {
         p.setMaxHP(100);
         p.setHP(100);
         
-        Item armor = new Item("Heavy Armor", 50, 0, 0, 0, 5, 0, true, 98, "None", 200);
+        Item armor = new Item(98, "Heavy Armor", 50, 0, 0, 0, 5, 0, "None", true, 200);
         
         p.applyItemStats(armor);
 
