@@ -18,13 +18,220 @@
 	],
     "Moves": [
         {
+            "name":"Hydro Spear",
+            "power":65,
+            "acc":60,
+            "type":1,
+            "cost":2,
+            "element":"HYDRO",
+            "id":8
+        },
+        {
+            "name":"HYDRO Shot",
+            "power":65,
+            "acc":60,
+            "type":2,
+            "cost":2,
+            "element":"HYDRO",
+            "id":9
+        },
+        {
             "name":"Fire Spear",
             "power":65,
             "acc":60,
             "type":1,
             "cost":2,
             "element":"FIRE",
-            "id":8
+            "id":10
+        },
+        {
+            "name":"Fire Shot",
+            "power":65,
+            "acc":60,
+            "type":2,
+            "cost":2,
+            "element":"FIRE",
+            "id":11
+        },
+        {
+            "name":"Nature Spear",
+            "power":65,
+            "acc":60,
+            "type":1,
+            "cost":2,
+            "element":"NATURE",
+            "id":12
+        },
+        {
+            "name":"Nature Shot",
+            "power":65,
+            "acc":60,
+            "type":2,
+            "cost":2,
+            "element":"NATURE",
+            "id":13
+        },
+        {
+            "name":"Lightning Spear",
+            "power":65,
+            "acc":60,
+            "type":1,
+            "cost":2,
+            "element":"LIGHTNING",
+            "id":14
+        },
+        {
+            "name":"Lightning Shot",
+            "power":65,
+            "acc":60,
+            "type":2,
+            "cost":2,
+            "element":"LIGHTNING",
+            "id":15
+        },
+        {
+            "name":"Hydro Crush",
+            "power":80,
+            "acc":65,
+            "type":1,
+            "cost":3,
+            "element":"HYDRO",
+            "id":16
+        },
+        {
+            "name":"Hydro Smite",
+            "power":80,
+            "acc":65,
+            "type":2,
+            "cost":3,
+            "element":"HYDRO",
+            "id":17
+        },
+        {
+            "name":"Fire Crush",
+            "power":80,
+            "acc":65,
+            "type":1,
+            "cost":3,
+            "element":"FIRE",
+            "id":18
+        },
+        {
+            "name":"Fire Smite",
+            "power":80,
+            "acc":65,
+            "type":2,
+            "cost":3,
+            "element":"FIRE",
+            "id":19
+        },
+        {
+            "name":"Nature Crush",
+            "power":80,
+            "acc":65,
+            "type":1,
+            "cost":3,
+            "element":"NATURE",
+            "id":20
+        },
+        {
+            "name":"Nature Smite",
+            "power":80,
+            "acc":65,
+            "type":2,
+            "cost":3,
+            "element":"NATURE",
+            "id":21
+        },
+        {
+            "name":"Lightning Crush",
+            "power":80,
+            "acc":65,
+            "type":1,
+            "cost":3,
+            "element":"LIGHTNING",
+            "id":22
+        },
+        {
+            "name":"Lightning Smite",
+            "power":80,
+            "acc":65,
+            "type":2,
+            "cost":3,
+            "element":"LIGHTNING",
+            "id":23
+        },
+        {
+            "name":"Charging Tsunami",
+            "power":120,
+            "acc":65,
+            "type":1,
+            "cost":4,
+            "element":"HYDRO",
+            "id":24
+        },
+        {
+            "name":"Endless Tsunami",
+            "power":120,
+            "acc":65,
+            "type":2,
+            "cost":4,
+            "element":"HYDRO",
+            "id":25
+        },
+        {
+            "name":"Fire Meteor",
+            "power":120,
+            "acc":65,
+            "type":1,
+            "cost":4,
+            "element":"FIRE",
+            "id":26
+        },
+        {
+            "name":"Sun's Gaze",
+            "power":120,
+            "acc":65,
+            "type":2,
+            "cost":4,
+            "element":"FIRE",
+            "id":27
+        },
+        {
+            "name":"Nature's Ire",
+            "power":120,
+            "acc":65,
+            "type":1,
+            "cost":4,
+            "element":"NATURE",
+            "id":28
+        },
+        {
+            "name":"Nature's Curse",
+            "power":120,
+            "acc":65,
+            "type":2,
+            "cost":4,
+            "element":"NATURE",
+            "id":29
+        },
+        {
+            "name":"Lightning Hammer",
+            "power":120,
+            "acc":65,
+            "type":1,
+            "cost":4,
+            "element":"LIGHTNING",
+            "id":30
+        },
+        {
+            "name":"Lightning Storm",
+            "power":120,
+            "acc":65,
+            "type":2,
+            "cost":4,
+            "element":"LIGHTNING",
+            "id":31
         },
         {
             "name":"Void Annihilation",
@@ -33,7 +240,7 @@
             "type":1,
             "cost":1,
             "element":"VOID",
-            "id":33
+            "id":32
         }
     ]
 }

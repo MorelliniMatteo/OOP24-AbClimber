@@ -14,6 +14,7 @@ import it.unibo.abyssclimber.model.Tipo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -28,14 +29,14 @@ public class CombatController {
     @FXML private Button move6Button;
     @FXML private TextFlow logFlow;
     @FXML private Pane topPane;
-    
+    @FXML private Label labelHP;
+    @FXML private Label labelMP;
 
     private Player player;
     private Creature monster;
     private Combat combat;
     private List<Button> buttonList;
     private CombatLog combatLog;
-    private boolean isElite = false;
     
     //TODO: fix
     
@@ -57,7 +58,14 @@ public class CombatController {
         buttonList = List.of(move1Button, move2Button, move3Button, move4Button, move5Button, move6Button);
         setMoveButton(player);
         applyBackground(topPane, monster);
+        player.setSTAM(player.regSTAM());
+        labelHP.setText("HP: " + player.getHP() + "/" + player.getMaxHP());
+        labelMP.setText("MP: " + player.getSTAM() + "/" + player.getMaxSTAM() + " +" + player.regSTAM());
         enableMoveButtons();
+        //TODO: remove
+        System.out.println(player.getSTAM());
+        monster.setMaxHP(999);
+        monster.setHP(999);
     }
     
     public void setElite(boolean b) {
@@ -128,5 +136,10 @@ public class CombatController {
 
             }
         }
+    }
+
+    public void updateStats() {
+        labelHP.setText("HP: " + player.getHP() + "/" + player.getMaxHP());
+        labelMP.setText("MP: " + player.getSTAM() + "/" + player.getMaxSTAM() + " +" + player.regSTAM());
     }
 }

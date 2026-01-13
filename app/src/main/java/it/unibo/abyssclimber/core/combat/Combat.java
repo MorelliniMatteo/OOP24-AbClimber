@@ -53,7 +53,8 @@ public class Combat {
         double weak = 0;
         weak = ElementUtils.getEffect(attack, target);
         combatLog.logCombat("" + attacker.getName() + " attacks with " + attack.getName() + ".\n", LogType.NORMAL);
-        attacker.setSTAM(Math.min(0,attacker.getSTAM() - attack.getCost()));
+        attacker.setSTAM(Math.max(0,attacker.getSTAM() - attack.getCost()));
+        controller.updateStats();
         miss = random.nextInt(101);
         if (miss > attack.getAcc()) {
             combatLog.logCombat(attacker.getName() + " missed.\n", LogType.NORMAL);
@@ -76,6 +77,7 @@ public class Combat {
                 new BattleText("" + target.getName() + " has " + target.getHP() + " HP.\n", LogType.NORMAL)
             ));
         }
+        controller.updateStats();
         return dmg;
     }
     

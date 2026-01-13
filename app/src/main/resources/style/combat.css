@@ -95,3 +95,14 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
+
+/* HP and MP display styles*/
+.label-button-like {
+    -fx-background-color: #4CAF50;
+    -fx-background-radius: 8;
+    -fx-padding: 5 10;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-font-size: 24px;
+}
