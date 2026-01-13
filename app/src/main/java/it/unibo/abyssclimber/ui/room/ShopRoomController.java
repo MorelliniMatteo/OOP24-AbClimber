@@ -32,6 +32,15 @@ public class ShopRoomController {
     }
 
     @FXML
+    private void onContinue() {
+        RoomOption opt = RoomContext.get().getLastChosen();
+        if (opt == null) {
+            SceneRouter.goTo(SceneId.ROOM_SELECTION);
+            return;
+        }
+
+        // Enter directly form the shop room 
+        SceneRouter.goTo(SceneId.SHOP);
     private void onEnterShop() {
         SceneRouter.goTo(SceneId.SHOP); 
     }

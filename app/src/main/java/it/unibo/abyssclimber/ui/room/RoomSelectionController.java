@@ -4,7 +4,6 @@ import it.unibo.abyssclimber.core.AssetManager;
 import it.unibo.abyssclimber.core.GameState;
 import it.unibo.abyssclimber.core.Refreshable;
 import it.unibo.abyssclimber.core.RoomContext;
-import it.unibo.abyssclimber.core.RoomGenerator;
 import it.unibo.abyssclimber.core.RoomOption;
 import it.unibo.abyssclimber.core.RoomType;
 import it.unibo.abyssclimber.core.SceneId;
@@ -49,8 +48,9 @@ public class RoomSelectionController implements Refreshable {
         }
         backgroundView.setMouseTransparent(true);
 
-        // Generate 3 options depending on current floor
-        currentOptions = RoomGenerator.generateOptions(GameState.get().getFloor());
+        // Get cached options for current floor (or generate new if floor changed)
+        int floor = GameState.get().getFloor();
+        currentOptions = RoomContext.get().getOrCreateOptions(floor);
 
         // Apply options to door buttons
         applyOptionToButton(doorBtn1, currentOptions.get(0));

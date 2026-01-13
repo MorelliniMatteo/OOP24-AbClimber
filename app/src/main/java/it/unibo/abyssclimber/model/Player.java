@@ -104,6 +104,25 @@ public class Player extends Creature {
         selectedMoves.clear();
     }
 
+    /**
+     * Reset run mantendo classe, elemento e mosse selezionate.
+     * Non tocca selectedMoves.
+     */
+    public void resetRunKeepBuild() {
+        inventory.clear();
+        System.out.println("Inventory reset (build preserved).");
+        this.setHP(120);
+        this.setATK(15);
+        this.setMATK(15);
+        this.setDEF(5);
+        this.setMDEF(5);
+        this.setSTAM(5);
+        this.setRegSTAM(2);
+        this.setMaxSTAM(5);
+        this.setCrit(5);
+        this.setCritDMG(5);
+    }
+
     public int getGold() {
         return gold;
     } // metodi per gestire il gold

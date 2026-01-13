@@ -1,6 +1,8 @@
 package it.unibo.abyssclimber.ui.room;
 
 import it.unibo.abyssclimber.core.AssetManager;
+import it.unibo.abyssclimber.core.CombatResult;
+import it.unibo.abyssclimber.core.GameServices;
 import it.unibo.abyssclimber.core.RoomContext;
 import it.unibo.abyssclimber.core.RoomOption;
 import it.unibo.abyssclimber.core.SceneId;
@@ -36,12 +38,24 @@ public class FightRoomController {
         }
     }
 
-
     /**
-     * Returns to the room selection screen.
+     * Starts the fight through the combat bridge.
      */
     @FXML
     private void onContinue() {
+        RoomOption opt = RoomContext.get().getLastChosen();
+        if (opt == null) {
+            SceneRouter.goTo(SceneId.ROOM_SELECTION);
+            return;
+        }
+
+        CombatResult result = GameServices.getCombatBridge().startFight(opt);
+
+        if (result == CombatResult.LOSE) {
+            SceneRouter.goTo(SceneId.GAME_OVER);
+            return;
+        }
+
         SceneRouter.goTo(SceneId.ROOM_SELECTION);
     }
 }

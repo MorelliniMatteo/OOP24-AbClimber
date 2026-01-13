@@ -1,7 +1,6 @@
 package it.unibo.abyssclimber.core;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -19,30 +18,33 @@ public final class RoomGenerator {
 
     /**
      * Generates 3 room options:
-     * - 1 BOSS_ELITE (or FINAL_BOSS on last floor)
+     * - Boss in the center
      * - 2 random between FIGHT and SHOP
      */
     public static List<RoomOption> generateOptions(int floor) {
         List<RoomOption> options = new ArrayList<>();
 
-        // Boss door
+        // Left door (random)
+        options.add(randomSideOption(floor));
+
+        // Center door = Boss always (elite or final)
         if (floor >= FINAL_FLOOR) {
             options.add(finalBossOption());
         } else {
             options.add(eliteBossOption(floor));
         }
 
-        // Other doors
-        while (options.size() < 3) {
-            RoomOption candidate = switch (RNG.nextInt(2)) {
-                case 0 -> fightOption(floor);
-                default -> shopOption(floor);
-            };
-            options.add(candidate);
-        }
+        // Right door (random)
+        options.add(randomSideOption(floor));
 
-        Collections.shuffle(options, RNG);
         return options;
+    }
+
+    private static RoomOption randomSideOption(int floor) {
+        return switch (RNG.nextInt(2)) {
+            case 0 -> fightOption(floor);
+            default -> shopOption(floor);
+        };
     }
 
     private static RoomOption eliteBossOption(int floor) {
