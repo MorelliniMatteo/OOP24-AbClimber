@@ -41,6 +41,9 @@ public class ShopRoomController {
 
         // Enter directly form the shop room 
         SceneRouter.goTo(SceneId.SHOP);
+    }
+    
+    @FXML
     private void onEnterShop() {
         SceneRouter.goTo(SceneId.SHOP); 
     }
