@@ -55,7 +55,7 @@
   },
   {
     "ID": 7,
-    "name": "SCEPTER OF OBLIVION",
+    "name": "Scepter of Oblivion",
     "maxHP": 0,
     "HP": 0, "ATK": 15, "MATK": 70, "DEF": 0, "MDEF": 20,
     "effect": "Maximizes magical damage",
@@ -118,7 +118,7 @@
   },
   {
     "ID": 14,
-    "name": "BLADE OF THE DAWN",
+    "name": "Blade of the Dawn",
     "maxHP": 60,
     "HP": 60, "ATK": 75, "MATK": 0, "DEF": 15, "MDEF": 15,
     "effect": "High pure damage",
@@ -172,7 +172,7 @@
   },
   {
     "ID": 20,
-    "name": "IMMORTAL AEGIS",
+    "name": "Immortal Aegis",
     "maxHP": 200,
     "HP": 200, "ATK": 0, "MATK": 0, "DEF": 50, "MDEF": 30,
     "effect": "Supreme defense",
@@ -181,7 +181,7 @@
   },
   {
     "ID": 21,
-    "name": "TITAN'S HAMMER",
+    "name": "Titan's Hammer",
     "maxHP": 80,
     "HP": 80, "ATK": 60, "MATK": 0, "DEF": 20, "MDEF": 0,
     "effect": "Massive impact",

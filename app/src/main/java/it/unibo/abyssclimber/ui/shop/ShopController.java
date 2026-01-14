@@ -155,6 +155,8 @@ public class ShopController {
             sb.append("DEF: +").append(item.getDEF()).append("|");
         if (item.getMDEF() > 0)
             sb.append("MDEF: +").append(item.getMDEF()).append("|");
+        if (item.getEffect() != null)
+            sb.append("Effect: ").append(item.getEffect()).append("|");
         statsLbl.setText(sb.toString());
 
         priceLbl.setText(item.getPrice() + " G");
