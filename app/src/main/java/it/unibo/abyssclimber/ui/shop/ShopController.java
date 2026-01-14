@@ -41,7 +41,7 @@ public class ShopController {
 
         //mostro l'oro se il player esiste
         if (GameState.get().getPlayer() != null) {
-        playerGoldLabel.setText("Oro: " + GameState.get().getPlayer().getGold());
+        playerGoldLabel.setText("Gold: " + GameState.get().getPlayer().getGold());
     }
     }
 
@@ -89,7 +89,7 @@ public class ShopController {
         Item item = getItemSafe(index); // prende l'item che ha l'indice specificato, l'indice va da 0 a 3
 
         // se lo slot è vuoto o già venduto, non fare nulla
-        if (item == null || nameLbl.getText().equals("VENDUTO")) {
+        if (item == null || nameLbl.getText().equals("SOLD")) {
                 return;
         }
 
@@ -100,7 +100,7 @@ public class ShopController {
         
         // controlla se esiste
         if (player == null) {
-            System.out.println("Errore: Nessun giocatore trovato!");
+            System.out.println("Error: Player not found in GameState.");
             return;
         }
 
@@ -110,8 +110,8 @@ public class ShopController {
         if (playerGold >= prezzo) {
             // tolgo i soldi
             player.setGold(playerGold - prezzo);
-            playerGoldLabel.setText("Oro: " + player.getGold());
-            System.out.println("Hai comprato: " + item.getName() + ". Oro rimasto: " + player.getGold());
+            playerGoldLabel.setText("Gold: " + player.getGold());
+            System.out.println("You bought: " + item.getName() + ". Gold remaining: " + player.getGold());
 
             // richiamo il metodo di player per aggiungere l'oggetto all'inventario e applicare le statistiche
             player.addItemToInventory(item); 
@@ -120,14 +120,14 @@ public class ShopController {
             GameCatalog.getShopItems().remove(item);
 
             // ora appare venduto dove c'era l'oggetto
-            nameLbl.setText("VENDUTO");
+            nameLbl.setText("SOLD");
             nameLbl.setStyle("-fx-text-fill: gray;");
             priceLbl.setText("");
 
             // toglie l'oggetto anche dalla lista locale ma lo rendo null cosí gli indici rimangono corretti e non scorrono verso il basso
             itemsInShop.set(index, null); 
         } else {
-            System.out.println("Non hai abbastanza soldi! (Hai: " + playerGold + ", Serve: " + prezzo + ")");
+            System.out.println("You don't have enough gold! (You have: " + playerGold + ", Need: " + prezzo + ")");
         }
     }
 
@@ -143,14 +143,18 @@ public class ShopController {
 
         // serve per far apparire bene le stats
         StringBuilder sb = new StringBuilder();
-        if (item.getATK() > 0)
-            sb.append("ATK: +").append(item.getATK()).append("\n");
-        if (item.getMATK() > 0)
-            sb.append("MATK: +").append(item.getMATK()).append("\n");
-        if (item.getDEF() > 0)
-            sb.append("DEF: +").append(item.getDEF()).append("\n");
+        if (item.getMaxHP() > 0)
+            sb.append("MaxHP: +").append(item.getMaxHP()).append("|");
         if (item.getHP() > 0)
-            sb.append("HP: +").append(item.getHP()).append("\n");
+            sb.append("HP: +").append(item.getHP()).append("|");
+        if (item.getATK() > 0)
+            sb.append("ATK: +").append(item.getATK()).append("|");
+        if (item.getMATK() > 0)
+            sb.append("MATK: +").append(item.getMATK()).append("|");
+        if (item.getDEF() > 0)
+            sb.append("DEF: +").append(item.getDEF()).append("|");
+        if (item.getMDEF() > 0)
+            sb.append("MDEF: +").append(item.getMDEF()).append("|");
         statsLbl.setText(sb.toString());
 
         priceLbl.setText(item.getPrice() + " G");

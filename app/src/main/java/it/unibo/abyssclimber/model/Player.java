@@ -52,14 +52,12 @@ public class Player extends Creature {
 
     public void addItemToInventory(Item item) { // qui va passato come parametro il randomItem ottenuto tramite
                                                 // GameCatalog.getRandomItem()
-        Item itemToAdd = GameCatalog.lookupItem(item.getID()); // itemToAdd diventa l'item che viene trovato tramite
-                                                               // lookUpItem
-        if (itemToAdd != null) {
-            inventory.add(itemToAdd);
-            System.out.println("Item " + itemToAdd.getName() + " added to inventory.");
-            applyItemStats(itemToAdd);
+        if (item != null) {
+            inventory.add(item);
+            System.out.println("Item " + item.getName() + " added to inventory.");
+            applyItemStats(item);
         } else {
-            System.out.println("Item with ID " + item.getID() + " not found in the game catalog.");
+            System.out.println("Item is null, impossible to add to inventory.");
         }
     }
 

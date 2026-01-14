@@ -4,53 +4,67 @@
 
 <GridPane xmlns:fx="http://javafx.com/fxml" 
           fx:controller="it.unibo.abyssclimber.ui.shop.ShopController"
-          hgap="20" vgap="20" alignment="CENTER">
+          hgap="40" vgap="40" alignment="CENTER"
+          prefWidth="1280" prefHeight="720">
 
     <VBox fx:id="box1" styleClass="item-card" 
           onMouseClicked="#onSlot1Clicked"
-          GridPane.columnIndex="0" GridPane.rowIndex="0">
+          GridPane.columnIndex="0" GridPane.rowIndex="0"
+          prefWidth="350" prefHeight="250" minWidth="350" minHeight="250"
+          alignment="TOP_CENTER" spacing="15" 
+          style="-fx-padding: 20;">
         
-        <Label fx:id="shopSlot1Name" text="VUOTO" styleClass="item-title"/>
-        <Separator opacity="0.5"/>
-        <Label fx:id="shopSlot1Stats" text="---" styleClass="stat-primary"/>
+        <Label fx:id="shopSlot1Name" text="VUOTO" styleClass="item-title" wrapText="true" textAlignment="CENTER"/>
+        <Separator opacity="0.5" prefWidth="300"/>
+        <Label fx:id="shopSlot1Stats" text="---" styleClass="stat-primary" wrapText="true" textAlignment="CENTER"/>
         <Label fx:id="shopSlot1Price" text="" styleClass="stat-secondary"/> 
     </VBox>
 
     <VBox fx:id="box2" styleClass="item-card" 
           onMouseClicked="#onSlot2Clicked"
-          GridPane.columnIndex="1" GridPane.rowIndex="0">
+          GridPane.columnIndex="1" GridPane.rowIndex="0"
+          prefWidth="350" prefHeight="250" minWidth="350" minHeight="250"
+          alignment="TOP_CENTER" spacing="15"
+          style="-fx-padding: 20;">
         
-        <Label fx:id="shopSlot2Name" text="VUOTO" styleClass="item-title"/>
-        <Separator opacity="0.5"/>
-        <Label fx:id="shopSlot2Stats" text="---" styleClass="stat-primary"/>
+        <Label fx:id="shopSlot2Name" text="VUOTO" styleClass="item-title" wrapText="true" textAlignment="CENTER"/>
+        <Separator opacity="0.5" prefWidth="300"/>
+        <Label fx:id="shopSlot2Stats" text="---" styleClass="stat-primary" wrapText="true" textAlignment="CENTER"/>
         <Label fx:id="shopSlot2Price" text="" styleClass="stat-secondary"/>
     </VBox>
 
     <VBox fx:id="box3" styleClass="item-card" 
           onMouseClicked="#onSlot3Clicked"
-          GridPane.columnIndex="0" GridPane.rowIndex="1">
+          GridPane.columnIndex="0" GridPane.rowIndex="1"
+          prefWidth="350" prefHeight="250" minWidth="350" minHeight="250"
+          alignment="TOP_CENTER" spacing="15"
+          style="-fx-padding: 20;">
         
-        <Label fx:id="shopSlot3Name" text="VUOTO" styleClass="item-title"/>
-        <Separator opacity="0.5"/>
-        <Label fx:id="shopSlot3Stats" text="---" styleClass="stat-primary"/>
+        <Label fx:id="shopSlot3Name" text="VUOTO" styleClass="item-title" wrapText="true" textAlignment="CENTER"/>
+        <Separator opacity="0.5" prefWidth="300"/>
+        <Label fx:id="shopSlot3Stats" text="---" styleClass="stat-primary" wrapText="true" textAlignment="CENTER"/>
         <Label fx:id="shopSlot3Price" text="" styleClass="stat-secondary"/>
     </VBox>
 
     <VBox fx:id="box4" styleClass="item-card" 
           onMouseClicked="#onSlot4Clicked"
-          GridPane.columnIndex="1" GridPane.rowIndex="1">
+          GridPane.columnIndex="1" GridPane.rowIndex="1"
+          prefWidth="350" prefHeight="250" minWidth="350" minHeight="250"
+          alignment="TOP_CENTER" spacing="15"
+          style="-fx-padding: 20;">
         
-        <Label fx:id="shopSlot4Name" text="VUOTO" styleClass="item-title"/>
-        <Separator opacity="0.5"/>
-        <Label fx:id="shopSlot4Stats" text="---" styleClass="stat-primary"/>
+        <Label fx:id="shopSlot4Name" text="VUOTO" styleClass="item-title" wrapText="true" textAlignment="CENTER"/>
+        <Separator opacity="0.5" prefWidth="300"/>
+        <Label fx:id="shopSlot4Stats" text="---" styleClass="stat-primary" wrapText="true" textAlignment="CENTER"/>
         <Label fx:id="shopSlot4Price" text="" styleClass="stat-secondary"/>
     </VBox>
 
-    <Button text="TORNA ALLA SCHERMATA DI NEGOZIO" 
+    <Button text="RETURN TO THE STORE SCREEN" 
             onAction="#onBackClicked" 
             GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" 
             GridPane.halignment="CENTER"
-            styleClass="button, secondary-button"/>
+            styleClass="button, secondary-button"
+            style="-fx-font-size: 16px; -fx-padding: 10 30;"/>
       
       <Label fx:id="playerGoldLabel" text="Oro: 0" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="stat-secondary"/>
 

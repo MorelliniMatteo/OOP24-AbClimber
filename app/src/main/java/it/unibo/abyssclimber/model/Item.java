@@ -1,4 +1,7 @@
 package it.unibo.abyssclimber.model;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+//TODO:Il gioco é da bilanciare
 
 public class Item {
     private int ID;
@@ -31,6 +34,7 @@ public class Item {
         this.price = price;
     }
     
+
     public String getName() {return name;}
     public int getMaxHP() {return maxHP;}
     public int getHP() {return HP;}
@@ -43,16 +47,27 @@ public class Item {
     public String getEffect() {return effect;}
     public int getPrice() {return price;}
 
+    @JsonProperty("name")
     public void setName(String name) {this.name = name;}
+    @JsonProperty("maxHP")
     public void setMaxHP(int maxHP) {this.maxHP = maxHP;}
+    @JsonProperty("HP")
     public void setHP(int HP) {this.HP = HP;}
+    @JsonProperty("ATK")
     public void setATK(int ATK) {this.ATK = ATK;}
+    @JsonProperty("MATK")
     public void setMATK(int MATK) {this.MATK = MATK;}
+    @JsonProperty("DEF")
     public void setDEF(int DEF) {this.DEF = DEF;}
+    @JsonProperty("MDEF")
     public void setMDEF(int MDEF) {this.MDEF = MDEF;}
+    @JsonProperty("discovered")
     public void setDiscovered(boolean discovered) {this.discovered = discovered;}
+    @JsonProperty("ID")
     public void setID(int ID) {this.ID = ID;} 
+    @JsonProperty("effect")
     public void setEffect(String effect) {this.effect = effect;}
+    @JsonProperty("price")
     public void setPrice(int price) {this.price = price;}
 }
 
