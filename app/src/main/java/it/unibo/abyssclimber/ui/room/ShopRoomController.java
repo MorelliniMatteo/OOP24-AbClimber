@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
-//TODO: in shop_room.fxml bisogna ancora spostare i bottoni al posto giusto, si attende programma completo 
 public class ShopRoomController {
 
     @FXML private Label titleLabel;

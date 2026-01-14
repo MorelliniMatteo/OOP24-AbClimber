@@ -2,6 +2,7 @@
   {
     "ID": 1,
     "name": "Apprentice's Staff",
+    "maxHP": 0,
     "HP": 0, "ATK": 5, "MATK": 12, "DEF": 0, "MDEF": 0,
     "effect": "None",
     "discovered": false,
@@ -9,7 +10,8 @@
   },
   {
     "ID": 2,
-    "name": "Veste Logora",
+    "name": "Worn Dress",
+    "maxHP": 20,
     "HP": 20, "ATK": 0, "MATK": 2, "DEF": 2, "MDEF": 5,
     "effect": "None",
     "discovered": false,
@@ -18,14 +20,16 @@
   {
     "ID": 3,
     "name": "Worn out robe",
+    "maxHP": 0,
     "HP": 0, "ATK": 0, "MATK": 35, "DEF": 0, "MDEF": 0,
-    "effect": "Danno Fuoco passivo",
+    "effect": "None",
     "discovered": false,
     "price": 750
   },
   {
     "ID": 4,
     "name": "Sage's Hat",
+    "maxHP": 30,
     "HP": 30, "ATK": 0, "MATK": 15, "DEF": 5, "MDEF": 12,
     "effect": "Increases MDEF",
     "discovered": false,
@@ -34,6 +38,7 @@
   {
     "ID": 5,
     "name": "Mana Ring",
+    "maxHP": 0,
     "HP": 0, "ATK": 0, "MATK": 25, "DEF": 0, "MDEF": 10,
     "effect": "Enhance spells",
     "discovered": false,
@@ -42,6 +47,7 @@
   {
     "ID": 6,
     "name": "Void Robe",
+    "maxHP": 100,
     "HP": 100, "ATK": 0, "MATK": 20, "DEF": 15, "MDEF": 30,
     "effect": "Big HP bonus",
     "discovered": false,
@@ -50,6 +56,7 @@
   {
     "ID": 7,
     "name": "SCEPTER OF OBLIVION",
+    "maxHP": 0,
     "HP": 0, "ATK": 15, "MATK": 70, "DEF": 0, "MDEF": 20,
     "effect": "Maximizes magical damage",
     "discovered": false,
@@ -58,6 +65,7 @@
   {
     "ID": 8,
     "name": "Rusty Sword",
+    "maxHP": 0,
     "HP": 0, "ATK": 15, "MATK": 0, "DEF": 0, "MDEF": 0,
     "effect": "None",
     "discovered": false,
@@ -66,6 +74,7 @@
   {
     "ID": 9,
     "name": "Leather bodice",
+    "maxHP": 40,
     "HP": 40, "ATK": 0, "MATK": 0, "DEF": 10, "MDEF": 0,
     "effect": "None",
     "discovered": false,
@@ -74,6 +83,7 @@
   {
     "ID": 10,
     "name": "Captain's Blade",
+    "maxHP": 20,
     "HP": 20, "ATK": 45, "MATK": 0, "DEF": 5, "MDEF": 0,
     "effect": "Sharpened blade",
     "discovered": false,
@@ -82,6 +92,7 @@
   {
     "ID": 11,
     "name": "Iron Helmet",
+    "maxHP": 50,
     "HP": 50, "ATK": 0, "MATK": 0, "DEF": 20, "MDEF": 5,
     "effect": "Head protection",
     "discovered": false,
@@ -90,6 +101,7 @@
   {
     "ID": 12,
     "name": "War Gloves",
+    "maxHP": 20,
     "HP": 20, "ATK": 25, "MATK": 0, "DEF": 8, "MDEF": 0,
     "effect": "Secure grip",
     "discovered": false,
@@ -98,6 +110,7 @@
   {
     "ID": 13,
     "name": "Dragon's Armor",
+    "maxHP": 120,
     "HP": 120, "ATK": 15, "MATK": 0, "DEF": 35, "MDEF": 15,
     "effect": "High resistance",
     "discovered": false,
@@ -106,6 +119,7 @@
   {
     "ID": 14,
     "name": "BLADE OF THE DAWN",
+    "maxHP": 60,
     "HP": 60, "ATK": 75, "MATK": 0, "DEF": 15, "MDEF": 15,
     "effect": "High pure damage",
     "discovered": false,
@@ -114,6 +128,7 @@
   {
     "ID": 15,
     "name": "Nailed Mace",
+    "maxHP": 0,
     "HP": 0, "ATK": 12, "MATK": 0, "DEF": 2, "MDEF": 0,
     "effect": "None",
     "discovered": false,
@@ -122,6 +137,7 @@
   {
     "ID": 16,
     "name": "Wooden Shield",
+    "maxHP": 50,
     "HP": 50, "ATK": 0, "MATK": 0, "DEF": 15, "MDEF": 0,
     "effect": "Basic parry",
     "discovered": false,
@@ -130,6 +146,7 @@
   {
     "ID": 17,
     "name": "Bipenne Axe",
+    "maxHP": 0,
     "HP": 0, "ATK": 35, "MATK": 0, "DEF": 0, "MDEF": 0,
     "effect": "Heavy",
     "discovered": false,
@@ -138,6 +155,7 @@
   {
     "ID": 18,
     "name": "Plate Armor",
+    "maxHP": 80,
     "HP": 80, "ATK": 0, "MATK": 0, "DEF": 25, "MDEF": 10,
     "effect": "High physical defense",
     "discovered": false,
@@ -146,6 +164,7 @@
   {
     "ID": 19,
     "name": "Rock Amulet",
+    "maxHP": 60,
     "HP": 60, "ATK": 0, "MATK": 0, "DEF": 15, "MDEF": 15,
     "effect": "Extra vitality",
     "discovered": false,
@@ -154,6 +173,7 @@
   {
     "ID": 20,
     "name": "IMMORTAL AEGIS",
+    "maxHP": 200,
     "HP": 200, "ATK": 0, "MATK": 0, "DEF": 50, "MDEF": 30,
     "effect": "Supreme defense",
     "discovered": false,
@@ -162,6 +182,7 @@
   {
     "ID": 21,
     "name": "TITAN'S HAMMER",
+    "maxHP": 80,
     "HP": 80, "ATK": 60, "MATK": 0, "DEF": 20, "MDEF": 0,
     "effect": "Massive impact",
     "discovered": false,
