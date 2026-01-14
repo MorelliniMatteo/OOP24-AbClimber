@@ -38,6 +38,7 @@ public class CombatController {
     private Combat combat;
     private List<Button> buttonList;
     private CombatLog combatLog;
+    private boolean combatEnded = false;
     
     //TODO: fix
     
@@ -115,11 +116,12 @@ public class CombatController {
         enableMoveButtons();
     }
 
-    private void disableMoveButtons() {
+    public void disableMoveButtons() {
         buttonList.forEach(b -> b.setDisable(true));
     }
 
-    private void enableMoveButtons() {
+    public void enableMoveButtons() {
+        if(combatEnded) return;
         buttonList.forEach(b -> b.setDisable(false));
     }
 
@@ -144,5 +146,12 @@ public class CombatController {
     public void updateStats() {
         labelHP.setText("HP: " + player.getHP() + "/" + player.getMaxHP());
         labelMP.setText("MP: " + player.getSTAM() + "/" + player.getMaxSTAM() + " +" + player.regSTAM());
+    }
+
+    public void setCombatEnd(boolean b) {
+        combatEnded = b;
+        if (b) {
+            disableMoveButtons();
+        }
     }
 }

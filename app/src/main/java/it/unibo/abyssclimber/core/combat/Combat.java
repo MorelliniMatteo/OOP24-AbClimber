@@ -19,7 +19,7 @@ import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 
 public class Combat {
-    private int turn = 0;
+    private int turn = 1;
     private boolean playerTurn = true;
     private Player player;
     private Creature monster;
@@ -34,6 +34,7 @@ public class Combat {
         this.loadEnemyMove();
         this.combatLog = log;
         this.controller = controller;
+        this.controller.setCombatEnd(false);
     }
 
     private void loadEnemyMove () {
@@ -71,7 +72,7 @@ public class Combat {
                 combatLog.logCombat(attacker.getName() + " scored a critical hit!\n", LogType.CRITICAL);
                 dmg = (int) Math.floor(dmg*attacker.getCritDMG());
             }
-            target.setHP(target.getHP() - dmg );
+            target.setHP(Math.max(0, target.getHP() - dmg ));
             ElementUtils.weakPhrase(weak, combatLog);
             combatLog.logCombat(List.of(
                 new BattleText("" + attacker.getName() + " dealt ", LogType.NORMAL),
@@ -85,11 +86,17 @@ public class Combat {
     }
     
     public void playerTurn(Move move) {
-        if ( !playerTurn || move.getCost() > player.getSTAM() || player.getHP() <= 0 || monster.getHP() <= 0) return;
+        if ( !playerTurn || player.getHP() <= 0 || monster.getHP() <= 0) return;
+        else if (move.getCost() > player.getSTAM()) {
+            combatLog.logCombat("Insufficient mana.", LogType.NORMAL);
+            controller.renderLog();
+            return;
+        }
 
         playerTurn = false; 
         dmgCalc(move, player, monster);
         if (monster.getHP() <= 0) {
+            controller.setCombatEnd(true);
             combatLog.logCombat("" + monster.getName() + " died. You win.\n", LogType.NORMAL);
             System.out.println("You win.\n");
             if (!monster.getIsElite()) {
@@ -98,19 +105,24 @@ public class Combat {
                 player.setGold(player.getGold() + gold);
             } else if (monster.getIsElite()) {
                 Item item = GameCatalog.getRandomItem();
-                combatLog.logCombat("Enemy dropped the item " + item + " .", LogType.NORMAL);
+                combatLog.logCombat("Enemy dropped the item " + item.getName() + " .", LogType.NORMAL);
                 player.addItemToInventory(item);
             }
             controller.renderLog();
             // TODO: HANDLE WIN CONDITION
-            if (monster.getIsElite()) { GameState.get().nextFloor();}
-            SceneRouter.goTo(SceneId.ROOM_SELECTION);
+            PauseTransition pause = new PauseTransition(Duration.seconds(5));
+            pause.setOnFinished(e -> {
+                if (monster.getIsElite()) { GameState.get().nextFloor();}
+                SceneRouter.goTo(SceneId.ROOM_SELECTION);
+            });
+            pause.play();
             return;
         }
         
         player.setSTAM(Math.min(player.getMaxSTAM(), player.getSTAM() + player.regSTAM())); 
         controller.renderLog();
         monsterTurn();
+        turn++;
     }
 
     public void monsterTurn() {
@@ -125,19 +137,20 @@ public class Combat {
         }
 
         controller.renderLog();
-        PauseTransition delay = new PauseTransition(Duration.seconds(2));
-        delay.setOnFinished(e -> {
-            if (player.getHP() <= 0) {
-                combatLog.logCombat("" + player.getName() + " died. You lose.\n", LogType.NORMAL);
-                // TODO: handle lose condition
-                System.out.println("You lose.\n");
+        PauseTransition delay = new PauseTransition(Duration.seconds(5));
+        if (player.getHP() <= 0) {
+            controller.setCombatEnd(true);
+            combatLog.logCombat("" + player.getName() + " died. You lose.\n", LogType.NORMAL);
+            controller.renderLog();
+            // TODO: handle lose condition
+            System.out.println("You lose.\n");
+            delay.setOnFinished(e -> {
                 SceneRouter.goTo(SceneId.GAME_OVER);
-                return;
-            }
-    
-            monster.setSTAM(Math.min(monster.getMaxSTAM(), monster.getSTAM() + monster.regSTAM()));
-
-        });
+            });
+            delay.play();
+            
+        };
+        monster.setSTAM(Math.min(monster.getMaxSTAM(), monster.getSTAM() + monster.regSTAM()));
 
     }
     
@@ -150,7 +163,6 @@ public class Combat {
         } else {
             return;
         }
-        turn++;
     }
 }
 

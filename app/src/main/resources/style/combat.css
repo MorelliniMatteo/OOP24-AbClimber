@@ -1,24 +1,6 @@
-/* ================================
-   ROOT BACKGROUND
-   ================================ */
-/*.root-background {
-    -fx-background-image: url("assets/images/backgrounds/normal_fight.jpeg");
-    -fx-background-size: cover;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-}*/
-
-/* ================================
-   SPLITPANE ITEMS
-   ================================ */
-
-/* Top pane should be transparent so the background shows through */
-/* #topPane {
-    -fx-background-image: url("../assets/images/backgrounds/normal_fight.jpeg");
-    -fx-background-size: cover;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-} */
+.root {
+    -fx-font-family: "Verdana";
+}
 
 /* Bottom pane overlay (adjust opacity as needed) */
 #bottomPane {
@@ -49,6 +31,14 @@
     -fx-background-radius: 14;
     -fx-border-radius: 14;
     -fx-background-insets: 0;
+}
+
+.move-button:hover {
+    -fx-opacity: 0.8
+}
+
+.move-button:pressed {
+    -fx-opacity: 0.6
 }
 
 
