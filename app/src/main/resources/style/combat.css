@@ -13,10 +13,6 @@
     -fx-padding: 0.5em;
 }
 
-/* ================================
-   TEXT FLOW (combat log)
-   ================================ */
-
 /* Grey background for the combat log area */
 .combat-log {
     -fx-background-color: #3a3a3a;      /* medium grey */
@@ -40,7 +36,6 @@
 .move-button:pressed {
     -fx-opacity: 0.6
 }
-
 
 .outlined-text {
     -fx-text-fill: white;
@@ -67,23 +62,26 @@
 
 .combat-bg-normal {
     -fx-background-image: url("/assets/images/backgrounds/normal_fight.jpeg");
-    -fx-background-size: cover;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
+    -fx-background-color: transparent, black;
+    -fx-background-size: contain, auto;
+    -fx-background-repeat: no-repeat, no-repeat;
+    -fx-background-position: center, center;
 }
 
 .combat-bg-elite {
     -fx-background-image: url("/assets/images/backgrounds/elite_fight.jpeg");
-    -fx-background-size: cover;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
+    -fx-background-color: transparent, black;
+    -fx-background-size: contain, auto;
+    -fx-background-repeat: no-repeat, no-repeat;
+    -fx-background-position: center, center;
 }
 
 .combat-bg-boss {
     -fx-background-image: url("/assets/images/backgrounds/boss_fight.jpeg");
-    -fx-background-size: cover;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
+    -fx-background-color: transparent, black;
+    -fx-background-size: contain, auto;
+    -fx-background-repeat: no-repeat, no-repeat;
+    -fx-background-position: center, center;
 }
 
 /* HP and MP display styles*/
@@ -96,3 +94,13 @@
     -fx-alignment: center;
     -fx-font-size: 24px;
 }
+
+.drawer-label {
+    -fx-padding: 6 12;              /* space inside the label */
+    -fx-background-color: #3a3a3a;  /* medium grey */
+    -fx-background-radius: 6;       /* rounded corners */
+    -fx-text-fill: white;           /* readable text */
+    -fx-font-weight: bold;          /* optional, looks good for stats */
+    -fx-alignment: CENTER_LEFT;     /* align text nicely */
+}
+

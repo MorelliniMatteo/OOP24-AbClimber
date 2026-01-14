@@ -12,14 +12,23 @@ import it.unibo.abyssclimber.core.combat.MoveLoader.Move;
 import it.unibo.abyssclimber.model.Creature;
 import it.unibo.abyssclimber.model.Player;
 import it.unibo.abyssclimber.model.Tipo;
+import it.unibo.abyssclimber.ui.assets.CreaturesAssets;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.util.Duration;
 
 public class CombatController {
     @FXML private Button move1Button;
@@ -32,6 +41,15 @@ public class CombatController {
     @FXML private Pane topPane;
     @FXML private Label labelHP;
     @FXML private Label labelMP;
+    @FXML private ImageView monsterImage;
+    @FXML private StackPane monsterContainer;
+    @FXML private VBox drawer;
+    @FXML private Label drawerATK;
+    @FXML private Label drawerMATK;
+    @FXML private Label drawerDEF;
+    @FXML private Label drawerMDEF;
+    @FXML private Label drawerCR;
+    @FXML private Label drawerCDM;
 
     private Player player;
     private Creature monster;
@@ -39,6 +57,7 @@ public class CombatController {
     private List<Button> buttonList;
     private CombatLog combatLog;
     private boolean combatEnded = false;
+    private boolean drawerOpen = false;
     
     //TODO: fix
     
@@ -59,7 +78,16 @@ public class CombatController {
         this.combat = new Combat(player, monster, combatLog, this);
         buttonList = List.of(move1Button, move2Button, move3Button, move4Button, move5Button, move6Button);
         setMoveButton(player);
-        applyBackground(topPane, monster);
+        applyBackground(monsterContainer, monster);
+        System.out.println("ID: " + monster.getId());
+        System.out.println("Monster: " + monster.getName());
+        loadMonsterImage();
+        drawerATK.setText("ATK: " + player.getATK());
+        drawerMATK.setText("MATK: " + player.getMATK());
+        drawerDEF.setText("DEF: " + player.getDEF());
+        drawerMDEF.setText("MDEF: " + player.getMDEF());
+        drawerCR.setText("Crit \nRate: " + player.getCrit() + "%");
+        drawerCDM.setText("Crit \nDamage: " + (int)(player.getCritDMG()*100) + "%");
         player.setSTAM(player.regSTAM());
         labelHP.setText("HP: " + player.getHP() + "/" + player.getMaxHP());
         labelMP.setText("MP: " + player.getSTAM() + "/" + player.getMaxSTAM() + " +" + player.regSTAM());
@@ -79,17 +107,22 @@ public class CombatController {
         }
     }
 
-    private void applyBackground(Pane topPane, Creature monster) {
-        if ( monster.getIsElite()) {
-            topPane.getStyleClass().add("combat-bg-elite");
+    private void applyBackground(Pane bgPane, Creature monster) {
+        if ( monster.getIsElite() && !monster.getStage().equalsIgnoreCase("BOSS")) {
+            bgPane.getStyleClass().add("combat-bg-elite");
             System.out.println("elite BG.");
         } else if ( monster.getStage().equalsIgnoreCase("BOSS")) {
-            topPane.getStyleClass().add("combat-bg-boss");
+            bgPane.getStyleClass().add("combat-bg-boss");
             System.out.println("boss bg.");
         } else {
-            topPane.getStyleClass().add("combat-bg-normal");
+            bgPane.getStyleClass().add("combat-bg-normal");
             System.out.println("normal bg");
         }
+    }
+
+    private void loadMonsterImage() {
+        var image = CreaturesAssets.getMonsterImage(monster.getId());
+        monsterImage.setImage(image); 
     }
 
     private void applyTipoStyle(Button b, Tipo tipo){
@@ -153,5 +186,12 @@ public class CombatController {
         if (b) {
             disableMoveButtons();
         }
+    }
+
+    @FXML
+    public void toggleDrawer() {
+        double targetWidth = drawerOpen ? 0 : 150;
+        Timeline timeline = new Timeline( new KeyFrame(Duration.millis(250), new KeyValue(drawer.prefWidthProperty(), targetWidth) ) ); timeline.play();
+        drawerOpen = !drawerOpen;
     }
 }

@@ -34,10 +34,12 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -50,44 +52,37 @@
 
 <VBox xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../style/combat.css" fx:controller="it.unibo.abyssclimber.ui.combat.CombatController">
   <children>
-    <MenuBar VBox.vgrow="NEVER">
-      <menus>
-        <Menu mnemonicParsing="false" text="Stats">
-          <items>
-            <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
-            <MenuItem mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
-          </items>
-        </Menu>
-      </menus>
-    </MenuBar>
     <AnchorPane VBox.vgrow="ALWAYS" fx:id="rootPane" styleClass="root-background">
       <children>
             <SplitPane dividerPositions="0.7" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" >
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" fx:id="topPane">
                      <children>
-                        
+                        <HBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                          <VBox minWidth="0" maxWidth="150" prefWidth="0" fx:id="drawer" style="-fx-background-color: black;">
+                            <Label fx:id="drawerATK" text="ATK: " VBox.vgrow="ALWAYS" alignment="CENTER_LEFT" maxWidth="Infinity" maxHeight="Infinity" styleClass="drawer-label"/>
+                            <Label fx:id="drawerMATK" text="MATK: " VBox.vgrow="ALWAYS" alignment="CENTER_LEFT" maxWidth="Infinity" maxHeight="Infinity" styleClass="drawer-label"/>
+                            <Label fx:id="drawerDEF" text="DEF: " VBox.vgrow="ALWAYS" alignment="CENTER_LEFT" maxWidth="Infinity" maxHeight="Infinity" styleClass="drawer-label"/>
+                            <Label fx:id="drawerMDEF" text="MDEF: " VBox.vgrow="ALWAYS" alignment="CENTER_LEFT" maxWidth="Infinity" maxHeight="Infinity" styleClass="drawer-label"/>
+                            <Label fx:id="drawerCR" text="Crit Rate: " VBox.vgrow="ALWAYS" alignment="CENTER_LEFT" maxWidth="Infinity" maxHeight="Infinity" styleClass="drawer-label"/>
+                            <Label fx:id="drawerCDM" text="Crit DMG: " VBox.vgrow="ALWAYS" alignment="CENTER_LEFT" maxWidth="Infinity" maxHeight="Infinity" styleClass="drawer-label"/>
+                          </VBox>
+                          <StackPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" fx:id="monsterContainer" HBox.hgrow="SOMETIMES"> 
+                          <ImageView fx:id="monsterImage" fitWidth="200" preserveRatio="true" /> 
+                        </StackPane>
+                        </HBox>
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" fx:id="bottomPane">
                      <children>
                         <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" spacing="20.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
                            <children>
-                              <TextFlow lineSpacing="1.0" mouseTransparent="true" nodeOrientation="LEFT_TO_RIGHT" HBox.hgrow="ALWAYS" fx:id="logFlow" styleClass="combat-log"/>
-                              <VBox minWidth = "200" alignment="CENTER" spacing="10" fx:id="Test">
+                              <TextFlow lineSpacing="1.0" mouseTransparent="true" nodeOrientation="LEFT_TO_RIGHT" HBox.hgrow="SOMETIMES" minWidth="300" fx:id="logFlow" styleClass="combat-log"/>
+                              <VBox minWidth = "200" alignment="CENTER" spacing="10" fx:id="statsArea">
                                 <children>
                                   <Label fx:id="labelHP" text="HP" styleClass="label-button-like" VBox.vgrow="ALWAYS" alignment="CENTER" maxWidth="Infinity" maxHeight="Infinity"/>
                                   <Label fx:id="labelMP" text="MP" styleClass="label-button-like" VBox.vgrow="ALWAYS" alignment="CENTER" maxWidth="Infinity" maxHeight="Infinity"/>
+                                  <Button text="≡" styleClass="label-button-like" onAction="#toggleDrawer" VBox.vgrow="ALWAYS" alignment="CENTER" maxWidth="Infinity" maxHeight="Infinity"/>
                                 </children>
                               </VBox>
                               <GridPane alignment="CENTER_RIGHT" gridLinesVisible="false" HBox.hgrow="ALWAYS">

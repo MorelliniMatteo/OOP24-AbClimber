@@ -1,5 +1,7 @@
 package it.unibo.abyssclimber.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Creature {
     private String name;
     private int ID;
@@ -72,7 +74,7 @@ public class Creature {
     public String getName() {
         return name;
     }
-
+    
     public int getId() {
         return ID;
     }
@@ -148,7 +150,7 @@ public class Creature {
     public boolean isDead() {
         return this.HP <= 0;
     }
-
+    @JsonProperty("ID")
     public void setId(int id) {
         this.ID = id;
     }
