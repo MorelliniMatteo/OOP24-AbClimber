@@ -51,7 +51,7 @@ public class MoveSelectionController {
 
         // Handle loading error
         if (moves.isEmpty()) {
-            infoLabel.setText("Errore nel caricamento mosse.");
+            infoLabel.setText("Error in loading moves.");
             startBtn.setDisable(true);
             return;
         }
@@ -73,7 +73,7 @@ public class MoveSelectionController {
             try {
                 MoveLoader.loadMoves();
             } catch (IOException e) {
-                System.err.println("Errore caricamento mosse: " + e.getMessage());
+                System.err.println("Error loading moves: " + e.getMessage());
                 return List.of();
             }
         }
@@ -103,9 +103,9 @@ public class MoveSelectionController {
             tb.setWrapText(true);
 
             // Short move description
-            String desc = "Potenza " + m.getPower()
-                + " | Acc " + m.getAcc()
-                + " | Costo " + m.getCost();
+            String desc = "Power " + m.getPower()
+                + " | Accuracy " + m.getAcc()
+                + " | Cost " + m.getCost();
 
             tb.setText(m.getName() + "\n" + desc);
             tb.setUserData(m);
@@ -136,9 +136,9 @@ public class MoveSelectionController {
     private void refresh() {
         boolean hasCostOne = hasCostOneSelected();
         if (selected.size() == MAX_SELECTED && !hasCostOne) {
-            infoLabel.setText("Devi selezionare almeno una mossa con costo 1.");
+            infoLabel.setText("You must select at least one move with cost 1.");
         } else {
-            infoLabel.setText("Seleziona 6 mosse (" + selected.size() + "/" + MAX_SELECTED + ").");
+            infoLabel.setText("Select 6 moves (" + selected.size() + "/" + MAX_SELECTED + ").");
         }
         startBtn.setDisable(selected.size() != MAX_SELECTED || !hasCostOne);
     }

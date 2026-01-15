@@ -27,7 +27,7 @@ public class FinalBossRoomController {
 
         RoomOption opt = RoomContext.get().getLastChosen();
         if (opt != null) {
-            titleLabel.setText("Boss Finale");
+            titleLabel.setText("Final Boss");
             descLabel.setText(opt.description());
         }
     }

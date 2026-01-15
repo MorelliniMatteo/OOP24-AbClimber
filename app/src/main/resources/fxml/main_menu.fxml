@@ -13,7 +13,7 @@
             <ImageView fx:id="logoView" fitWidth="200" preserveRatio="true"/>
 
             <Label text="Abyss Climber" styleClass="title"/>
-            <Label text="Scendi negli abissi, sopravvivi finché puoi..." styleClass="subtitle"/>
+            <Label text="Climb the abyss, survive as long as you can..." styleClass="subtitle"/>
 
             <VBox alignment="CENTER" spacing="10">
                 <Button text="Start" onAction="#onStartGame" styleClass="primary-button"/>

@@ -45,7 +45,7 @@ public class CreaturesAssets {
         try {
             return new Image(CreaturesAssets.class.getResourceAsStream("/" + path));
         } catch (Exception e) {
-            System.err.println("Errore caricamento immagine: " + path);
+            System.err.println("Error in loading images: " + path);
             return null;
         }
     }

@@ -91,7 +91,7 @@ public class RoomSelectionController implements Refreshable {
         int hp = GameState.get().getPlayer().getHP();
         int gold = GameState.get().getPlayer().getGold();
 
-        floorLabel.setText("Piano: " + floor);
+        floorLabel.setText("Floor: " + floor);
         hpLabel.setText("HP: " + hp);
         goldLabel.setText("Gold: " + gold);
     }
@@ -107,12 +107,12 @@ public class RoomSelectionController implements Refreshable {
      */
     private void onChoose(int index) {
         if (currentOptions == null || currentOptions.size() < 3) {
-            System.err.println("WARN: opzioni non inizializzate");
+            System.err.println("WARN: options not initialized properly.");
             return;
         }
 
         RoomOption opt = currentOptions.get(index);
-        System.out.println("Scelta: " + opt.type() + " (" + opt.title() + ")");
+        System.out.println("Selected: " + opt.type() + " (" + opt.title() + ")");
 
         // Save last chosen option for the next room screen
         RoomContext.get().setLastChosen(opt);

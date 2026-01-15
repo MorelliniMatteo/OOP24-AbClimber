@@ -10,8 +10,6 @@ import it.unibo.abyssclimber.core.combat.MoveLoader;
 */
 public class Player extends Creature {
     private Classe classe; // variabili specifiche del player
-
-    //TODO: 1000 di gold per testare lo shop ma andrebbe messo a 0
     private int gold = 0;
     private List<Item> inventory;
 
@@ -45,19 +43,14 @@ public class Player extends Creature {
         this.setMDEF(this.getMDEF() + classe.getcMDEF());
         this.setCrit(this.getCrit() + classe.getcCrit());
         this.setCritDMG(this.getCritDMG() + classe.getcCritDMG());
-
-        System.out.println("Class " + classe.getName() + " applied, the statistics have been updated.");
     }
 
     public void addItemToInventory(Item item) { // qui va passato come parametro il randomItem ottenuto tramite
                                                 // GameCatalog.getRandomItem()
         if (item != null) {
             inventory.add(item);
-            System.out.println("Item " + item.getName() + " added to inventory.");
             applyItemStats(item);
-        } else {
-            System.out.println("Item is null, impossible to add to inventory.");
-        }
+        } 
     }
 
     public void applyItemStats(Item item) { // applica le statistiche dell'oggetto al player
@@ -65,31 +58,19 @@ public class Player extends Creature {
             if(item.getMaxHP() > 0) {
                 this.setMaxHP(this.getMaxHP() + item.getMaxHP());
                 this.heal(item.getMaxHP()); // cura il player di x HP pari all'aumento dell'aumento di maxHP
-                System.out.println("Equipped " + item.getName() + ". MaxHP increased by " + item.getMaxHP());
             }
-            if(item.getMaxHP() == 0 && item.getHP() > 0) {
+            if(item.getMaxHP() == 0 && item.getHP() > 0) { // se l'oggetto non aumenta il maxHP ma da HP allora cura il player
                 this.heal(item.getHP());
-                System.out.println("Used " + item.getName() + ". Healed for " + item.getHP() + " HP.");
             }
             this.setATK(this.getATK() + item.getATK());
             this.setMATK(this.getMATK() + item.getMATK());
             this.setDEF(this.getDEF() + item.getDEF());
             this.setMDEF(this.getMDEF() + item.getMDEF());
-            System.out.println("Object Statistics " + item.getName() + " applied.");
-        } else {
-            System.out.println("Null object, impossible to apply statistics.");
-        }
-    }
-
-    public void showInventory() {
-        for (Item item : inventory) {
-            System.out.println("- " + item.getName() + " (ID: " + item.getID() + ")");
         }
     }
 
     public void resetRun() {
         inventory.clear();
-        System.out.println("Inventory reset.");
         this.setMaxHP(120);
         this.setHP(120); // resetto le statistiche base del player tramite i setter ereditati da Creature
         this.setATK(15);
@@ -104,28 +85,9 @@ public class Player extends Creature {
         selectedMoves.clear();
     }
 
-    /**
-     * Reset run mantendo classe, elemento e mosse selezionate.
-     * Non tocca selectedMoves.
-     */
-    public void resetRunKeepBuild() {
-        inventory.clear();
-        System.out.println("Inventory reset (build preserved).");
-        this.setHP(120);
-        this.setATK(15);
-        this.setMATK(15);
-        this.setDEF(5);
-        this.setMDEF(5);
-        this.setSTAM(5);
-        this.setRegSTAM(2);
-        this.setMaxSTAM(5);
-        this.setCrit(5);
-        this.setCritDMG(5);
-    }
-
     public int getGold() {
         return gold;
-    } // metodi per gestire il gold
+    }
 
     public Classe getClasse() {
         return classe;
@@ -142,7 +104,7 @@ public class Player extends Creature {
                 + getCritDMG() + "% | Gold: " + getGold();
     }
 
-    // mosse selezioante dal player
+    // mosse selezionate dal player
     private final List<MoveLoader.Move> selectedMoves = new ArrayList<>();
 
     public List<MoveLoader.Move> getSelectedMoves() {

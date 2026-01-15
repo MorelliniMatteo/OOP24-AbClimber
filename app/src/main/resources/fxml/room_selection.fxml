@@ -7,8 +7,6 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="it.unibo.abyssclimber.ui.room.RoomSelectionController">
-
-    <!-- HUD -->
     <top>
         <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-padding: 16;" styleClass="hud">
             <Label fx:id="floorLabel" styleClass="hud-text"/>
@@ -19,30 +17,25 @@
 
     <center>
         <StackPane>
-            <!-- SFONDO -->
             <ImageView fx:id="backgroundView"
                        preserveRatio="true"
                        smooth="true"
                        fitWidth="1280"
                        fitHeight="720"/>
 
-            <!-- OVERLAY -->
             <AnchorPane fx:id="overlayPane">
 
-                <!-- Porta sinistra -->
-                <Button fx:id="doorBtn1" text="Combattimento"
+                <Button fx:id="doorBtn1" text="Combat Room"
                         onAction="#onChooseDoor1"
                         styleClass="door-button"
                         layoutX="220" layoutY="270"/>
 
-                <!-- Porta centrale -->
-                <Button fx:id="doorBtn2" text="Negozio"
+                <Button fx:id="doorBtn2" text="Shop"
                         onAction="#onChooseDoor2"
                         styleClass="door-button"
                         layoutX="560" layoutY="300"/>
 
-                <!-- Porta destra -->
-                <Button fx:id="doorBtn3" text="Porta misteriosa"
+                <Button fx:id="doorBtn3" text="Mysterious Door"
                         onAction="#onChooseDoor3"
                         styleClass="door-button"
                         layoutX="920" layoutY="270"/>
@@ -52,7 +45,7 @@
 
     <bottom>
         <HBox alignment="CENTER" style="-fx-padding: 12;">
-            <Button text="Forza morte (debug)" onAction="#onForceDeath" styleClass="secondary-button"/>
+            <Button text="Force death (debug)" onAction="#onForceDeath" styleClass="secondary-button"/>
         </HBox>
     </bottom>
 

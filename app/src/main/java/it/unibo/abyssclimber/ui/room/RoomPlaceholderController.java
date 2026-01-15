@@ -21,12 +21,12 @@ public class RoomPlaceholderController {
     private void initialize() {
         RoomOption opt = RoomContext.get().getLastChosen();
         if (opt == null) {
-            titleLabel.setText("Stanza");
-            descLabel.setText("Nessuna scelta trovata.");
+            titleLabel.setText("Room");
+            descLabel.setText("No choice found.");
             return;
         }
 
-        titleLabel.setText("Stanza: " + opt.title() + " (" + opt.type() + ")");
+        titleLabel.setText("Room: " + opt.title() + " (" + opt.type() + ")");
         descLabel.setText(opt.description());
     }
 
@@ -48,7 +48,6 @@ public class RoomPlaceholderController {
         }
 
         if (opt.type() == RoomType.FINAL_BOSS) {
-            // TODO: quando esiste il combattimento vero, qua si andrà alla scena del boss finale
             SceneRouter.goTo(SceneId.GAME_OVER);
             return;
         }

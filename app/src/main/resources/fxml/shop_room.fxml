@@ -15,18 +15,18 @@
                    AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
                    preserveRatio="false" />
         
-        <Label fx:id="titleLabel" text="Negozio" layoutX="580" layoutY="50" 
+        <Label fx:id="titleLabel" text="Shop" layoutX="580" layoutY="50" 
                style="-fx-font-size: 30px; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);"/>
 
-        <Label fx:id="descLabel" text="Indietro" layoutX="550" layoutY="100" 
+        <Label fx:id="descLabel" text="Back" layoutX="550" layoutY="100" 
                style="-fx-font-size: 16px; -fx-text-fill: lightgray; -fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);"/>
 
-        <Button text="VISUALIZZA GLI OGGETTI IN VENDITA" 
+        <Button text="View Items for sale" 
                 onAction="#onEnterShop"
-                layoutX="400" layoutY="350"
+                layoutX="500" layoutY="350"
                 style="-fx-background-color: rgba(0, 0, 0, 0.6); -fx-text-fill: white; -fx-background-radius: 20; -fx-border-color: white; -fx-border-radius: 20; -fx-cursor: hand; -fx-font-weight: bold; -fx-padding: 10 30;"/>
         
-        <Button text="TORNA INDIETRO" 
+        <Button text="Go back" 
                 onAction="#onBackToMap"
                 layoutX="950" layoutY="350"
                 style="-fx-background-color: rgba(0, 0, 0, 0.6); -fx-text-fill: white; -fx-background-radius: 20; -fx-border-color: white; -fx-border-radius: 20; -fx-cursor: hand; -fx-font-weight: bold;"/>

@@ -48,9 +48,6 @@ public class GameCatalog {
                 droppableItems.add(shuffleItems.get(i));
             }
         }
-        System.out.println("Registry initialized. Objects in memory: " + itemsMap.size());
-        System.out.println("Shop Items: " + shopItems.size());
-        System.out.println("Droppable Items: " + droppableItems.size());
 
 
         List<Creature> monsters = dataLoader.loadMonsters();
@@ -102,7 +99,6 @@ public class GameCatalog {
         Random rng = new Random();
         int index = rng.nextInt(droppableItems.size());
         Item itemFound = droppableItems.remove(index);
-        System.out.println("Droppable item generated: " + itemFound.getName());
         return itemFound;
     }
 

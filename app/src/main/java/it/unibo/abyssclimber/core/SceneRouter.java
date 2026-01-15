@@ -33,7 +33,7 @@ public final class SceneRouter {
      */
     public static void goTo(SceneId id) {
         if (stage == null) {
-            throw new IllegalStateException("SceneRouter non inizializzato (chiama init() da MainApp)");
+            throw new IllegalStateException("SceneRouter not initialized (call init() from MainApp)");
         }
 
         // Map each SceneId to its corresponding FXML file
@@ -58,7 +58,7 @@ public final class SceneRouter {
             // Resolve the FXML resource from /resources/fxml/
             var url = SceneRouter.class.getResource("/fxml/" + fxmlName);
             if (url == null) {
-                throw new IllegalStateException("FXML non trovato: /fxml/" + fxmlName);
+                throw new IllegalStateException("FXML not found: /fxml/" + fxmlName);
             }
 
             // Load the UI tree and its controller
@@ -94,7 +94,7 @@ public final class SceneRouter {
 
         } catch (IOException e) {
             // Wrap loading errors as unchecked exceptions
-            throw new RuntimeException("Errore nel caricamento di " + fxmlName, e);
+            throw new RuntimeException("Error loading FXML: " + fxmlName, e);
         }
     }
 }

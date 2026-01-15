@@ -33,7 +33,7 @@ public class FightRoomController {
 
         RoomOption opt = RoomContext.get().getLastChosen();
         if (opt != null) {
-            titleLabel.setText("Combattimento");
+            titleLabel.setText("Battle");
             descLabel.setText(opt.description());
         }
     }

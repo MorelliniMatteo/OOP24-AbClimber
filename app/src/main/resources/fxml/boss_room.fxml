@@ -13,7 +13,7 @@
         <VBox spacing="16" layoutX="60" layoutY="60">
             <Label fx:id="titleLabel" text="Boss Elite"/>
             <Label fx:id="descLabel" text="Descrizione"/>
-            <Button text="Continua" onAction="#onContinue"/>
+            <Button text="Continue" onAction="#onContinue"/>
         </VBox>
     </children>
 </AnchorPane>

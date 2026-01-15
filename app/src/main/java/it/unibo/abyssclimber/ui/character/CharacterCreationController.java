@@ -104,7 +104,7 @@ public class CharacterCreationController {
                 : "—";
 
         summaryLabel.setText(
-                "Tipo: " + el + " | Classe: " + cl + " | Difficoltà: " + diff
+                "Type: " + el + " | Class: " + cl + " | Difficulty: " + diff
         );
     }
 
@@ -122,7 +122,7 @@ public class CharacterCreationController {
         if (elementGroup.getSelectedToggle() == null
                 || classGroup.getSelectedToggle() == null
                 || difficultyGroup.getSelectedToggle() == null) {
-            System.err.println("Select Tipo, Classe and Difficulty first.");
+            System.err.println("Select Type, Class and Difficulty first.");
             return;
         }
 

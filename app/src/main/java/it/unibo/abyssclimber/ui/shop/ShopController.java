@@ -102,7 +102,6 @@ public class ShopController {
         
         // controlla se esiste
         if (player == null) {
-            System.out.println("Error: Player not found in GameState.");
             return;
         }
 
@@ -113,7 +112,6 @@ public class ShopController {
             // tolgo i soldi
             player.setGold(playerGold - prezzo);
             goldLabel.setText("Gold: " + player.getGold());
-            System.out.println("You bought: " + item.getName() + ". Gold remaining: " + player.getGold());
 
             // richiamo il metodo di player per aggiungere l'oggetto all'inventario e applicare le statistiche
             player.addItemToInventory(item); 
@@ -128,8 +126,6 @@ public class ShopController {
 
             // toglie l'oggetto anche dalla lista locale ma lo rendo null cosí gli indici rimangono corretti e non scorrono verso il basso
             itemsInShop.set(index, null); 
-        } else {
-            System.out.println("You don't have enough gold! (You have: " + playerGold + ", Need: " + prezzo + ")");
         }
     }
 
@@ -173,13 +169,13 @@ public class ShopController {
 
     private void refreshHud() {
         if (GameState.get().getPlayer() == null) {
-            floorLabel.setText("Piano: -");
+            floorLabel.setText("Floor: -");
             hpLabel.setText("HP: -");
             goldLabel.setText("Gold: -");
             return;
         }
 
-        floorLabel.setText("Piano: " + GameState.get().getFloor());
+        floorLabel.setText("Floor: " + GameState.get().getFloor());
         hpLabel.setText("HP: " + GameState.get().getPlayer().getHP());
         goldLabel.setText("Gold: " + GameState.get().getPlayer().getGold());
     }

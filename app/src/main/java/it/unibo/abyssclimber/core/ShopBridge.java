@@ -1,8 +1,4 @@
 package it.unibo.abyssclimber.core;
-
-/**
- * Bridge interface to connect UI room controllers with the shop system.
- */
 public interface ShopBridge {
 
     /**

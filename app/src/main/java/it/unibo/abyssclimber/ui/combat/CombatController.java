@@ -10,7 +10,6 @@ import it.unibo.abyssclimber.core.combat.CombatLog;
 import it.unibo.abyssclimber.core.combat.LogType;
 import it.unibo.abyssclimber.core.combat.MoveLoader.Move;
 import it.unibo.abyssclimber.model.Creature;
-import it.unibo.abyssclimber.model.Difficulty;
 import it.unibo.abyssclimber.model.Player;
 import it.unibo.abyssclimber.model.Tipo;
 import it.unibo.abyssclimber.ui.assets.CreaturesAssets;
@@ -63,14 +62,12 @@ public class CombatController {
     public CombatController() {
         this.player = GameState.get().getPlayer();
         this.monster = GameCatalog.getRandomMonsterByStage(Math.min(9, GameState.get().getFloor()));
-        this.monster.applyDifficultyMultiplier(Difficulty.getDifficultyMultiplier());
     }
 
     //Constructor used when enemies are elite. Called by factory ovveride. 
     public CombatController(boolean b) {
         this.player = GameState.get().getPlayer();
         this.monster = GameCatalog.getRandomMonsterByStage(GameState.get().getFloor());
-        this.monster.applyDifficultyMultiplier(Difficulty.getDifficultyMultiplier());
         setElite(b);
     }
     
@@ -82,6 +79,8 @@ public class CombatController {
         buttonList = List.of(move1Button, move2Button, move3Button, move4Button, move5Button, move6Button);
         setMoveButton(player);
         applyBackground(monsterContainer, monster);
+        System.out.println("ID: " + monster.getId());
+        System.out.println("Monster: " + monster.getName());
         loadMonsterImage();
         drawerATK.setText("ATK: " + player.getATK());
         drawerMATK.setText("MATK: " + player.getMATK());
@@ -95,6 +94,7 @@ public class CombatController {
         combatLog.logCombat("Room entered. Enemy is a " + monster.getName() + ".", LogType.NORMAL);
         this.renderLog();
         enableMoveButtons();
+        System.out.println(player.getSTAM());
     }
     
     //If enemy is flagged as an elite calls the promotion methods and sets it's flag.
@@ -133,7 +133,7 @@ public class CombatController {
         for ( int i = 0; i < player.getSelectedMoves().size(); i++ ) {
             Button b = buttonList.get(i);
             Move mv = player.getSelectedMoves().get(i);
-            b.setText(mv.getName() + "\n" + "Potenza " + mv.getPower() + " | Acc " + mv.getAcc() + " | Costo " +mv.getCost());
+            b.setText(mv.getName() + "\n" + "Power " + mv.getPower() + " | Accuracy " + mv.getAcc() + " | Cost " +mv.getCost());
             b.setUserData(mv);
             applyTipoStyle(b, mv.getElement());
         }

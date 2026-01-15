@@ -8,7 +8,6 @@ public class DefaultShopBridge implements ShopBridge {
 
     @Override
     public ShopResult openShop(RoomOption option) {
-        System.out.println("DefaultShopBridge: shop placeholder for " + option.title());
         return ShopResult.DONE;
     }
 }
