@@ -51,6 +51,7 @@ public final class SceneRouter {
             case ROOM_PLACEHOLDER    -> "room_placeholder.fxml";
             case GAME_OVER           -> "game_over.fxml";
             case SHOP                -> "shop.fxml"; 
+            case WIN                 -> "win_screen.fxml";
         };
 
         try {

@@ -23,6 +23,7 @@ public class RoomSelectionController implements Refreshable {
 
     @FXML private Label floorLabel;
     @FXML private Label hpLabel;
+    @FXML private Label goldLabel;
 
     @FXML private ImageView backgroundView;
 
@@ -95,9 +96,11 @@ public class RoomSelectionController implements Refreshable {
     private void refreshHud() {
         int floor = GameState.get().getFloor();
         int hp = GameState.get().getPlayer().getHP();
+        int gold = GameState.get().getPlayer().getGold();
 
         floorLabel.setText("Piano: " + floor);
         hpLabel.setText("HP: " + hp);
+        goldLabel.setText("Gold: " + gold);
     }
 
     // Door button handlers

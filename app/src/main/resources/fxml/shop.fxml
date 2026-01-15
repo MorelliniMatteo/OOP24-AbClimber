@@ -2,70 +2,181 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane xmlns:fx="http://javafx.com/fxml" 
-          fx:controller="it.unibo.abyssclimber.ui.shop.ShopController"
-          hgap="40" vgap="40" alignment="CENTER"
-          prefWidth="1280" prefHeight="720">
+<!-- 
+    BorderPane is used to easily separate top HUD and center content.
+-->
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="it.unibo.abyssclimber.ui.shop.ShopController"
+            prefWidth="1280" prefHeight="720">
 
-    <VBox fx:id="box1" styleClass="item-card" 
-          onMouseClicked="#onSlot1Clicked"
-          GridPane.columnIndex="0" GridPane.rowIndex="0"
-          prefWidth="350" prefHeight="250" minWidth="350" minHeight="250"
-          alignment="TOP_CENTER" spacing="15" 
-          style="-fx-padding: 20;">
-        
-        <Label fx:id="shopSlot1Name" text="VUOTO" styleClass="item-title" wrapText="true" textAlignment="CENTER"/>
-        <Separator opacity="0.5" prefWidth="300"/>
-        <Label fx:id="shopSlot1Stats" text="---" styleClass="stat-primary" wrapText="true" textAlignment="CENTER"/>
-        <Label fx:id="shopSlot1Price" text="" styleClass="stat-secondary"/> 
-    </VBox>
+    <!-- ================= TOP HUD ================= -->
+    <!-- 
+        Top bar showing player information (floor, HP, gold).
+        HBox aligns elements horizontally.
+    -->
+    <top>
+        <HBox spacing="20" alignment="CENTER_LEFT"
+              style="-fx-padding: 16;"
+              styleClass="hud">
 
-    <VBox fx:id="box2" styleClass="item-card" 
-          onMouseClicked="#onSlot2Clicked"
-          GridPane.columnIndex="1" GridPane.rowIndex="0"
-          prefWidth="350" prefHeight="250" minWidth="350" minHeight="250"
-          alignment="TOP_CENTER" spacing="15"
-          style="-fx-padding: 20;">
-        
-        <Label fx:id="shopSlot2Name" text="VUOTO" styleClass="item-title" wrapText="true" textAlignment="CENTER"/>
-        <Separator opacity="0.5" prefWidth="300"/>
-        <Label fx:id="shopSlot2Stats" text="---" styleClass="stat-primary" wrapText="true" textAlignment="CENTER"/>
-        <Label fx:id="shopSlot2Price" text="" styleClass="stat-secondary"/>
-    </VBox>
+            <!-- Current floor label -->
+            <Label fx:id="floorLabel" styleClass="hud-text"/>
 
-    <VBox fx:id="box3" styleClass="item-card" 
-          onMouseClicked="#onSlot3Clicked"
-          GridPane.columnIndex="0" GridPane.rowIndex="1"
-          prefWidth="350" prefHeight="250" minWidth="350" minHeight="250"
-          alignment="TOP_CENTER" spacing="15"
-          style="-fx-padding: 20;">
-        
-        <Label fx:id="shopSlot3Name" text="VUOTO" styleClass="item-title" wrapText="true" textAlignment="CENTER"/>
-        <Separator opacity="0.5" prefWidth="300"/>
-        <Label fx:id="shopSlot3Stats" text="---" styleClass="stat-primary" wrapText="true" textAlignment="CENTER"/>
-        <Label fx:id="shopSlot3Price" text="" styleClass="stat-secondary"/>
-    </VBox>
+            <!-- Player HP label -->
+            <Label fx:id="hpLabel" styleClass="hud-text"/>
 
-    <VBox fx:id="box4" styleClass="item-card" 
-          onMouseClicked="#onSlot4Clicked"
-          GridPane.columnIndex="1" GridPane.rowIndex="1"
-          prefWidth="350" prefHeight="250" minWidth="350" minHeight="250"
-          alignment="TOP_CENTER" spacing="15"
-          style="-fx-padding: 20;">
-        
-        <Label fx:id="shopSlot4Name" text="VUOTO" styleClass="item-title" wrapText="true" textAlignment="CENTER"/>
-        <Separator opacity="0.5" prefWidth="300"/>
-        <Label fx:id="shopSlot4Stats" text="---" styleClass="stat-primary" wrapText="true" textAlignment="CENTER"/>
-        <Label fx:id="shopSlot4Price" text="" styleClass="stat-secondary"/>
-    </VBox>
+            <!-- Player gold label -->
+            <Label fx:id="goldLabel" styleClass="hud-text"/>
+        </HBox>
+    </top>
 
-    <Button text="RETURN TO THE STORE SCREEN" 
-            onAction="#onBackClicked" 
-            GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" 
-            GridPane.halignment="CENTER"
-            styleClass="button, secondary-button"
-            style="-fx-font-size: 16px; -fx-padding: 10 30;"/>
-      
-      <Label fx:id="playerGoldLabel" text="Oro: 0" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="stat-secondary"/>
+    <!-- ================= SHOP ITEMS GRID ================= -->
+    <center>
+        <!-- 
+            GridPane used to arrange shop items in a 2x2 grid.
+        -->
+        <GridPane hgap="40" vgap="40" alignment="CENTER">
 
-</GridPane>
+            <!-- ========== ITEM SLOT 1 ========== -->
+            <!-- 
+                VBox represents a clickable item card.
+                onMouseClicked is used instead of a Button to make
+                the whole card selectable.
+            -->
+            <VBox fx:id="box1"
+                  styleClass="item-card"
+                  onMouseClicked="#onSlot1Clicked"
+                  GridPane.columnIndex="0"
+                  GridPane.rowIndex="0"
+                  prefWidth="350" prefHeight="250"
+                  minWidth="350" minHeight="250"
+                  alignment="TOP_CENTER"
+                  spacing="15"
+                  style="-fx-padding: 20;">
+
+                <!-- Item name -->
+                <Label fx:id="shopSlot1Name"
+                       text="VUOTO"
+                       styleClass="item-title"
+                       wrapText="true"
+                       textAlignment="CENTER"/>
+
+                <!-- Visual separator between name and stats -->
+                <Separator opacity="0.5" prefWidth="300"/>
+
+                <!-- Main stats of the item -->
+                <Label fx:id="shopSlot1Stats"
+                       text="---"
+                       styleClass="stat-primary"
+                       wrapText="true"
+                       textAlignment="CENTER"/>
+
+                <!-- Item price -->
+                <Label fx:id="shopSlot1Price"
+                       text=""
+                       styleClass="stat-secondary"/>
+            </VBox>
+
+            <!-- ========== ITEM SLOT 2 ========== -->
+            <VBox fx:id="box2"
+                  styleClass="item-card"
+                  onMouseClicked="#onSlot2Clicked"
+                  GridPane.columnIndex="1"
+                  GridPane.rowIndex="0"
+                  prefWidth="350" prefHeight="250"
+                  minWidth="350" minHeight="250"
+                  alignment="TOP_CENTER"
+                  spacing="15"
+                  style="-fx-padding: 20;">
+
+                <Label fx:id="shopSlot2Name" text="VUOTO"
+                       styleClass="item-title"
+                       wrapText="true"
+                       textAlignment="CENTER"/>
+
+                <Separator opacity="0.5" prefWidth="300"/>
+
+                <Label fx:id="shopSlot2Stats" text="---"
+                       styleClass="stat-primary"
+                       wrapText="true"
+                       textAlignment="CENTER"/>
+
+                <Label fx:id="shopSlot2Price"
+                       text=""
+                       styleClass="stat-secondary"/>
+            </VBox>
+
+            <!-- ========== ITEM SLOT 3 ========== -->
+            <VBox fx:id="box3"
+                  styleClass="item-card"
+                  onMouseClicked="#onSlot3Clicked"
+                  GridPane.columnIndex="0"
+                  GridPane.rowIndex="1"
+                  prefWidth="350" prefHeight="250"
+                  minWidth="350" minHeight="250"
+                  alignment="TOP_CENTER"
+                  spacing="15"
+                  style="-fx-padding: 20;">
+
+                <Label fx:id="shopSlot3Name" text="VUOTO"
+                       styleClass="item-title"
+                       wrapText="true"
+                       textAlignment="CENTER"/>
+
+                <Separator opacity="0.5" prefWidth="300"/>
+
+                <Label fx:id="shopSlot3Stats" text="---"
+                       styleClass="stat-primary"
+                       wrapText="true"
+                       textAlignment="CENTER"/>
+
+                <Label fx:id="shopSlot3Price"
+                       text=""
+                       styleClass="stat-secondary"/>
+            </VBox>
+
+            <!-- ========== ITEM SLOT 4 ========== -->
+            <VBox fx:id="box4"
+                  styleClass="item-card"
+                  onMouseClicked="#onSlot4Clicked"
+                  GridPane.columnIndex="1"
+                  GridPane.rowIndex="1"
+                  prefWidth="350" prefHeight="250"
+                  minWidth="350" minHeight="250"
+                  alignment="TOP_CENTER"
+                  spacing="15"
+                  style="-fx-padding: 20;">
+
+                <Label fx:id="shopSlot4Name" text="VUOTO"
+                       styleClass="item-title"
+                       wrapText="true"
+                       textAlignment="CENTER"/>
+
+                <Separator opacity="0.5" prefWidth="300"/>
+
+                <Label fx:id="shopSlot4Stats" text="---"
+                       styleClass="stat-primary"
+                       wrapText="true"
+                       textAlignment="CENTER"/>
+
+                <Label fx:id="shopSlot4Price"
+                       text=""
+                       styleClass="stat-secondary"/>
+            </VBox>
+
+            <!-- ================= BACK BUTTON ================= -->
+            <!-- 
+                Button to return to the previous shop screen.
+                columnSpan=2 centers it under the grid.
+            -->
+            <Button text="RETURN TO THE STORE SCREEN"
+                    onAction="#onBackClicked"
+                    GridPane.columnIndex="0"
+                    GridPane.columnSpan="2"
+                    GridPane.rowIndex="2"
+                    GridPane.halignment="CENTER"
+                    styleClass="button, secondary-button"
+                    style="-fx-font-size: 16px; -fx-padding: 10 30;"/>
+        </GridPane>
+    </center>
+</BorderPane>
