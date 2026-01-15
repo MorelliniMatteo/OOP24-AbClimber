@@ -33,7 +33,7 @@ public final class SceneRouter {
      */
     public static void goTo(SceneId id) {
         if (stage == null) {
-            throw new IllegalStateException("SceneRouter not initialized (call init() from MainApp)");
+            throw new IllegalStateException("SceneRouter non inizializzato (chiama init() da MainApp)");
         }
 
         // Map each SceneId to its corresponding FXML file
@@ -48,9 +48,8 @@ public final class SceneRouter {
             case BOSS_ROOM           -> "combatGUI.fxml";
             case FINAL_BOSS_ROOM     -> "combatGUI.fxml";
 
-            case ROOM_PLACEHOLDER    -> "room_placeholder.fxml";
             case GAME_OVER           -> "game_over.fxml";
-            case SHOP                -> "shop.fxml"; 
+            case SHOP                -> "shop.fxml";
             case WIN                 -> "win_screen.fxml";
         };
 
@@ -58,7 +57,7 @@ public final class SceneRouter {
             // Resolve the FXML resource from /resources/fxml/
             var url = SceneRouter.class.getResource("/fxml/" + fxmlName);
             if (url == null) {
-                throw new IllegalStateException("FXML not found: /fxml/" + fxmlName);
+                throw new IllegalStateException("FXML non trovato: /fxml/" + fxmlName);
             }
 
             // Load the UI tree and its controller
@@ -68,7 +67,6 @@ public final class SceneRouter {
                 loader.setControllerFactory(param -> new CombatController(true));
             }
             Parent root = loader.load();
-
 
             // Create the scene with a fixed window size
             Scene scene = new Scene(root, 1280, 720);
@@ -94,7 +92,7 @@ public final class SceneRouter {
 
         } catch (IOException e) {
             // Wrap loading errors as unchecked exceptions
-            throw new RuntimeException("Error loading FXML: " + fxmlName, e);
+            throw new RuntimeException("Errore nel caricamento di " + fxmlName, e);
         }
     }
 }
