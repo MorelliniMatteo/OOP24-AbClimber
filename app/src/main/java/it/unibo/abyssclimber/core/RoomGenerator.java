@@ -11,9 +11,6 @@ public final class RoomGenerator {
 
     private static final Random RNG = new Random();
 
-    // TODO: link this value to the real progression
-    private static final int FINAL_FLOOR = 10;
-
     private RoomGenerator() {}
 
     /**
@@ -25,7 +22,7 @@ public final class RoomGenerator {
         List<RoomOption> options = new ArrayList<>();
 
         // Center door = Boss always (elite or final)
-        if (floor >= FINAL_FLOOR) {
+        if (floor >= GameState.getFinalFloor()) {
             options.add(finalBossOption());
         } else {
             options.add(eliteBossOption(floor));
