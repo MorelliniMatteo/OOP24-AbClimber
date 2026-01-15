@@ -134,8 +134,13 @@ public class MoveSelectionController {
      * Updates label text and start button state.
      */
     private void refresh() {
-        infoLabel.setText("Seleziona 6 mosse (" + selected.size() + "/" + MAX_SELECTED + ").");
-        startBtn.setDisable(selected.size() != MAX_SELECTED);
+        boolean hasCostOne = hasCostOneSelected();
+        if (selected.size() == MAX_SELECTED && !hasCostOne) {
+            infoLabel.setText("Devi selezionare almeno una mossa con costo 1.");
+        } else {
+            infoLabel.setText("Seleziona 6 mosse (" + selected.size() + "/" + MAX_SELECTED + ").");
+        }
+        startBtn.setDisable(selected.size() != MAX_SELECTED || !hasCostOne);
     }
 
     /**
@@ -151,7 +156,10 @@ public class MoveSelectionController {
      */
     @FXML
     private void onStartRun() {
-        if (selected.size() != MAX_SELECTED) return;
+        if (selected.size() != MAX_SELECTED || !hasCostOneSelected()) {
+            refresh();
+            return;
+        }
 
         // Extract selected moves from toggle buttons
         List<MoveLoader.Move> chosen = selected.stream()
@@ -162,5 +170,11 @@ public class MoveSelectionController {
         GameState.get().getPlayer().setSelectedMoves(chosen);
 
         SceneRouter.goTo(SceneId.ROOM_SELECTION);
+    }
+
+    private boolean hasCostOneSelected() {
+        return selected.stream()
+            .map(tb -> (MoveLoader.Move) tb.getUserData())
+            .anyMatch(move -> move.getCost() == 1);
     }
 }

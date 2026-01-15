@@ -15,5 +15,6 @@ public enum SceneId {
     // placeholder for actual room scenes (kept for safety)
     ROOM_PLACEHOLDER,
 
-    GAME_OVER
+    GAME_OVER,
+    WIN
 }

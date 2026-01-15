@@ -25,8 +25,12 @@ public class ShopController {
     private Label shopSlot3Name, shopSlot3Stats, shopSlot3Price;
     @FXML
     private Label shopSlot4Name, shopSlot4Stats, shopSlot4Price;
-    @FXML 
-    private Label playerGoldLabel;
+    @FXML
+    private Label floorLabel;
+    @FXML
+    private Label hpLabel;
+    @FXML
+    private Label goldLabel;
 
     //items che sono in vendita nel negozio, vuoto al momento
     private List<Item> itemsInShop = new ArrayList<>();
@@ -40,9 +44,7 @@ public class ShopController {
         updateShopUI(items);
 
         //mostro l'oro se il player esiste
-        if (GameState.get().getPlayer() != null) {
-        playerGoldLabel.setText("Gold: " + GameState.get().getPlayer().getGold());
-    }
+        refreshHud();
     }
 
     /*
@@ -110,7 +112,7 @@ public class ShopController {
         if (playerGold >= prezzo) {
             // tolgo i soldi
             player.setGold(playerGold - prezzo);
-            playerGoldLabel.setText("Gold: " + player.getGold());
+            goldLabel.setText("Gold: " + player.getGold());
             System.out.println("You bought: " + item.getName() + ". Gold remaining: " + player.getGold());
 
             // richiamo il metodo di player per aggiungere l'oggetto all'inventario e applicare le statistiche
@@ -167,5 +169,18 @@ public class ShopController {
             return itemsInShop.get(index); //restituisce l'oggetto con l'indice specificato
         }
         return null;
+    }
+
+    private void refreshHud() {
+        if (GameState.get().getPlayer() == null) {
+            floorLabel.setText("Piano: -");
+            hpLabel.setText("HP: -");
+            goldLabel.setText("Gold: -");
+            return;
+        }
+
+        floorLabel.setText("Piano: " + GameState.get().getFloor());
+        hpLabel.setText("HP: " + GameState.get().getPlayer().getHP());
+        goldLabel.setText("Gold: " + GameState.get().getPlayer().getGold());
     }
 }
