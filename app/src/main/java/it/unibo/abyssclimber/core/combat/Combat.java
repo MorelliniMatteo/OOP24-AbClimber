@@ -56,8 +56,6 @@ public class Combat {
         }
 
         enemyMoves = new ArrayList<>(moveSet);
-        //TODO: remove
-        enemyMoves.forEach(System.out::println);
     }
 
     //Calculates damage, creates logs to print (conditional: critical hit, miss), calculates stamina remaning after cost.
@@ -110,7 +108,6 @@ public class Combat {
         if (monster.isDead()) {
             controller.setCombatEnd(true);
             combatLog.logCombat("" + monster.getName() + " died. You win.\n", LogType.NORMAL);
-            System.out.println("You win.\n");
             boolean finalBossFight = isFinalBossFight();
             if (!finalBossFight) {
                 if (!monster.getIsElite()) {
@@ -120,6 +117,7 @@ public class Combat {
                 } else if (monster.getIsElite()) {
                     Item item = GameCatalog.getRandomItem();
                     combatLog.logCombat("Enemy dropped the item " + item.getName() + ".\n", LogType.NORMAL);
+                    combatLog.logCombat(item.toString(), LogType.NORMAL);
                     player.addItemToInventory(item);
                 }
             }
@@ -149,10 +147,6 @@ public class Combat {
     private void monsterTurn() {
         playerTurn = true;
 
-        //TODO: remove
-        System.out.println("Monster stamina: " + monster.getSTAM());
-        System.out.println("Monster stamina regen: " + monster.getRegSTAM());
-
         if (monster.getSTAM() >= monster.getMaxSTAM()) {
             dmgCalc(enemyMoves.getLast(), monster, player);
         } else {
@@ -164,8 +158,6 @@ public class Combat {
                 dmgCalc(choice, monster, player);
             }
         }
-        //TODO: remove
-        System.out.println("Monster stamina after move: " + monster.getSTAM());
 
         controller.renderLog();
         PauseTransition delay = new PauseTransition(Duration.seconds(5));
@@ -173,8 +165,6 @@ public class Combat {
             controller.setCombatEnd(true);
             combatLog.logCombat("" + player.getName() + " died. You lose.\n", LogType.NORMAL);
             controller.renderLog();
-            // TODO: handle lose condition
-            System.out.println("You lose.\n");
             delay.setOnFinished(e -> {
                 SceneRouter.goTo(SceneId.GAME_OVER);
             });

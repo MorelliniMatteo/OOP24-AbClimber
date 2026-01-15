@@ -10,6 +10,7 @@ import it.unibo.abyssclimber.core.combat.CombatLog;
 import it.unibo.abyssclimber.core.combat.LogType;
 import it.unibo.abyssclimber.core.combat.MoveLoader.Move;
 import it.unibo.abyssclimber.model.Creature;
+import it.unibo.abyssclimber.model.Difficulty;
 import it.unibo.abyssclimber.model.Player;
 import it.unibo.abyssclimber.model.Tipo;
 import it.unibo.abyssclimber.ui.assets.CreaturesAssets;
@@ -62,12 +63,14 @@ public class CombatController {
     public CombatController() {
         this.player = GameState.get().getPlayer();
         this.monster = GameCatalog.getRandomMonsterByStage(Math.min(9, GameState.get().getFloor()));
+        this.monster.applyDifficultyMultiplier(Difficulty.getDifficultyMultiplier());
     }
 
     //Constructor used when enemies are elite. Called by factory ovveride. 
     public CombatController(boolean b) {
         this.player = GameState.get().getPlayer();
         this.monster = GameCatalog.getRandomMonsterByStage(GameState.get().getFloor());
+        this.monster.applyDifficultyMultiplier(Difficulty.getDifficultyMultiplier());
         setElite(b);
     }
     
@@ -79,8 +82,6 @@ public class CombatController {
         buttonList = List.of(move1Button, move2Button, move3Button, move4Button, move5Button, move6Button);
         setMoveButton(player);
         applyBackground(monsterContainer, monster);
-        System.out.println("ID: " + monster.getId());
-        System.out.println("Monster: " + monster.getName());
         loadMonsterImage();
         drawerATK.setText("ATK: " + player.getATK());
         drawerMATK.setText("MATK: " + player.getMATK());
@@ -94,15 +95,12 @@ public class CombatController {
         combatLog.logCombat("Room entered. Enemy is a " + monster.getName() + ".", LogType.NORMAL);
         this.renderLog();
         enableMoveButtons();
-        System.out.println(player.getSTAM());
     }
     
     //If enemy is flagged as an elite calls the promotion methods and sets it's flag.
     public void setElite(boolean b) {
         if (b) {
             monster.promoteToElite();
-            //TODO: REMOVE
-            System.err.println("Bloccato dopo Elite");
         }
     }
 
@@ -110,13 +108,10 @@ public class CombatController {
     private void applyBackground(Pane bgPane, Creature monster) {
         if ( monster.getIsElite() && !monster.getStage().equalsIgnoreCase("BOSS")) {
             bgPane.getStyleClass().addAll("combat-bg-elite", "combat-bg");
-            System.out.println("elite BG.");
         } else if ( monster.getStage().equalsIgnoreCase("BOSS")) {
             bgPane.getStyleClass().addAll("combat-bg-boss", "combat-bg");
-            System.out.println("boss BG.");
         } else {
             bgPane.getStyleClass().addAll("combat-bg-normal", "combat-bg");
-            System.out.println("normal BG.");
         }
     }
 

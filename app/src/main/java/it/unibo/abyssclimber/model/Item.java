@@ -74,12 +74,30 @@ public class Item {
     public String toString() {
     StringBuilder sb = new StringBuilder();
 
-    if (maxHP > 0) sb.append(" | maxHP: ").append(this.maxHP);
-    if (HP > 0)    sb.append(" | HP: ").append(this.HP);
-    if (ATK > 0)   sb.append(" | ATK: ").append(this.ATK);
-    if (MATK > 0)  sb.append(" | MATK: ").append(this.MATK);
-    if (DEF > 0)   sb.append(" | DEF: ").append(this.DEF);
-    if (MDEF > 0)  sb.append(" | MDEF: ").append(this.MDEF);
+    if (maxHP > 0) {
+        sb.append("maxHP: ").append(this.maxHP);
+        sb.append(" | ");
+    }
+    if (HP > 0) {
+        sb.append("HP: ").append(this.HP);
+        sb.append(" | ");
+    }
+    if (ATK > 0) {
+        sb.append("ATK: ").append(this.ATK);
+        sb.append(" | ");
+    }
+    if (MATK > 0) {
+        sb.append("MATK: ").append(this.MATK);
+        sb.append(" | ");
+    }
+    if (DEF > 0) {
+        sb.append("DEF: ").append(this.DEF);
+        sb.append(" | ");
+    }
+    if (MDEF > 0) {
+        sb.append("MDEF: ").append(this.MDEF);
+        sb.append(" | ");
+    }
     return sb.toString();
     }
 }
