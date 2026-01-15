@@ -13,6 +13,7 @@
         <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-padding: 16;" styleClass="hud">
             <Label fx:id="floorLabel" styleClass="hud-text"/>
             <Label fx:id="hpLabel" styleClass="hud-text"/>
+            <Label fx:id="goldLabel" styleClass="hud-text"/>
         </HBox>
     </top>
 

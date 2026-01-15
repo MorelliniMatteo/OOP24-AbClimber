@@ -28,6 +28,9 @@ public class GameState {
     // The current floor of the run.
     private int floor = 1;
 
+    // Final floor for the current run (progression cap).
+    private static final int FINAL_FLOOR = 10;
+
     // Private constructor to prevent external instantiation.
     private GameState() {
     }
@@ -59,6 +62,15 @@ public class GameState {
      */
     public int getFloor() {
         return floor;
+    }
+
+    /**
+     * Returns the final floor for the run.
+     *
+     * @return the final floor number
+     */
+    public static int getFinalFloor() {
+        return FINAL_FLOOR;
     }
 
     /**

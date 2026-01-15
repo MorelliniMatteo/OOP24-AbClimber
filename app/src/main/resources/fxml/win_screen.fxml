@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="it.unibo.abyssclimber.ui.win.WinController"
+           onMouseClicked="#onReturnToMenu"
+           prefWidth="1280" prefHeight="720">
+    <VBox alignment="CENTER" spacing="14">
+        <Label text="YOU WIN" styleClass="title"/>
+        <Label text="Premi in qualsiasi parte dello schermo per tornare al menu principale."
+               styleClass="subtitle"/>
+    </VBox>
+</StackPane>
