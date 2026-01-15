@@ -14,9 +14,9 @@ import it.unibo.abyssclimber.model.Tipo;
 //Class that loads all moves in the game from moves.json
 public class MoveLoader {
 
-    public static ArrayList<BaseMove> baseMoves;
-    public static ArrayList<Move> fullMoves;
-    public static ArrayList<Move> moves = new ArrayList<>();
+    private static ArrayList<BaseMove> baseMoves;
+    private static ArrayList<Move> fullMoves;
+    private static ArrayList<Move> moves = new ArrayList<>();
 
     //Strike and swirl. The 8 (2 types per element) 1 cost moves.
     //They are incomplete and will be filled in the baseMoveAssign method.
@@ -87,7 +87,7 @@ public class MoveLoader {
    
     //Loads moves from moves.json uscking Jackson
     public static void loadMovesJSON() throws IOException{
-        InputStream movesFile = MoveLoader.class.getResourceAsStream("/moves.json");
+        InputStream movesFile = MoveLoader.class.getResourceAsStream("/liste/moves.json");
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(movesFile);
 
@@ -111,5 +111,9 @@ public class MoveLoader {
         loadMovesJSON();
         baseMoveAssign(baseMoves);
         moves.forEach(System.out::println);
+    }
+
+    public static ArrayList<Move> getMoves() {
+        return moves;
     }
 }

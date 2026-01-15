@@ -47,12 +47,12 @@ public class Combat {
     //The final boss loads an extra, unique move.
     private void loadEnemyMove () {
         TreeSet<MoveLoader.Move> moveSet = new TreeSet<>(Comparator.comparingInt(Move::getCost).thenComparingInt(Move::getId));
-        moveSet.add(MoveLoader.moves.get(random.nextInt(8)));
+        moveSet.add(MoveLoader.getMoves().get(random.nextInt(8)));
         while ( moveSet.size() < 4) {
-            moveSet.add(MoveLoader.moves.get(random.nextInt(MoveLoader.moves.size()-1)));
+            moveSet.add(MoveLoader.getMoves().get(random.nextInt(MoveLoader.getMoves().size()-1)));
         }
         if ("BOSS".equalsIgnoreCase(monster.getStage())) {
-            moveSet.add(MoveLoader.moves.getLast());
+            moveSet.add(MoveLoader.getMoves().getLast());
         }
 
         enemyMoves = new ArrayList<>(moveSet);
@@ -119,7 +119,7 @@ public class Combat {
                     player.setGold(player.getGold() + gold);
                 } else if (monster.getIsElite()) {
                     Item item = GameCatalog.getRandomItem();
-                    combatLog.logCombat("Enemy dropped the item " + item.getName() + " .\n", LogType.NORMAL);
+                    combatLog.logCombat("Enemy dropped the item " + item.getName() + ".\n", LogType.NORMAL);
                     player.addItemToInventory(item);
                 }
             }

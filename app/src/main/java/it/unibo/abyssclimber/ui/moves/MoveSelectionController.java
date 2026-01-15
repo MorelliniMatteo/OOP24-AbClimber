@@ -69,7 +69,7 @@ public class MoveSelectionController {
      * Safely loads moves from the MoveLoader.
      */
     private List<MoveLoader.Move> loadMovesSafe() {
-        if (MoveLoader.moves.isEmpty()) {
+        if (MoveLoader.getMoves().isEmpty()) {
             try {
                 MoveLoader.loadMoves();
             } catch (IOException e) {
@@ -77,7 +77,7 @@ public class MoveSelectionController {
                 return List.of();
             }
         }
-        return new ArrayList<>(MoveLoader.moves);
+        return new ArrayList<>(MoveLoader.getMoves());
     }
 
     /**
