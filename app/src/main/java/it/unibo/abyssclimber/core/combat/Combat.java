@@ -26,6 +26,7 @@ public class Combat {
     private int turn = 1;
     private boolean playerTurn = true;
     private Player player;
+    @SuppressWarnings("unused")
     private Creature creature;
     private Creature monster;
     private CombatController controller;

@@ -164,7 +164,7 @@
     "name": "LORD OF THE ABYSS",
     "stage": "BOSS",
     "element": "VOID",
-    "HP": 1300, "maxHP": 1300, "ATK": 60, "MATK": 60, "DEF": 15, "MDEF": 15,
+    "HP": 900, "maxHP": 900, "ATK": 55, "MATK": 55, "DEF": 15, "MDEF": 15,
     "STAM": 5, "maxSTAM": 5, "crit": 15, "critDMG": 1.8
   }
 ]

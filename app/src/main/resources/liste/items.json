@@ -57,10 +57,10 @@
     "ID": 7,
     "name": "Scepter of Oblivion",
     "maxHP": 0,
-    "HP": 0, "ATK": 10, "MATK": 55, "DEF": 0, "MDEF": 15,
+    "HP": 0, "ATK": 10, "MATK": 60, "DEF": 0, "MDEF": 15,
     "effect": "Maximizes magical damage",
     "discovered": false,
-    "price": 1400
+    "price": 1300
   },
   {
     "ID": 8,
@@ -119,8 +119,8 @@
   {
     "ID": 14,
     "name": "Blade of the Dawn",
-    "maxHP": 40,
-    "HP": 40, "ATK": 55, "MATK": 5, "DEF": 8, "MDEF": 8,
+    "maxHP": 45,
+    "HP": 45, "ATK": 60, "MATK": 5, "DEF": 8, "MDEF": 8,
     "effect": "High pure damage",
     "discovered": false,
     "price": 1500
@@ -174,7 +174,7 @@
     "ID": 20,
     "name": "Immortal Aegis",
     "maxHP": 150,
-    "HP": 150, "ATK": 0, "MATK": 0, "DEF": 35, "MDEF": 25,
+    "HP": 150, "ATK": 0, "MATK": 0, "DEF": 40, "MDEF": 30,
     "effect": "Supreme defense",
     "discovered": false,
     "price": 1400
@@ -182,8 +182,8 @@
   {
     "ID": 21,
     "name": "Titan's Hammer",
-    "maxHP": 50,
-    "HP": 50, "ATK": 45, "MATK": 0, "DEF": 15, "MDEF": 0,
+    "maxHP": 55,
+    "HP": 55, "ATK": 50, "MATK": 0, "DEF": 20, "MDEF": 0,
     "effect": "Massive impact",
     "discovered": false,
     "price": 1350

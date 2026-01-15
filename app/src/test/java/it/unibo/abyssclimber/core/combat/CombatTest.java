@@ -11,7 +11,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.Random;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +19,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import it.unibo.abyssclimber.core.combat.MoveLoader.Move;
 import it.unibo.abyssclimber.model.Creature;
-import it.unibo.abyssclimber.model.Player;
 import it.unibo.abyssclimber.model.Tipo;
 import it.unibo.abyssclimber.ui.combat.CombatController;
 
