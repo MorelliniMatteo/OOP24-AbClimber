@@ -3,8 +3,10 @@ package it.unibo.abyssclimber.core.combat;
 import it.unibo.abyssclimber.model.Creature;
 import it.unibo.abyssclimber.model.Tipo;
 
+//Class that manages elemental weaknesses and the appropriate log types.
 public final class ElementUtils {
 
+    //Computes if the move is super-effective or not very effective.
     private static double computeEffect (Tipo attacker, Tipo target){
          switch (attacker) {
             case HYDRO:
@@ -39,14 +41,17 @@ public final class ElementUtils {
         }  
     }
 
+    //Calls computeEffect, the main method to be used.
     public static double getEffect (MoveLoader.Move attacker, Creature target){
         return computeEffect(attacker.getElement(), target.getElement());
     }
 
+    //Calls computeEffect on 2 creature types. Not currently used, kept intentionally for possible future uses.
     public static double getEffect (Creature attacker, Creature target){
         return computeEffect(attacker.getElement(), target.getElement());
     }
 
+    //Determines the log to be printed.
     public static void weakPhrase(double weak, CombatLog log){
         if(weak < 1){
             log.logCombat("It's not very effective.\n", LogType.NORMAL);

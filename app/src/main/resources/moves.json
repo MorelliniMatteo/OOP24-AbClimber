@@ -27,7 +27,7 @@
             "id":8
         },
         {
-            "name":"HYDRO Shot",
+            "name":"Hydro Shot",
             "power":65,
             "acc":60,
             "type":2,
@@ -235,10 +235,10 @@
         },
         {
             "name":"Void Annihilation",
-            "power":1,
+            "power":200,
             "acc":50,
             "type":1,
-            "cost":1,
+            "cost":4,
             "element":"VOID",
             "id":32
         }

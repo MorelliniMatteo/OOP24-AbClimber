@@ -11,12 +11,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import it.unibo.abyssclimber.model.Tipo;
 
+//Class that loads all moves in the game from moves.json
 public class MoveLoader {
 
     public static ArrayList<BaseMove> baseMoves;
     public static ArrayList<Move> fullMoves;
     public static ArrayList<Move> moves = new ArrayList<>();
 
+    //Strike and swirl. The 8 (2 types per element) 1 cost moves.
+    //They are incomplete and will be filled in the baseMoveAssign method.
     public static class BaseMove {
         private String name;
         private int power;
@@ -42,6 +45,7 @@ public class MoveLoader {
         public void setCost(int cost) {this.cost = cost;}
     }
     
+    //The Move class is the result from loading JSON from moves.json
     public static class Move extends BaseMove{
         private Tipo element;
         private int id;
@@ -58,6 +62,8 @@ public class MoveLoader {
 
     }
 
+    //Generates the first 8 moves composed of Element + Attack for physical moves
+    // and Element + Swirl for magical moves. These are the 1 cost moves.
     public static void baseMoveAssign(ArrayList<BaseMove> bml){
         int idCounter = 0;
         for (BaseMove bm : bml){
@@ -79,12 +85,11 @@ public class MoveLoader {
         moves.addAll(fullMoves);
     }
    
-
+    //Loads moves from moves.json uscking Jackson
     public static void loadMovesJSON() throws IOException{
         InputStream movesFile = MoveLoader.class.getResourceAsStream("/moves.json");
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(movesFile);
-        //File movesFile = new File("src\\main\\resources\\moves.json");
 
         List<BaseMove> baseMovesList = mapper.convertValue(
             root.get("BaseMoves"),
@@ -99,7 +104,6 @@ public class MoveLoader {
         );
 
         fullMoves = new ArrayList<>(fullMovesList);
-        //baseMoves.forEach(System.out::println);
 
     }
 

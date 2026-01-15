@@ -20,7 +20,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -58,20 +57,21 @@ public class CombatController {
     private CombatLog combatLog;
     private boolean combatEnded = false;
     private boolean drawerOpen = false;
-    
-    //TODO: fix
-    
+
+    //Constructor without parameters for FXML. Is called for all fights against enemies that are not "elite".
     public CombatController() {
         this.player = GameState.get().getPlayer();
         this.monster = GameCatalog.getRandomMonsterByStage(Math.min(9, GameState.get().getFloor()));
     }
 
+    //Constructor used when enemies are elite. Called by factory ovveride. 
     public CombatController(boolean b) {
         this.player = GameState.get().getPlayer();
         this.monster = GameCatalog.getRandomMonsterByStage(GameState.get().getFloor());
         setElite(b);
     }
     
+    //Standard FXML initialization. 
     @FXML
     private void initialize() {
         this.combatLog = new CombatLog();
@@ -94,12 +94,10 @@ public class CombatController {
         combatLog.logCombat("Room entered. Enemy is a " + monster.getName() + ".", LogType.NORMAL);
         this.renderLog();
         enableMoveButtons();
-        //TODO: remove
         System.out.println(player.getSTAM());
-        monster.setMaxHP(500);
-        monster.setHP(500);
     }
     
+    //If enemy is flagged as an elite calls the promotion methods and sets it's flag.
     public void setElite(boolean b) {
         if (b) {
             monster.setIsElite(b);
@@ -107,29 +105,34 @@ public class CombatController {
         }
     }
 
+    //Applies the stage background: 1 of 3 variations depending on the enemy type.
     private void applyBackground(Pane bgPane, Creature monster) {
         if ( monster.getIsElite() && !monster.getStage().equalsIgnoreCase("BOSS")) {
-            bgPane.getStyleClass().add("combat-bg-elite");
+            bgPane.getStyleClass().addAll("combat-bg-elite", "combat-bg");
             System.out.println("elite BG.");
         } else if ( monster.getStage().equalsIgnoreCase("BOSS")) {
-            bgPane.getStyleClass().add("combat-bg-boss");
-            System.out.println("boss bg.");
+            bgPane.getStyleClass().addAll("combat-bg-boss", "combat-bg");
+            System.out.println("boss BG.");
         } else {
-            bgPane.getStyleClass().add("combat-bg-normal");
-            System.out.println("normal bg");
+            bgPane.getStyleClass().addAll("combat-bg-normal", "combat-bg");
+            System.out.println("normal BG.");
         }
     }
 
+    //Loads the appropriate monster image using enemy ID.
     private void loadMonsterImage() {
         var image = CreaturesAssets.getMonsterImage(monster.getId());
         monsterImage.setImage(image); 
     }
 
+    //Changes the move buttons color to match their element.
     private void applyTipoStyle(Button b, Tipo tipo){
         b.getStyleClass().removeIf(s -> s.startsWith("tipo-"));
         b.getStyleClass().add("tipo-" + tipo.name().toLowerCase());
     }
 
+    //Writes the values needed to the move button's text and sets the move as user data.
+    //Then calls the method to colour the buttons.
     private void setMoveButton (Player player){
         for ( int i = 0; i < player.getSelectedMoves().size(); i++ ) {
             Button b = buttonList.get(i);
@@ -140,6 +143,7 @@ public class CombatController {
         }
     }
 
+    //Actions to perform on a move button click by the player.
     @FXML
     private void onMovePressed(ActionEvent e){
         Button clicked = (Button) e.getSource();
@@ -149,15 +153,18 @@ public class CombatController {
         enableMoveButtons();
     }
 
+    //Called to disable the move buttons during enemy turn (very short) to prevent multiple clicks and post victory (noticeable time).
     public void disableMoveButtons() {
         buttonList.forEach(b -> b.setDisable(true));
     }
 
+    //Enables move buttons.
     public void enableMoveButtons() {
         if(combatEnded) return;
         buttonList.forEach(b -> b.setDisable(false));
     }
 
+    //Method to render all the logs in queue with their appropriate coloring.
     public void renderLog() {
         logFlow.getChildren().clear();
 
@@ -176,11 +183,14 @@ public class CombatController {
         }
     }
 
+    //Method to update the player HP and MP in the combat screen. 
+    //Other stats cannot change during a battle, and as such do not need to be updated.
     public void updateStats() {
         labelHP.setText("HP: " + player.getHP() + "/" + player.getMaxHP());
         labelMP.setText("MP: " + player.getSTAM() + "/" + player.getMaxSTAM() + " +" + player.regSTAM());
     }
 
+    //Flag on combat end.
     public void setCombatEnd(boolean b) {
         combatEnded = b;
         if (b) {
@@ -188,6 +198,8 @@ public class CombatController {
         }
     }
 
+    //Method to open the player stat page on the battle screen.
+    //Implemented as a VBox containing labels for each stat that appears from the left.
     @FXML
     public void toggleDrawer() {
         double targetWidth = drawerOpen ? 0 : 150;

@@ -62,7 +62,7 @@ public final class SceneRouter {
 
             // Load the UI tree and its controller
             FXMLLoader loader = new FXMLLoader(url);
-            // carica la pagina e passa flag elite. Remove if if broken TODO: fix 
+            // Loads the battle screen and passes the elite flag if it's a boss fight.
             if (id.equals(SceneId.BOSS_ROOM) || id.equals(SceneId.FINAL_BOSS_ROOM)) {
                 loader.setControllerFactory(param -> new CombatController(true));
             }

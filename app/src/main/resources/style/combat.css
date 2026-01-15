@@ -23,10 +23,14 @@
     -fx-border-width: 1px;
 }
 
-.move-button {
-    -fx-background-radius: 14;
+.move-button { 
+    -fx-border-color: black;
+    -fx-border-width: 2;
     -fx-border-radius: 14;
-    -fx-background-insets: 0;
+    
+    -fx-background-radius: 11;
+    -fx-background-insets: 3;
+    -fx-background-color: radial-gradient( center 50% 50%, radius 80%, derive(-fx-move-color, 40%) 0%, derive(-fx-move-color, -20%) 100% );
 }
 
 .move-button:hover {
@@ -45,46 +49,42 @@
 
 /* Conditional move button background*/
 .tipo-hydro {
-    -fx-background-color: #00BFFF; /* blue */
+    -fx-move-color: #00BFFF; /* blue */
 }
 
 .tipo-fire {
-    -fx-background-color: #FF4500; /* red-orange */
+    -fx-move-color: #FF4500; /* red-orange */
 }
 
 .tipo-nature {
-    -fx-background-color: #32CD32; /* green */
+    -fx-move-color: #32CD32; /* green */
 }
 
 .tipo-lightning {
-    -fx-background-color: #FFD700; /* yellow */
+    -fx-move-color: #FFD700; /* yellow */
+}
+
+
+.combat-bg { -fx-background-color: transparent,black;
+    -fx-background-size: contain, auto;
+    -fx-background-repeat: no-repeat, no-repeat;
+    -fx-background-position: center, center;
 }
 
 .combat-bg-normal {
     -fx-background-image: url("/assets/images/backgrounds/normal_fight.jpeg");
-    -fx-background-color: transparent, black;
-    -fx-background-size: contain, auto;
-    -fx-background-repeat: no-repeat, no-repeat;
-    -fx-background-position: center, center;
 }
 
 .combat-bg-elite {
     -fx-background-image: url("/assets/images/backgrounds/elite_fight.jpeg");
-    -fx-background-color: transparent, black;
-    -fx-background-size: contain, auto;
-    -fx-background-repeat: no-repeat, no-repeat;
-    -fx-background-position: center, center;
 }
 
 .combat-bg-boss {
     -fx-background-image: url("/assets/images/backgrounds/boss_fight.jpeg");
-    -fx-background-color: transparent, black;
-    -fx-background-size: contain, auto;
-    -fx-background-repeat: no-repeat, no-repeat;
-    -fx-background-position: center, center;
 }
 
-/* HP and MP display styles*/
+
+/* HP and MP and stat button display styles*/
 .label-button-like {
     -fx-background-color: #4CAF50;
     -fx-background-radius: 8;

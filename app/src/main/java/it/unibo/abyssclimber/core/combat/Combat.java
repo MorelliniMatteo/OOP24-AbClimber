@@ -18,6 +18,7 @@ import it.unibo.abyssclimber.ui.combat.CombatController;
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 
+//Main combat method. Ineracts with CombatController.
 public class Combat {
     private int turn = 1;
     private boolean playerTurn = true;
@@ -25,9 +26,10 @@ public class Combat {
     private Creature monster;
     private CombatController controller;
     private Random random = new Random();
-    private final CombatLog combatLog; // = new CombatLog();
+    private final CombatLog combatLog;
     private ArrayList<Move> enemyMoves;
 
+    //Constructor for a new combat. Also calls the method to randomly assign enemy moves.
     public Combat(Player creature1, Creature creature2, CombatLog log, CombatController controller) {
         this.player = creature1;
         this.monster = creature2;
@@ -37,20 +39,25 @@ public class Combat {
         this.controller.setCombatEnd(false);
     }
 
+    //Loads enemy moves randomly from the moves.json . 
+    //Begins by loading a cost 1 move, this prevents the from softlocking itself for not having a move it can use.
+    //The final boss loads an extra, unique move.
     private void loadEnemyMove () {
         TreeSet<MoveLoader.Move> moveSet = new TreeSet<>(Comparator.comparingInt(Move::getCost).thenComparingInt(Move::getId));
         moveSet.add(MoveLoader.moves.get(random.nextInt(8)));
         while ( moveSet.size() < 4) {
-            moveSet.add(MoveLoader.moves.get(random.nextInt(8)));
+            moveSet.add(MoveLoader.moves.get(random.nextInt(MoveLoader.moves.size()-1)));
         }
         if ("BOSS".equalsIgnoreCase(monster.getStage())) {
-            moveSet.add(MoveLoader.moves.get(8));
+            moveSet.add(MoveLoader.moves.getLast());
         }
 
         enemyMoves = new ArrayList<>(moveSet);
+        //TODO: remove
+        enemyMoves.forEach(System.out::println);
     }
 
-
+    //Calculates damage, creates logs to print (conditional: critical hit, miss), calculates stamina remaning after cost.
     private int dmgCalc(MoveLoader.Move attack, Creature attacker, Creature target){
         int miss = 0;
         int dmg = 0;
@@ -85,7 +92,9 @@ public class Combat {
         return dmg;
     }
     
-    public void playerTurn(Move move) {
+    //Player's turn. At the end calls the monster's turn.
+    //Assigns dropped gold/items.
+    private void playerTurn(Move move) {
         if ( !playerTurn || player.getHP() <= 0 || monster.getHP() <= 0) return;
         else if (move.getCost() > player.getSTAM()) {
             combatLog.logCombat("Insufficient mana.", LogType.NORMAL);
@@ -95,7 +104,7 @@ public class Combat {
 
         playerTurn = false; 
         dmgCalc(move, player, monster);
-        if (monster.getHP() <= 0) {
+        if (monster.isDead()) {
             controller.setCombatEnd(true);
             combatLog.logCombat("" + monster.getName() + " died. You win.\n", LogType.NORMAL);
             System.out.println("You win.\n");
@@ -112,8 +121,13 @@ public class Combat {
             // TODO: HANDLE WIN CONDITION
             PauseTransition pause = new PauseTransition(Duration.seconds(5));
             pause.setOnFinished(e -> {
-                if (monster.getIsElite()) { GameState.get().nextFloor();}
-                SceneRouter.goTo(SceneId.ROOM_SELECTION);
+                if (monster.getIsElite()) {
+                    GameState.get().nextFloor();
+                    SceneRouter.goTo(SceneId.ROOM_SELECTION);
+                } else if (monster.getStage().equalsIgnoreCase("BOSS")) {
+                    SceneRouter.goTo(SceneId.GAME_OVER);
+                }
+                
             });
             pause.play();
             return;
@@ -125,16 +139,27 @@ public class Combat {
         turn++;
     }
 
-    public void monsterTurn() {
-        int choice = 0;
+    //Enemy turn.
+    private void monsterTurn() {
         playerTurn = true;
+
+        //TODO: remove
+        System.out.println("Monster stamina: " + monster.getSTAM());
+        System.out.println("Monster stamina regen: " + monster.regSTAM());
 
         if (monster.getSTAM() >= monster.getMaxSTAM()) {
             dmgCalc(enemyMoves.getLast(), monster, player);
         } else {
-            choice = random.nextInt(enemyMoves.size());
-            dmgCalc(enemyMoves.get(choice), monster, player);
+            List<Move> usableMoves = enemyMoves.stream().filter(mv -> monster.getSTAM() >= mv.getCost()).toList();
+            if ( usableMoves.isEmpty()) {
+                dmgCalc(enemyMoves.getFirst(), monster, player);
+            } else {
+                Move choice = usableMoves.get(random.nextInt(usableMoves.size()));
+                dmgCalc(choice, monster, player);
+            }
         }
+        //TODO: remove
+        System.out.println("Monster stamina after move: " + monster.getSTAM());
 
         controller.renderLog();
         PauseTransition delay = new PauseTransition(Duration.seconds(5));
@@ -154,7 +179,7 @@ public class Combat {
 
     }
     
-
+    //Clears logs for a new turn then calls the player turn, only public method needed.
     public void fight(Move move) {
         combatLog.clearEvents();
         combatLog.logCombat("Turn " + turn + "\n", LogType.NORMAL);
