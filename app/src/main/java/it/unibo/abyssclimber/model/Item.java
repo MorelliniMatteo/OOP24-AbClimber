@@ -69,5 +69,17 @@ public class Item {
     public void setEffect(String effect) {this.effect = effect;}
     @JsonProperty("price")
     public void setPrice(int price) {this.price = price;}
-}
 
+    @Override
+    public String toString() {
+    StringBuilder sb = new StringBuilder();
+
+    if (maxHP > 0) sb.append(" | maxHP: ").append(this.maxHP);
+    if (HP > 0)    sb.append(" | HP: ").append(this.HP);
+    if (ATK > 0)   sb.append(" | ATK: ").append(this.ATK);
+    if (MATK > 0)  sb.append(" | MATK: ").append(this.MATK);
+    if (DEF > 0)   sb.append(" | DEF: ").append(this.DEF);
+    if (MDEF > 0)  sb.append(" | MDEF: ").append(this.MDEF);
+    return sb.toString();
+    }
+}
