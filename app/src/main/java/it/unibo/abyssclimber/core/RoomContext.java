@@ -29,6 +29,9 @@ public final class RoomContext {
     // Cached list of room options for the current floor.
     private List<RoomOption> cachedOptions;
 
+    // Disabled door indices for the cached floor.
+    private final java.util.Set<Integer> disabledDoors = new java.util.HashSet<>();
+
     private RoomContext() {}
 
     /**
@@ -62,6 +65,7 @@ public final class RoomContext {
         if (cachedOptions == null || cachedFloor != floor) {
             cachedOptions = RoomGenerator.generateOptions(floor);
             cachedFloor = floor;
+            disabledDoors.clear();
         }
         return cachedOptions;
     }
@@ -73,5 +77,30 @@ public final class RoomContext {
     public void clearCachedOptions() {
         cachedOptions = null;
         cachedFloor = -1;
+        disabledDoors.clear();
+    }
+
+    /**
+     * Marks a door index as disabled for the current floor.
+     *
+     * @param floor the current floor number
+     * @param index the door index to disable
+     */
+    public void disableDoor(int floor, int index) {
+        if (cachedFloor != floor) {
+            cachedFloor = floor;
+            disabledDoors.clear();
+        }
+        disabledDoors.add(index);
+    }
+
+    /**
+     * Checks if a door index is disabled for the current floor.
+     *
+     * @param index door index
+     * @return true if disabled for the current floor
+     */
+    public boolean isDoorDisabled(int index) {
+        return disabledDoors.contains(index);
     }
 }

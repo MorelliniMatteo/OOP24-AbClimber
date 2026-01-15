@@ -57,6 +57,10 @@ public class RoomSelectionController implements Refreshable {
         applyOptionToButton(doorBtn1, currentOptions.get(0));
         applyOptionToButton(doorBtn2, currentOptions.get(1));
         applyOptionToButton(doorBtn3, currentOptions.get(2));
+
+        applyDisabledState(doorBtn1, 0);
+        applyDisabledState(doorBtn2, 1);
+        applyDisabledState(doorBtn3, 2);
     }
 
     /**
@@ -123,6 +127,9 @@ public class RoomSelectionController implements Refreshable {
 
         // Save last chosen option for the next room screen
         RoomContext.get().setLastChosen(opt);
+        if (opt.type() == RoomType.FIGHT) {
+            RoomContext.get().disableDoor(GameState.get().getFloor(), index);
+        }
 
         // Route to the scene associated with the room type
         switch (opt.type()) {
@@ -140,5 +147,11 @@ public class RoomSelectionController implements Refreshable {
     private void onForceDeath() {
         GameState.get().getPlayer().setHP(0);
         SceneRouter.goTo(SceneId.GAME_OVER);
+    }
+
+    private void applyDisabledState(Button button, int index) {
+        boolean isDisabled = RoomContext.get().isDoorDisabled(index);
+        button.setDisable(isDisabled);
+        button.setOpacity(isDisabled ? 0.5 : 1.0);
     }
 }
