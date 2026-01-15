@@ -3,7 +3,6 @@ package it.unibo.abyssclimber.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unibo.abyssclimber.core.GameCatalog;
 import it.unibo.abyssclimber.core.combat.MoveLoader;
 
 /*

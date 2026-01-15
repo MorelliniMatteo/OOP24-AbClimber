@@ -72,6 +72,15 @@ public class Creature {
         }
     }
 
+    public void applyDifficultyMultiplier(double multiplier) {
+        this.maxHP = (int) (this.maxHP * multiplier);
+        this.HP = this.maxHP;
+        this.ATK = (int) (this.ATK * multiplier);
+        this.MATK = (int) (this.MATK * multiplier);
+        this.DEF = (int) (this.DEF * multiplier);
+        this.MDEF = (int) (this.MDEF * multiplier);
+    }
+
     public String getName() {
         return name;
     }
