@@ -37,6 +37,14 @@
                 </HBox>
             </VBox>
 
+            <VBox spacing="10" alignment="CENTER">
+                <Label text="Select the difficulty:" styleClass="card-title"/>
+                <HBox spacing="10" alignment="CENTER">
+                    <ToggleButton fx:id="normalBtn" text="Normal" styleClass="move-toggle"/>
+                    <ToggleButton fx:id="hardBtn" text="Hard" styleClass="move-toggle"/>
+                </HBox>
+            </VBox>
+
         </VBox>
     </center>
 

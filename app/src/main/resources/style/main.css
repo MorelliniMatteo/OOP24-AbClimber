@@ -16,6 +16,7 @@
     -fx-font-weight: bold;
 }
 
+
 /* SOTTOTITOLO */
 .subtitle {
     -fx-font-size: 18px;          
@@ -114,6 +115,16 @@
 .boss-door {
     -fx-text-fill: #f9e79f;
     -fx-effect: dropshadow(gaussian, rgba(249,231,159,0.45), 18, 0.4, 0, 0);
+}
+
+.final-boss-door {
+    -fx-text-fill: #ff7b7b;
+    -fx-effect: dropshadow(gaussian, rgba(255, 85, 85, 0.75), 26, 0.55, 0, 0);
+}
+
+.final-boss-door:hover {
+    -fx-text-fill: #ffd6d6;
+    -fx-effect: dropshadow(gaussian, rgba(255, 120, 120, 0.9), 32, 0.6, 0, 0);
 }
 
 /* ScrollPane coerente col tema */
