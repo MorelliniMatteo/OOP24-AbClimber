@@ -69,18 +69,7 @@ public class RoomSelectionController implements Refreshable {
     private void applyOptionToButton(Button btn, RoomOption opt) {
         btn.setText(opt.title());
 
-        // Set icon graphic if available
-        ImageView icon = new ImageView();
-        var img = AssetManager.tryLoadImage(opt.iconPath());
-        if (img != null) {
-            icon.setImage(img);
-            icon.setFitWidth(46);
-            icon.setFitHeight(46);
-            icon.setPreserveRatio(true);
-            btn.setGraphic(icon);
-        } else {
-            btn.setGraphic(null);
-        }
+        btn.setGraphic(null);
 
         // Remove previous special classes
         btn.getStyleClass().remove("boss-door");

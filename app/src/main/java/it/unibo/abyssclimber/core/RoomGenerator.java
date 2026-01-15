@@ -55,8 +55,7 @@ public final class RoomGenerator {
         return new RoomOption(
                 RoomType.BOSS_ELITE,
                 "Boss Elite",
-                "Sfida il guardiano del piano " + floor,
-                "images/icons/boss_elite.png"
+                "Sfida il guardiano del piano " + floor
         );
     }
 
@@ -64,8 +63,7 @@ public final class RoomGenerator {
         return new RoomOption(
                 RoomType.FINAL_BOSS,
                 "Boss Finale",
-                "La sfida definitiva ti attende",
-                "images/icons/final_boss.png"
+                "La sfida definitiva ti attende"
         );
     }
 
@@ -73,8 +71,7 @@ public final class RoomGenerator {
         return new RoomOption(
                 RoomType.FIGHT,
                 "Combattimento",
-                "Nemici sempre più forti (Piano " + floor + ")",
-                "images/icons/sword.png"
+                "Nemici sempre più forti (Piano " + floor + ")"
         );
     }
 
@@ -82,8 +79,7 @@ public final class RoomGenerator {
         return new RoomOption(
                 RoomType.SHOP,
                 "Negozio",
-                "Spendi oro e potenziati",
-                "images/icons/shop.png"
+                "Spendi oro e potenziati"
         );
     }
 }
