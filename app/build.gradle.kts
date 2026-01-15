@@ -1,9 +1,12 @@
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.gradle.api.tasks.JavaExec
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
     application
     id("org.openjfx.javafxplugin") version "0.1.0"
+    // USA QUESTA VERSIONE ESATTA: 8.1.7 è la più stabile per Gradle 8+
+    id("io.github.goooler.shadow") version "8.1.7"
 }
 
 repositories {
@@ -36,7 +39,21 @@ dependencies {
 }
 
 application {
-    mainClass.set((project.findProperty("mainClass") as String?) ?: "it.unibo.abyssclimber.MainApp")
+    // Definizione standard per Gradle moderno
+    mainClass.set("it.unibo.abyssclimber.Launcher")
+}
+
+// Configurazione Fat JAR
+tasks.named<ShadowJar>("shadowJar") {
+    archiveBaseName.set("AbyssClimber")
+    archiveClassifier.set("")
+    archiveVersion.set("1.0")
+    
+    mergeServiceFiles()
+    
+    manifest {
+        attributes["Main-Class"] = "it.unibo.abyssclimber.Launcher"
+    }
 }
 
 tasks.test {
