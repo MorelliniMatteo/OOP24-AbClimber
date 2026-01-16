@@ -1,15 +1,8 @@
 package it.unibo.abyssclimber.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Item {
+public class Item extends GameEntity {
     private int ID;
-    private String name;
-    private int maxHP; //permette l'aumento permanente della salute massima
-    private int HP; //permette la cura
-    private int ATK;
-    private int MATK;
-    private int DEF;
-    private int MDEF;
     private String effect;
     private boolean discovered;
     private int price;
@@ -31,34 +24,12 @@ public class Item {
         this.discovered = discovered;
         this.price = price;
     }
-    
 
-    public String getName() {return name;}
-    public int getMaxHP() {return maxHP;}
-    public int getHP() {return HP;}
-    public int getATK() {return ATK;}
-    public int getMATK() {return MATK;}
-    public int getDEF() {return DEF;}
-    public int getMDEF() {return MDEF;}
     public boolean getDiscovered() {return discovered;}
     public int getID() {return ID;}
     public String getEffect() {return effect;}
     public int getPrice() {return price;}
-
-    @JsonProperty("name")
-    public void setName(String name) {this.name = name;}
-    @JsonProperty("maxHP")
-    public void setMaxHP(int maxHP) {this.maxHP = maxHP;}
-    @JsonProperty("HP")
-    public void setHP(int HP) {this.HP = HP;}
-    @JsonProperty("ATK")
-    public void setATK(int ATK) {this.ATK = ATK;}
-    @JsonProperty("MATK")
-    public void setMATK(int MATK) {this.MATK = MATK;}
-    @JsonProperty("DEF")
-    public void setDEF(int DEF) {this.DEF = DEF;}
-    @JsonProperty("MDEF")
-    public void setMDEF(int MDEF) {this.MDEF = MDEF;}
+    
     @JsonProperty("discovered")
     public void setDiscovered(boolean discovered) {this.discovered = discovered;}
     @JsonProperty("ID")

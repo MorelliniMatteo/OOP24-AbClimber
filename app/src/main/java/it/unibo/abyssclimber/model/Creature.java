@@ -1,29 +1,13 @@
 package it.unibo.abyssclimber.model;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Creature {
-    private String name;
+public class Creature extends GameEntity {
     private int ID;
-    private int HP;
-    private int maxHP;
-    private int ATK;
-    private int MATK;
-    private int DEF;
-    private int MDEF;
-    private int STAM;
-    @JsonIgnore
-    private int regSTAM = 2;
-    private int maxSTAM;
-    private Tipo element;
-    private int crit;
-    private double critDMG;
     private String stage;
     private boolean isElite = false;
 
     public Creature() {
-        // Costruttore vuoto per Jackson
+        super(); // Costruttore vuoto per Jackson
     }
 
     public Creature(Creature copyCreature) { // serve per creare un'istanza nuova di un mostro a partire dal mostro
@@ -48,16 +32,7 @@ public class Creature {
     }
 
     public Creature(Tipo tipo, String name) {
-        this.element = tipo;
-        this.name = name;
-    }
-
-    public void heal(int amount) {
-        this.HP += amount;
-        // controllo di sicurezza per non superare il maxHP
-        if (this.HP > this.maxHP) {
-            this.HP = this.maxHP;
-        }
+        super(tipo, name);
     }
 
     //permette di promuovere un mostro a elite, aumentando le sue statitstiche del 20%
@@ -83,60 +58,8 @@ public class Creature {
         this.MDEF = (int) (this.MDEF * multiplier);
     }
 
-    public String getName() {
-        return name;
-    }
-    
     public int getId() {
         return ID;
-    }
-
-    public int getMaxHP() {
-        return maxHP;
-    }
-
-    public int getHP() {
-        return HP;
-    }
-
-    public int getATK() {
-        return ATK;
-    }
-
-    public int getMATK() {
-        return MATK;
-    }
-
-    public int getDEF() {
-        return DEF;
-    }
-
-    public int getMDEF() {
-        return MDEF;
-    }
-
-    public int getSTAM() {
-        return STAM;
-    }
-
-    public int getRegSTAM() {
-        return regSTAM;
-    }
-
-    public int getMaxSTAM() {
-        return maxSTAM;
-    }
-
-    public Tipo getElement() {
-        return element;
-    }
-
-    public int getCrit() {
-        return crit;
-    }
-
-    public double getCritDMG() {
-        return critDMG;
     }
 
     public String getStage() {
@@ -147,75 +70,12 @@ public class Creature {
         return isElite;
     }
 
-    @JsonProperty("name")
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @JsonProperty("maxHP")
-    public void setMaxHP(int maxHp) {
-        this.maxHP = maxHp;
-    }
-
-    @JsonProperty("HP")
-    public void setHP(int hp) {
-        this.HP = hp;
-    }
-
     @JsonProperty("ID")
     public void setId(int id) {
         this.ID = id;
     }
 
-    @JsonProperty("ATK")
-    public void setATK(int atk) {
-        this.ATK = atk;
-    }
-
-    @JsonProperty("MATK")
-    public void setMATK(int matk) {
-        this.MATK = matk;
-    }
-
-    @JsonProperty("DEF")
-    public void setDEF(int def) {
-        this.DEF = def;
-    }
-
-    @JsonProperty("MDEF")
-    public void setMDEF(int mdef) {
-        this.MDEF = mdef;
-    }
-
-    @JsonProperty("STAM")
-    public void setSTAM(int stam) {
-        this.STAM = stam;
-    }
-
-    @JsonProperty("maxSTAM")
-    public void setMaxSTAM(int mstam) {
-        this.maxSTAM = mstam;
-    }
-
-    @JsonProperty("crit")
-    public void setCrit(int crit) {
-        this.crit = crit;
-    }
-
-    @JsonProperty("critDMG")
-    public void setCritDMG(double critdmg) {
-        this.critDMG = critdmg;
-    }
-
-    @JsonIgnore
-    public void setRegSTAM(int rstam) {
-        this.regSTAM = rstam;
-    }
-
-    public boolean isDead() {
-        return this.HP <= 0;
-    }
-
+    @JsonProperty("stage")
     public void setStage(String stage) {
         this.stage = stage;
     }
@@ -224,7 +84,4 @@ public class Creature {
         this.isElite = elite;
     }
 
-    public void setElement(Tipo elem) {
-        this.element = elem;
-    }
 }
