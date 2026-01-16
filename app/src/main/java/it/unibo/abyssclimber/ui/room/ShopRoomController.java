@@ -1,6 +1,7 @@
 package it.unibo.abyssclimber.ui.room;
 
 import it.unibo.abyssclimber.core.AssetManager;
+import it.unibo.abyssclimber.core.Refreshable;
 import it.unibo.abyssclimber.core.RoomContext;
 import it.unibo.abyssclimber.core.RoomOption;
 import it.unibo.abyssclimber.core.SceneId;
@@ -9,7 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
-public class ShopRoomController {
+public class ShopRoomController implements Refreshable {
 
     @FXML private Label titleLabel;
     @FXML private Label descLabel;
@@ -17,6 +18,11 @@ public class ShopRoomController {
 
     @FXML
     private void initialize() {
+        onShow();
+    }
+
+    @Override
+    public void onShow() {
         var bg = AssetManager.tryLoadImage("images/backgrounds/store_room.jpeg");
         if (bg != null) {
             backgroundView.setImage(bg);

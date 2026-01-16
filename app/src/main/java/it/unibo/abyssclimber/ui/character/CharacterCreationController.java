@@ -1,6 +1,7 @@
 package it.unibo.abyssclimber.ui.character;
 
 import it.unibo.abyssclimber.core.GameState;
+import it.unibo.abyssclimber.core.Refreshable;
 import it.unibo.abyssclimber.core.SceneId;
 import it.unibo.abyssclimber.core.SceneRouter;
 import it.unibo.abyssclimber.model.Classe;
@@ -15,7 +16,7 @@ import javafx.scene.control.ToggleGroup;
  * Controller for the character creation screen.
  * Handles element, class and difficulty selection.
  */
-public class CharacterCreationController {
+public class CharacterCreationController implements Refreshable {
 
     @FXML private Label summaryLabel;
 
@@ -65,6 +66,11 @@ public class CharacterCreationController {
         classGroup.selectedToggleProperty().addListener((obs, o, n) -> updateSummary());
         difficultyGroup.selectedToggleProperty().addListener((obs, o, n) -> updateSummary());
 
+        updateSummary();
+    }
+
+    @Override
+    public void onShow() {
         updateSummary();
     }
 

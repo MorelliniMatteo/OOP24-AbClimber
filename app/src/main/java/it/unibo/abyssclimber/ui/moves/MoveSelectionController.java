@@ -1,6 +1,7 @@
 package it.unibo.abyssclimber.ui.moves;
 
 import it.unibo.abyssclimber.core.GameState;
+import it.unibo.abyssclimber.core.Refreshable;
 import it.unibo.abyssclimber.core.SceneId;
 import it.unibo.abyssclimber.core.SceneRouter;
 import it.unibo.abyssclimber.core.combat.MoveLoader;
@@ -21,7 +22,7 @@ import java.util.Set;
  * Controller for the move selection screen.
  * Allows the player to choose a fixed number of moves.
  */
-public class MoveSelectionController {
+public class MoveSelectionController implements Refreshable {
 
     // Maximum number of selectable moves
     private static final int MAX_SELECTED = 6;
@@ -62,6 +63,12 @@ public class MoveSelectionController {
         fillGrid(thunderGrid, filterByElement(moves, Tipo.LIGHTNING));
         fillGrid(fireGrid, filterByElement(moves, Tipo.FIRE));
 
+        refresh();
+    }
+
+    @Override
+    public void onShow() {
+        resetSelection();
         refresh();
     }
 
@@ -127,6 +134,22 @@ public class MoveSelectionController {
             int row = i / COLS;
             int col = i % COLS;
             grid.add(tb, col, row);
+        }
+    }
+
+    private void resetSelection() {
+        selected.clear();
+        clearToggleSelections(hydroGrid);
+        clearToggleSelections(natureGrid);
+        clearToggleSelections(thunderGrid);
+        clearToggleSelections(fireGrid);
+    }
+
+    private void clearToggleSelections(GridPane grid) {
+        for (var node : grid.getChildren()) {
+            if (node instanceof ToggleButton tb) {
+                tb.setSelected(false);
+            }
         }
     }
 
