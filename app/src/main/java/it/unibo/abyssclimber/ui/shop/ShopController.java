@@ -105,11 +105,6 @@ public class ShopController implements ShopControllerInterface {
         // prende il Player dal GameState
         Player player = GameState.get().getPlayer(); 
         
-        // controlla se esiste
-        if (player == null) {
-            return;
-        }
-
         // prende il prezzo dell'item
         int prezzo = item.getPrice();
         // prende il gold del player
