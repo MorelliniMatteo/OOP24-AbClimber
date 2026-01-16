@@ -12,11 +12,21 @@ import it.unibo.abyssclimber.core.SceneId;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Controller che gestisce la logica di interazione della schermata del Negozio.
+ * Nel pattern MVC, questa classe funge da Controller: intercetta gli eventi
+ * dell'interfaccia grafica (definiti nel file FXML), esegue la validazione della logica
+ * di acquisto (controllo fondi, disponibilità) e aggiorna lo stato del {@link Player}.
+ */
 public class ShopController implements ShopControllerInterface {
 
-    // Fa da segnaposto, il file fxml viene letto, trova label con id specifico, cerca in questo file qualcosa con lo stesso nome, 
-    // in questo caso sono le variabili e inserisce la Label creata dal file grafico dentro la variabile Java
-    // sono 4 perché ho 4 slot + 1 label per l'oro del player
+    /**
+     * Riferimenti ai componenti grafici definiti nel file FXML.
+     * Grazie all'annotazione {@code @FXML}, il framework JavaFX inietta automaticamente
+     * le istanze delle Label corrispondenti agli ID specificati nel file di layout.
+     * Queste variabili permettono al codice Java di modificare dinamicamente il testo a video.
+     * Sono 4 perché ho 4 slot + 1 label per l'oro del player
+     */
     @FXML
     private Label shopSlot1Name, shopSlot1Stats, shopSlot1Price;
     @FXML
@@ -48,8 +58,11 @@ public class ShopController implements ShopControllerInterface {
         refreshHud();
     }
 
-    /*
-        *Inizializza il negozio con gli oggetti
+    /**
+     * Aggiorna i componenti UI del negozio con i dati degli oggetti passati.
+     * Crea una copia locale della lista per gestire lo stato della schermata
+     * indipendentemente dalle modifiche esterne durante la visualizzazione.
+     * @param shopItems La lista di oggetti da visualizzare.
      */
     @Override
     public void updateShopUI(List<Item> shopItems) {
@@ -94,6 +107,15 @@ public class ShopController implements ShopControllerInterface {
         tryBuy(3, shopSlot4Name, shopSlot4Price);
     }
 
+    /**
+     * Gestisce la logica transazionale di acquisto.
+     * Verifica le precondizioni (slot non vuoto, oggetto non venduto, fondi sufficienti).
+     * Se l'acquisto va a buon fine, aggiorna il modello (inventario player, rimozione oro)
+     * e la vista (segna come "SOLD").
+     * @param index L'indice dello slot cliccato.
+     * @param nameLbl La label del nome (usata per verificare lo stato visivo).
+     * @param priceLbl La label del prezzo.
+     */
     private void tryBuy(int index, Label nameLbl, Label priceLbl) {
         Item item = getItemSafe(index); // prende l'item che ha l'indice specificato, l'indice va da 0 a 3
 
@@ -134,6 +156,11 @@ public class ShopController implements ShopControllerInterface {
         itemsInShop.set(index, null); 
     }
 
+    /**
+     * Formatta e visualizza i dati di un singolo oggetto nello slot grafico.
+     * Utilizza uno {@link StringBuilder} per costruire dinamicamente la stringa delle statistiche,
+     * mostrando solo i valori positivi per evitare disordine nell'interfaccia.
+     */
     private void updateSingleShopSlot(Label nameLbl, Label statsLbl, Label priceLbl, Item item) { //qui scelgo come mostrare le info dell'oggetto
         if (item == null) {
             nameLbl.setText("---"); // se mancano delle cose negli oggetti allora mette queste cose
@@ -165,6 +192,11 @@ public class ShopController implements ShopControllerInterface {
         priceLbl.setText(item.getPrice() + " G");
     }
 
+    /**
+     * Accesso sicuro alla lista locale degli oggetti con controllo dei limiti (Bound Checking).
+     * @param index indice richiesto.
+     * @return L'oggetto Item o null se l'indice non è valido.
+     */
     private Item getItemSafe(int index) {
         if (index >= 0 && index < itemsInShop.size()) {
             return itemsInShop.get(index); //restituisce l'oggetto con l'indice specificato

@@ -4,9 +4,20 @@ import javafx.scene.image.Image;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Gestore delle risorse grafiche (Assets) relative alle creature.
+ * Questa classe funge da ponte tra il livello dei dati (Model), dove i mostri sono identificati
+ * esclusivamente da ID numerici, e il livello di presentazione (View), che richiede file immagine.
+ * Centralizzando la mappatura in questa classe di utilità, si ottiene un disaccoppiamento completo:
+ * le classi del modello (es. {@code Creature}) non devono conoscere l'esistenza dei file grafici.
+ */
 public class CreaturesAssets {
 
-    // chiave = ID del mostro, valore = percorso dell'immagine
+    /** 
+     * Mappa di registro che associa l'ID univoco del mostro al percorso relativo del file immagine.
+     * La scelta di usare una mappa statica permette un accesso O(1) rapido alle risorse
+     * senza dover ricalcolare i percorsi a ogni frame di rendering.
+     */
     private static final Map<Integer, String> ID_TO_PATH_MAP = new HashMap<>();
 
     static {
@@ -34,6 +45,13 @@ public class CreaturesAssets {
         ID_TO_PATH_MAP.put(21, "assets/images/creatures/lord_of_the_abyss.png");
     }
 
+    /**
+     * Carica e restituisce l'immagine JavaFX associata all'ID di un mostro.
+     * Utilizza {@code getResourceAsStream} per garantire che le immagini vengano caricate
+     * correttamente anche quando l'applicazione è pacchettizzata in un JAR.
+     * @param monsterId L'identificativo numerico del mostro (proveniente dal JSON/Model).
+     * @return L'oggetto {@link Image} caricato, o {@code null} se il caricamento fallisce.
+     */
     public static Image getMonsterImage(int monsterId) { // restituisce l'immagine del mostro dato il suo ID
         String path = ID_TO_PATH_MAP.get(monsterId);
 

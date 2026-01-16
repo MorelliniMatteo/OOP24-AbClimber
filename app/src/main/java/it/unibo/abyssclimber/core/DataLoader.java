@@ -8,12 +8,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.unibo.abyssclimber.model.Creature;
 import it.unibo.abyssclimber.model.Item;
 
+/**
+ * Classe responsabile della gestione della persistenza e del caricamento dei dati di gioco.
+ * Utilizza la libreria Jackson per deserializzare i file JSON presenti nelle risorse
+ * e convertirli in oggetti Java utilizzabili dal sistema ({@link Item} e {@link Creature}).
+ * Questa classe agisce come un Data Access Object (DAO) semplificato per le risorse statiche.
+ */
 public class DataLoader {
     private final ObjectMapper mapper = new ObjectMapper()
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     /**
-     * Crea e restituisce una lista di oggetti caricati dal file items.json
+     * Carica la lista degli oggetti dal file di configurazione JSON.
+     * Il metodo cerca il file nel percorso risorse {@code /liste/items.json}.
+     * @return una {@link List} contenente tutti gli oggetti {@link Item} caricati.
+     * @throws RuntimeException se il file JSON non viene trovato nel percorso specificato.
+     * @throws Exception se si verificano errori di I/O o di parsing durante la lettura del file.
      */
     public List<Item> loadItems() throws Exception {
         try (InputStream in = DataLoader.class.getResourceAsStream("/liste/items.json")) { 
@@ -25,7 +35,12 @@ public class DataLoader {
     }
 
     /**
-     * Crea e restituisce una lista di mostri caricati dal file monsters.json
+     * Carica la lista delle creature dal file di configurazione JSON.
+     * Il metodo cerca il file nel percorso risorse {@code /liste/creatures.json}.
+     * I dati caricati includono statistiche base, elementi e stage di appartenenza.
+     * @return una {@link List} contenente tutte le creature {@link Creature} caricate.
+     * @throws RuntimeException se il file JSON non viene trovato nel percorso specificato.
+     * @throws Exception se si verificano errori di I/O o di parsing durante la lettura del file.
      */
     public List<Creature> loadMonsters() throws Exception {
         try (InputStream in = DataLoader.class.getResourceAsStream("/liste/creatures.json")) {

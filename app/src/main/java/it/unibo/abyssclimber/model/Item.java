@@ -1,6 +1,14 @@
 package it.unibo.abyssclimber.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Rappresenta un oggetto consumabile o equipaggiabile (Reliquia) all'interno del gioco.
+ * Questa classe estende {@link GameEntity} per sfruttare il riuso del codice:
+ * le variabili ereditate in questo contesto non rappresentano
+ * lo stato vitale dell'oggetto, ma i bonus passivi che vengono sommati
+ * alle statistiche del {@link Player} quando l'oggetto viene acquisito.
+ * Gli oggetti sono definiti esternamente in file JSON e caricati tramite {@link it.unibo.abyssclimber.core.DataLoader}.
+ */
 public class Item extends GameEntity {
     private int ID;
     private String effect;
@@ -39,6 +47,14 @@ public class Item extends GameEntity {
     @JsonProperty("price")
     public void setPrice(int price) {this.price = price;}
 
+    /**
+     * Genera una rappresentazione testuale dinamica delle statistiche dell'oggetto.
+     * A differenza di un toString standard, questo metodo utilizza un {@link StringBuilder}
+     * per includere nella stringa solo le statistiche positive (maggiori di 0).
+     * Questo evita di mostrare all'utente una lista di "0" inutili (es. un oggetto che dà solo ATK
+     * non mostrerà "DEF: 0 | HP: 0").
+     * @return Una stringa formattata pronta per essere visualizzata nella UI (es. Tooltip).
+     */
     @Override
     public String toString() {
     StringBuilder sb = new StringBuilder();

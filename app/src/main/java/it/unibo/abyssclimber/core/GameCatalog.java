@@ -13,9 +13,12 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.ArrayList;
 
-/*
-    *Classe che crea una mappa chiamata itemsMap e copia su una lista tramite il file DataLoader tutti gli oggetti presi dal file items.json
-    *Questi oggetti della lista vengono poi inseriti nella mappa itemsMap con chiave l'id dell'oggetto e l'oggetto stesso come valore
+/**
+ * Gestisce il catalogo centrale di tutte le risorse di gioco (Registry Pattern).
+ * Questa classe statica agisce come unica fonte di verità peroggetti e mostri. 
+ * Si occupa di inizializzare le risorse tramite {@link DataLoader},
+ * gestire la generazione procedurale dei nemici in base al livello e distribuire
+ * gli oggetti tra il negozio e il pool di drop.
  */
 public class GameCatalog {
     private static Map<Integer, Item> itemsMap = new HashMap<>(); //mapppa che contiene gli oggetti con chiave l'id dell'oggetto
@@ -27,6 +30,15 @@ public class GameCatalog {
 
     private static final Random random = new Random();
 
+    /**
+     * Inizializza il catalogo caricando i dati dai file JSON e preparandoli per il gioco.
+     * Questo metodo esegue le seguenti operazioni:
+     * Svuota le cache precedenti.
+     * Carica gli oggetti tramite {@link DataLoader} e popola la mappa per ID.
+     * Mescola casualmente gli oggetti e ne assegna i primi 4 al negozio, il resto ai drop.
+     * Carica i mostri e li organizza nella {@code monstersMap} in base al loro {@link Stage}.
+     * @throws Exception se il caricamento dei dati fallisce (es. file mancanti o JSON malformato).
+     */
     public static void initialize() throws Exception {
         itemsMap.clear();
         monstersMap.clear();
@@ -51,6 +63,13 @@ public class GameCatalog {
             }
         }
 
+    /**
+     * UTILIZZO DI LAMBDA EXPRESSION:
+     * Ordina la lista degli oggetti del negozio in base al prezzo crescente (ASC).
+     * Invece di istanziare una classe anonima di Comparator, si passa una funzione
+     * che confronta due oggetti Item (item1, item2) basandosi sul valore di getPrice().
+     */
+        shopItems.sort((item1, item2) -> Integer.compare(item1.getPrice(), item2.getPrice()));
 
         List<Creature> monsters = dataLoader.loadMonsters();
         for (Stage stage : Stage.values()){ //ad ogni ID che in questo caso corrisponde allo stage, creo una lista vuota che contiene i mostri con quel determinato stage
@@ -65,9 +84,14 @@ public class GameCatalog {
     }
 
 
-    /*
-        *Classe che permette di restituire un mostro casuale in base allo stage attuale del giocatore
-    */
+   /**
+     * Restituisce un mostro casuale appropriato per il livello attuale del giocatore.
+     * Il metodo determina lo {@link Stage} corrente (EARLY, MID, LATE, BOSS) in base al numero del piano
+     * e seleziona un mostro casuale dalla lista corrispondente.
+     * Successivamente, applica un modificatore di statistiche (scaling) tramite {@link #applyFloorModifier}.
+     * @param level il numero del piano attuale (es. 1, 5, 10).
+     * @return una NUOVA istanza di {@link Creature} con statistiche scalate, o {@code null} se non ci sono mostri per lo stage.
+     */
     public static Creature getRandomMonsterByStage(int level) {
         Stage currentStage;
         if (level <= 3) {
@@ -90,6 +114,13 @@ public class GameCatalog {
         return copyCreature;
     }   
 
+    /**
+     * Applica un algoritmo di scaling matematico alle statistiche del mostro.
+     * Formula: {@code stats = baseStats * (1 + (level - 1) * 0.1)}
+     * Questo garantisce un aumento della difficoltà del 10% per ogni piano.
+     * @param monster la creatura da potenziare.
+     * @param level il livello attuale del dungeon.
+     */
     private static void applyFloorModifier(Creature monster, int level){
         double modifier = 1 + (level - 1) * 0.1; // Aumento del 10% per ogni piano oltre il primo
         monster.setMaxHP((int)(monster.getMaxHP() * modifier));
@@ -104,6 +135,12 @@ public class GameCatalog {
         return itemsMap.get(id);
     }
 
+    /**
+     * Estrae e RIMUOVE un oggetto casuale dalla lista dei drop disponibili.
+     * La rimozione garantisce che il giocatore non trovi duplicati dello stesso oggetto
+     * durante la stessa run.
+     * @return un oggetto {@link Item} casuale, o {@code null} se la lista è vuota.
+     */
     public static Item getRandomItem() { //restituisce un oggetto casuale dalla lista degli oggetti droppabili
         if(droppableItems.isEmpty()){
             return null;
@@ -118,6 +155,6 @@ public class GameCatalog {
     }
 
     public static int getRandomGoldsAmount() {
-        return random.nextInt(125, 201); // Genera un numero casuale tra 100 e 200 (inclusivo)
+        return random.nextInt(125, 201); // genera un numero casuale tra 100 e 200 (inclusivo)
     }
 }

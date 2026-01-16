@@ -125,4 +125,21 @@ class GameCatalogTest {
         }
         System.out.println("Test completed. Extracted " + itemsFoundCount + " unique items.");
     }
+
+    // test per verificare che gli oggetti nel negozio siano ordinati per prezzo crescente
+    @Test
+    void testShopItemsAreSortedByPrice() {
+        List<Item> shopItems = GameCatalog.getShopItems();
+
+        if (shopItems != null && shopItems.size() > 1) {
+            for (int i = 0; i < shopItems.size() - 1; i++) {
+                Item current = shopItems.get(i);
+                Item next = shopItems.get(i + 1);
+
+                // asserzione fondamentale: elemento i <= elemento i+1
+                assertTrue(current.getPrice() <= next.getPrice(), 
+                    "Ordinamento fallito: " + current.getName() + " (" + current.getPrice() + ") costa più di " + next.getName() + " (" + next.getPrice() + ")");
+            }
+        }
+    }
 }
