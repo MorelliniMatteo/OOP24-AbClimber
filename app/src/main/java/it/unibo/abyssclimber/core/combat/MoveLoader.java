@@ -17,36 +17,14 @@ public class MoveLoader {
     private static ArrayList<BaseMove> baseMoves;
     private static ArrayList<Move> fullMoves;
     private static ArrayList<Move> moves = new ArrayList<>();
-
-    //Strike and swirl. The 8 (2 types per element) 1 cost moves.
-    //They are incomplete and will be filled in the baseMoveAssign method.
-    public static class BaseMove {
+    
+    //The Move class is the result from loading JSON from moves.json
+    public static class Move implements CombatMove{
         private String name;
         private int power;
         private int acc;
         private int type;
         private int cost;
-
-        @Override
-        public String toString() {
-            return "BaseMove{name='" + name + "', power=" + power + ", acc=" + acc + ", type=" + type + ", cost=" + cost + "}";
-        }
-
-        public String getName() {return name;}
-        public int getPower() {return power;}
-        public int getAcc() {return acc;}
-        public int getType() {return type;}
-        public int getCost() {return cost;}
-
-        public void setName(String name) {this.name = name;}
-        public void setPower(int power) {this.power = power;}
-        public void setAcc(int acc) {this.acc = acc;}
-        public void setType(int type) {this.type = type;}
-        public void setCost(int cost) {this.cost = cost;}
-    }
-    
-    //The Move class is the result from loading JSON from moves.json
-    public static class Move extends BaseMove{
         private Tipo element;
         private int id;
         
@@ -54,9 +32,34 @@ public class MoveLoader {
         public String toString() {
             return "Move{name='" + this.getName() + "', power=" + this.getPower() + ", acc=" + this.getAcc() + ", type=" + this.getType() + ", cost=" + this.getCost() + ", type=" + this.getElement() + ", ID=" + this.getId() + "}";
         }
-        public Tipo getElement() {return element;}
-        public int getId() {return id;}
 
+        public Move () {
+
+        }
+        
+        public Move (Tipo el, int ID, BaseMove bMove) {
+            this.element = el;
+            this.id = ID;
+            this.name = element + " " + bMove.name();
+            this.power = bMove.power();
+            this.acc = bMove.acc();
+            this.type = bMove.type();
+            this.cost = bMove.cost();
+        }
+
+        @Override public String getName() {return name;}
+        @Override public int getPower() {return power;}
+        @Override public int getAcc() {return acc;}
+        @Override public int getType() {return type;}
+        @Override public int getCost() {return cost;}
+        @Override public Tipo getElement() {return element;}
+        @Override public int getId() {return id;}
+
+        public void setName(String name) {this.name = name;}
+        public void setPower(int power) {this.power = power;}
+        public void setAcc(int acc) {this.acc = acc;}
+        public void setType(int type) {this.type = type;}
+        public void setCost(int cost) {this.cost = cost;}
         public void setElement(Tipo element) {this.element = element;}
         public void setId(int id) {this.id = id;}
 
@@ -69,15 +72,7 @@ public class MoveLoader {
         for (BaseMove bm : bml){
             for (Tipo e : Tipo.values()){
                 if (e == Tipo.VOID) continue;
-                Move m = new Move();
-                m.setName(e+" "+bm.getName());
-                m.setPower(bm.getPower());
-                m.setAcc(bm.getAcc());
-                m.setType(bm.getType());
-                m.setCost(bm.getCost());
-
-                m.setElement(e);
-                m.setId(idCounter++);
+                Move m = new Move(e, idCounter++, bm);
 
                 moves.add(m);
             }
@@ -110,7 +105,6 @@ public class MoveLoader {
     public static void loadMoves() throws IOException{
         loadMovesJSON();
         baseMoveAssign(baseMoves);
-        //moves.forEach(System.out::println);
     }
 
     public static ArrayList<Move> getMoves() {

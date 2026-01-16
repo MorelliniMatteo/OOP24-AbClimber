@@ -9,38 +9,49 @@ import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import it.unibo.abyssclimber.core.combat.MoveLoader.Move;
+import it.unibo.abyssclimber.model.Classe;
 import it.unibo.abyssclimber.model.Creature;
+import it.unibo.abyssclimber.model.GameEntity;
+import it.unibo.abyssclimber.model.Player;
 import it.unibo.abyssclimber.model.Tipo;
-import it.unibo.abyssclimber.ui.combat.CombatController;
 
 @ExtendWith(MockitoExtension.class)
 public class CombatTest {
     private Creature monster; 
-    private Creature attacker;
+    private Player attacker;
 
     @Mock
     private CombatLog log;
 
     @Mock
-    private CombatController controller;
+    private CombatPresenter controller;
 
     @Mock
     private Random rng;
 
     private Combat combat;
+
+    MockedStatic<LoadEnemyMoves> mockedLoad;
     
     @BeforeEach
     void setup() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-        attacker = new Creature(Tipo.FIRE, "Fire");
+
+        mockedLoad = mockStatic(LoadEnemyMoves.class);
+        mockedLoad.when(() -> LoadEnemyMoves.load(any(Creature.class))) .thenReturn(new ArrayList<>(List.of(mock(CombatMove.class))));
+
+        attacker = new Player("Hero", Tipo.FIRE, Classe.SOLDATO);
         monster = new Creature(Tipo.HYDRO, "Hydro");
         attacker.setMaxHP(100);
         attacker.setHP(100);
@@ -57,6 +68,9 @@ public class CombatTest {
         attacker.setSTAM(5);
         monster.setSTAM(5);
 
+        CombatMove fakeMove = mock(CombatMove.class);
+        ArrayList<CombatMove> moves = new ArrayList<>();
+        moves.add(fakeMove);  
 
         combat = new Combat(attacker, monster, log, controller);
 
@@ -66,10 +80,15 @@ public class CombatTest {
         
     }
 
+    @AfterEach
+    void destroy() {
+        mockedLoad.close();
+    }
+
     @Test
     void testDamage() throws Exception {
         int dmg;
-        Move attack = mock(Move.class);
+        CombatMove attack = mock(CombatMove.class);
         when(attack.getName()).thenReturn("Test Strike");
         when(attack.getCost()).thenReturn(0);
         when(attack.getAcc()).thenReturn(100); // Non miss.
@@ -94,37 +113,34 @@ public class CombatTest {
 
     @Test
     void testMiss() throws Exception {
-        int dmg;
-        Move attack = mock(Move.class);
+        CombatMove attack = mock(CombatMove.class);
         when(attack.getName()).thenReturn("Test Strike");
         when(attack.getCost()).thenReturn(0);
-        when(attack.getAcc()).thenReturn(0); // Non miss.
-        
-        when(rng.nextInt(101))
-            .thenReturn(10); // miss roll
+        when(attack.getAcc()).thenReturn(0); // miss.
+        when(rng.nextInt(101)).thenReturn(10);
 
         try (var mocked = mockStatic(ElementUtils.class)) {
-            mocked.when(() -> ElementUtils.getEffect(attack, monster)).thenReturn(0.75);
-            dmg = combatTestableDmg(combat, attack, attacker, monster);
+            mocked.when(() -> ElementUtils.getEffect(attack, monster)).thenReturn(1.0);
+            int dmg = combatTestableDmg(combat, attack, attacker, monster);
+            assertEquals(0, dmg);
+            assertEquals(100, monster.getHP());
+            verify(log, atLeastOnce()).logCombat(anyString(), any());
+            verify(controller, atLeastOnce()).updateStats();
         }
 
-        assertEquals(0, dmg);
-        assertEquals(100, monster.getHP());
 
-        verify(log, atLeastOnce()).logCombat(anyString(), any());
-        verify(controller, atLeastOnce()).updateStats();
     }
 
     @Test
     void testCrit() throws Exception {
-        int dmg;
-        Move attack = mock(Move.class);
+        CombatMove attack = mock(CombatMove.class);
         when(attack.getName()).thenReturn("Test Strike");
         when(attack.getCost()).thenReturn(0);
         when(attack.getAcc()).thenReturn(100); // Non miss.
         when(attack.getType()).thenReturn(1); // Physical attack using ATK.
         when(attack.getPower()).thenReturn(50); // Move power.
         attacker.setCrit(100);
+        attacker.setCritDMG(2.0);
 
         when(rng.nextInt(101))
             .thenReturn(10) // accuracy roll
@@ -132,27 +148,27 @@ public class CombatTest {
 
         try (var mocked = mockStatic(ElementUtils.class)) {
             mocked.when(() -> ElementUtils.getEffect(attack, monster)).thenReturn(0.75);
-            dmg = combatTestableDmg(combat, attack, attacker, monster);
+            int dmg; dmg = combatTestableDmg(combat, attack, attacker, monster);
+            assertEquals(22, dmg);
+            assertEquals(78, monster.getHP());
+    
+            verify(log, atLeastOnce()).logCombat(anyString(), any());
+            verify(controller, atLeastOnce()).updateStats();
         }
 
-        assertEquals(22, dmg);
-        assertEquals(78, monster.getHP());
-
-        verify(log, atLeastOnce()).logCombat(anyString(), any());
-        verify(controller, atLeastOnce()).updateStats();
     }
 
     @Test
     void testWeak() {
         double weak = 0;
-        Move attack = mock(Move.class);
+        CombatMove attack = mock(CombatMove.class);
         when(attack.getElement()).thenReturn(Tipo.FIRE);
         weak = ElementUtils.getEffect(attack, monster);
         assertEquals(0.75, weak);
     }
 
-    private int combatTestableDmg(Combat combat, Move mv, Creature attacker, Creature target) throws Exception {
-        var method = Combat.class.getDeclaredMethod("dmgCalc", Move.class, Creature.class, Creature.class);
+    private int combatTestableDmg(Combat combat, CombatMove mv, GameEntity attacker, GameEntity target) throws Exception {
+        var method = Combat.class.getDeclaredMethod("dmgCalc", CombatMove.class, GameEntity.class, GameEntity.class);
         method.setAccessible(true);
         return (int) method.invoke(combat, mv, attacker, target);
     }

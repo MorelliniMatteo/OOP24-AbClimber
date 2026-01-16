@@ -1,10 +1,9 @@
 package it.unibo.abyssclimber.ui.moves;
 
-import it.unibo.abyssclimber.core.GameState;
-import it.unibo.abyssclimber.core.Refreshable;
 import it.unibo.abyssclimber.core.SceneId;
 import it.unibo.abyssclimber.core.SceneRouter;
 import it.unibo.abyssclimber.core.combat.MoveLoader;
+import it.unibo.abyssclimber.core.services.MoveSelectionService;
 import it.unibo.abyssclimber.model.Tipo;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -22,11 +21,9 @@ import java.util.Set;
  * Controller for the move selection screen.
  * Allows the player to choose a fixed number of moves.
  */
-public class MoveSelectionController implements Refreshable {
+public class MoveSelectionController {
 
     // Maximum number of selectable moves
-    private static final int MAX_SELECTED = 6;
-
     // Number of columns in each grid
     private static final int COLS = 4;
 
@@ -41,6 +38,7 @@ public class MoveSelectionController implements Refreshable {
 
     // Currently selected move buttons
     private final Set<ToggleButton> selected = new HashSet<>();
+    private final MoveSelectionService selectionService = new MoveSelectionService();
 
     /**
      * Called automatically after FXML loading.
@@ -63,12 +61,6 @@ public class MoveSelectionController implements Refreshable {
         fillGrid(thunderGrid, filterByElement(moves, Tipo.LIGHTNING));
         fillGrid(fireGrid, filterByElement(moves, Tipo.FIRE));
 
-        refresh();
-    }
-
-    @Override
-    public void onShow() {
-        resetSelection();
         refresh();
     }
 
@@ -120,7 +112,7 @@ public class MoveSelectionController implements Refreshable {
             // Selection logic with max limit check
             tb.setOnAction(e -> {
                 if (tb.isSelected()) {
-                    if (selected.size() >= MAX_SELECTED) {
+                    if (selected.size() >= MoveSelectionService.MAX_SELECTED) {
                         tb.setSelected(false);
                         return;
                     }
@@ -137,33 +129,19 @@ public class MoveSelectionController implements Refreshable {
         }
     }
 
-    private void resetSelection() {
-        selected.clear();
-        clearToggleSelections(hydroGrid);
-        clearToggleSelections(natureGrid);
-        clearToggleSelections(thunderGrid);
-        clearToggleSelections(fireGrid);
-    }
-
-    private void clearToggleSelections(GridPane grid) {
-        for (var node : grid.getChildren()) {
-            if (node instanceof ToggleButton tb) {
-                tb.setSelected(false);
-            }
-        }
-    }
-
     /**
      * Updates label text and start button state.
      */
     private void refresh() {
-        boolean hasCostOne = hasCostOneSelected();
-        if (selected.size() == MAX_SELECTED && !hasCostOne) {
+        List<MoveLoader.Move> selectedMoves = getSelectedMoves();
+        boolean hasCostOne = selectionService.hasRequiredCostOne(selectedMoves);
+        if (selectedMoves.size() == MoveSelectionService.MAX_SELECTED && !hasCostOne) {
             infoLabel.setText("You must select at least one move with cost 1.");
         } else {
-            infoLabel.setText("Select 6 moves (" + selected.size() + "/" + MAX_SELECTED + ").");
+            infoLabel.setText("Select 6 moves (" + selectedMoves.size()
+                + "/" + MoveSelectionService.MAX_SELECTED + ").");
         }
-        startBtn.setDisable(selected.size() != MAX_SELECTED || !hasCostOne);
+        startBtn.setDisable(!selectionService.isSelectionValid(selectedMoves));
     }
 
     /**
@@ -179,25 +157,19 @@ public class MoveSelectionController implements Refreshable {
      */
     @FXML
     private void onStartRun() {
-        if (selected.size() != MAX_SELECTED || !hasCostOneSelected()) {
+        List<MoveLoader.Move> selectedMoves = getSelectedMoves();
+        if (!selectionService.isSelectionValid(selectedMoves)) {
             refresh();
             return;
         }
 
-        // Extract selected moves from toggle buttons
-        List<MoveLoader.Move> chosen = selected.stream()
-            .map(tb -> (MoveLoader.Move) tb.getUserData())
-            .toList();
-
-        // Store moves in the global game state
-        GameState.get().getPlayer().setSelectedMoves(chosen);
-
-        SceneRouter.goTo(SceneId.ROOM_SELECTION);
+        SceneId nextScene = selectionService.startRun(selectedMoves);
+        SceneRouter.goTo(nextScene);
     }
 
-    private boolean hasCostOneSelected() {
+    private List<MoveLoader.Move> getSelectedMoves() {
         return selected.stream()
             .map(tb -> (MoveLoader.Move) tb.getUserData())
-            .anyMatch(move -> move.getCost() == 1);
+            .toList();
     }
 }

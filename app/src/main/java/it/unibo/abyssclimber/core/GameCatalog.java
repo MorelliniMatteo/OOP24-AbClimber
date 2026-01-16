@@ -25,6 +25,8 @@ public class GameCatalog {
     private static List<Item> shopItems = new ArrayList<>(); //lista che contiene gli oggetti disponibili nel negozio
     private static List<Item> droppableItems = new ArrayList<>(); //lista che contiene gli oggetti che possono essere droppati dai mostri, esclude quelli del negozio
 
+    private static final Random random = new Random();
+
     public static void initialize() throws Exception {
         itemsMap.clear();
         monstersMap.clear();
@@ -82,8 +84,7 @@ public class GameCatalog {
         if (candidates == null || candidates.isEmpty()) {
             return null; // Nessun mostro disponibile per questo stage
         }
-        Random randomIndex = new Random();
-        Creature copy = candidates.get(randomIndex.nextInt(candidates.size())); //sceglie un int casuale tra 0 e la dimensiuone della lista dei mostri per lo stage corrente
+        Creature copy = candidates.get(random.nextInt(candidates.size())); //sceglie un int casuale tra 0 e la dimensiuone della lista dei mostri per lo stage corrente
         Creature copyCreature = new Creature(copy); //crea una nuova istanza di Creature a partire dal mostro preso casualmente dalla lista
         applyFloorModifier(copyCreature, level); //applica il modificatore di piano al mostro creato
         return copyCreature;
@@ -107,8 +108,7 @@ public class GameCatalog {
         if(droppableItems.isEmpty()){
             return null;
         }
-        Random rng = new Random();
-        int index = rng.nextInt(droppableItems.size());
+        int index = random.nextInt(droppableItems.size());
         Item itemFound = droppableItems.remove(index);
         return itemFound;
     }
@@ -118,7 +118,6 @@ public class GameCatalog {
     }
 
     public static int getRandomGoldsAmount() {
-        Random rng = new Random();
-        return rng.nextInt(125, 201); // Genera un numero casuale tra 100 e 200 (inclusivo)
+        return random.nextInt(125, 201); // Genera un numero casuale tra 100 e 200 (inclusivo)
     }
 }

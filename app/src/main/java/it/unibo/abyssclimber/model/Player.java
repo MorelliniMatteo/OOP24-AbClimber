@@ -6,9 +6,9 @@ import java.util.List;
 import it.unibo.abyssclimber.core.combat.MoveLoader;
 
 /*
-    *Player estende Creature. Le variabili sono ereditate, non visibili direttamente ma modificabili tramite i getter e setter ereditati.
+    *Player estende GameEntity. Le variabili sono ereditate, non visibili direttamente ma modificabili tramite i getter e setter ereditati.
 */
-public class Player extends Creature {
+public class Player extends GameEntity implements PlayerInterface{
     private Classe classe; // variabili specifiche del player
     private int gold = 0;
     private List<Item> inventory;
@@ -33,8 +33,8 @@ public class Player extends Creature {
         applicaClasse(classe);
     }
 
-    public void applicaClasse(Classe classe) { // metodo che applica le modifiche della classe scelta dal player alle
-                                               // sue statistiche
+    @Override
+    public void applicaClasse(Classe classe) { // metodo che applica le modifiche della classe scelta dal player alle sue statistiche
         this.setMaxHP(this.getMaxHP() + classe.getcMaxHP());
         this.setHP(this.getMaxHP()); // imposto la vita attuale al massimo dopo aver aumentato il maxHP
         this.setATK(this.getATK() + classe.getcATK());
@@ -45,14 +45,15 @@ public class Player extends Creature {
         this.setCritDMG(this.getCritDMG() + classe.getcCritDMG());
     }
 
-    public void addItemToInventory(Item item) { // qui va passato come parametro il randomItem ottenuto tramite
-                                                // GameCatalog.getRandomItem()
+    @Override
+    public void addItemToInventory(Item item) { // qui va passato come parametro il randomItem ottenuto tramite GameCatalog.getRandomItem()
         if (item != null) {
             inventory.add(item);
             applyItemStats(item);
         } 
     }
 
+    @Override
     public void applyItemStats(Item item) { // applica le statistiche dell'oggetto al player
         if (item != null) {
             if(item.getMaxHP() > 0) {
@@ -69,6 +70,7 @@ public class Player extends Creature {
         }
     }
 
+    @Override
     public void resetRun() {
         inventory.clear();
         this.setMaxHP(120);
@@ -85,18 +87,22 @@ public class Player extends Creature {
         selectedMoves.clear();
     }
 
+    @Override
     public int getGold() {
         return gold;
     }
 
+    @Override
     public Classe getClasse() {
         return classe;
     }
 
+    @Override
     public void setGold(int gold) {
         this.gold = gold;
     }
 
+    @Override
     public String toString() {
         return "Player: " + getName() + " | Class: " + classe.getName() + " | HP: " + getHP() + " | ATK: " + getATK()
                 + " | MATK: " + getMATK() + " | DEF: " + getDEF() + " | MDEF: " + getMDEF() + " | STAM: " + getSTAM()

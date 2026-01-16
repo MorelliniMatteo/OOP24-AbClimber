@@ -8,6 +8,7 @@ import it.unibo.abyssclimber.core.RoomOption;
 import it.unibo.abyssclimber.core.RoomType;
 import it.unibo.abyssclimber.core.SceneId;
 import it.unibo.abyssclimber.core.SceneRouter;
+import it.unibo.abyssclimber.core.services.RoomSelectionService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -33,6 +34,7 @@ public class RoomSelectionController implements Refreshable {
 
     // Current generated options for the three doors
     private List<RoomOption> currentOptions;
+    private final RoomSelectionService selectionService = new RoomSelectionService();
 
     /**
      * Called by SceneRouter when this scene is shown.
@@ -51,7 +53,7 @@ public class RoomSelectionController implements Refreshable {
 
         // Get cached options for current floor (or generate new if floor changed)
         int floor = GameState.get().getFloor();
-        currentOptions = RoomContext.get().getOrCreateOptions(floor);
+        currentOptions = selectionService.getOptionsForFloor(floor);
 
         // Apply options to door buttons
         applyOptionToButton(doorBtn1, currentOptions.get(0));
@@ -114,19 +116,8 @@ public class RoomSelectionController implements Refreshable {
         RoomOption opt = currentOptions.get(index);
         System.out.println("Selected: " + opt.type() + " (" + opt.title() + ")");
 
-        // Save last chosen option for the next room screen
-        RoomContext.get().setLastChosen(opt);
-        if (opt.type() == RoomType.FIGHT) {
-            RoomContext.get().disableDoor(GameState.get().getFloor(), index);
-        }
-
-        // Route to the scene associated with the room type
-        switch (opt.type()) {
-            case FIGHT -> SceneRouter.goTo(SceneId.FIGHT_ROOM);
-            case SHOP -> SceneRouter.goTo(SceneId.SHOP_ROOM);
-            case BOSS_ELITE -> SceneRouter.goTo(SceneId.BOSS_ROOM);
-            case FINAL_BOSS -> SceneRouter.goTo(SceneId.FINAL_BOSS_ROOM);
-        }
+        SceneId nextScene = selectionService.handleSelection(opt, GameState.get().getFloor(), index);
+        SceneRouter.goTo(nextScene);
     }
 
     /**
@@ -134,8 +125,8 @@ public class RoomSelectionController implements Refreshable {
      */
     @FXML
     private void onForceDeath() {
-        GameState.get().getPlayer().setHP(0);
-        SceneRouter.goTo(SceneId.GAME_OVER);
+        SceneId nextScene = selectionService.forceDeath();
+        SceneRouter.goTo(nextScene);
     }
 
     private void applyDisabledState(Button button, int index) {

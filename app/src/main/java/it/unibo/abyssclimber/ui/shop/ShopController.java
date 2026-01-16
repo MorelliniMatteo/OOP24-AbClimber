@@ -13,7 +13,7 @@ import it.unibo.abyssclimber.core.SceneId;
 import java.util.List;
 import java.util.ArrayList;
 
-public class ShopController implements Refreshable {
+public class ShopController implements ShopControllerInterface, Refreshable {
 
     // Fa da segnaposto, il file fxml viene letto, trova label con id specifico, cerca in questo file qualcosa con lo stesso nome, 
     // in questo caso sono le variabili e inserisce la Label creata dal file grafico dentro la variabile Java
@@ -37,6 +37,7 @@ public class ShopController implements Refreshable {
     private List<Item> itemsInShop = new ArrayList<>();
 
     @FXML
+    @Override
     public void initialize() {
         // items é uguale agli oggetti in vendita nel negozio presi dal GameCatalog
         List<Item> items = GameCatalog.getShopItems();
@@ -57,6 +58,7 @@ public class ShopController implements Refreshable {
     /*
         *Inizializza il negozio con gli oggetti
      */
+    @Override
     public void updateShopUI(List<Item> shopItems) {
         this.itemsInShop = new ArrayList<>(shopItems); // copia locale per gestione click, cosí gli indici rimangono corretti anche quando si effettua un acquisto
 
@@ -68,28 +70,33 @@ public class ShopController implements Refreshable {
     }
 
     @FXML
+    @Override
     public void onBackClicked() {
         // torna indietro alla selezione stanze
         SceneRouter.goTo(SceneId.SHOP_ROOM);
     }
 
     // al click del corrispettivo in shop.fxml, @FXML lo collega a questo metodo. La stessa cosa vale per gli altri 3 sotto
-    @FXML 
+    @FXML
+    @Override
     public void onSlot1Clicked() {
         tryBuy(0, shopSlot1Name, shopSlot1Price);
     }
 
     @FXML
+    @Override
     public void onSlot2Clicked() {
         tryBuy(1, shopSlot2Name, shopSlot2Price);
     }
 
     @FXML
+    @Override
     public void onSlot3Clicked() {
         tryBuy(2, shopSlot3Name, shopSlot3Price);
     }
 
     @FXML
+    @Override
     public void onSlot4Clicked() {
         tryBuy(3, shopSlot4Name, shopSlot4Price);
     }
@@ -102,38 +109,36 @@ public class ShopController implements Refreshable {
                 return;
         }
 
-        int prezzo = item.getPrice();
-
         // prende il Player dal GameState
         Player player = GameState.get().getPlayer(); 
         
-        // controlla se esiste
-        if (player == null) {
-            return;
-        }
-
+        // prende il prezzo dell'item
+        int prezzo = item.getPrice();
         // prende il gold del player
         int playerGold = player.getGold();
 
-        if (playerGold >= prezzo) {
-            // tolgo i soldi
-            player.setGold(playerGold - prezzo);
-            goldLabel.setText("Gold: " + player.getGold());
-
-            // richiamo il metodo di player per aggiungere l'oggetto all'inventario e applicare le statistiche
-            player.addItemToInventory(item); 
-
-            //rimuovo l'oggetto dal negozio (dalla lista presente in GameCatalog), così non può essere ricomprato
-            GameCatalog.getShopItems().remove(item);
-
-            // ora appare venduto dove c'era l'oggetto
-            nameLbl.setText("SOLD");
-            nameLbl.setStyle("-fx-text-fill: gray;");
-            priceLbl.setText("");
-
-            // toglie l'oggetto anche dalla lista locale ma lo rendo null cosí gli indici rimangono corretti e non scorrono verso il basso
-            itemsInShop.set(index, null); 
+        if(playerGold < prezzo) {
+            // non ha abbastanza oro quindi esci
+            return;
         }
+
+        // tolgo i soldi
+        player.setGold(playerGold - prezzo);
+        goldLabel.setText("Gold: " + player.getGold());
+
+        // richiamo il metodo di player per aggiungere l'oggetto all'inventario e applicare le statistiche
+        player.addItemToInventory(item); 
+
+        //rimuovo l'oggetto dal negozio (dalla lista presente in GameCatalog), così non può essere ricomprato
+        GameCatalog.getShopItems().remove(item);
+
+        // ora appare venduto dove c'era l'oggetto
+        nameLbl.setText("SOLD");
+        nameLbl.setStyle("-fx-text-fill: gray;");
+        priceLbl.setText("");
+
+        // toglie l'oggetto anche dalla lista locale ma lo rendo null cosí gli indici rimangono corretti e non scorrono verso il basso
+        itemsInShop.set(index, null); 
     }
 
     private void updateSingleShopSlot(Label nameLbl, Label statsLbl, Label priceLbl, Item item) { //qui scelgo come mostrare le info dell'oggetto
