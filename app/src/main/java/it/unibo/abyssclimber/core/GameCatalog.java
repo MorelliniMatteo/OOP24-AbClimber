@@ -18,7 +18,7 @@ import java.util.ArrayList;
     *Questi oggetti della lista vengono poi inseriti nella mappa itemsMap con chiave l'id dell'oggetto e l'oggetto stesso come valore
  */
 public class GameCatalog {
-    private static Map<Integer, Item> itemsMap = new HashMap<>();
+    private static Map<Integer, Item> itemsMap = new HashMap<>(); //mapppa che contiene gli oggetti con chiave l'id dell'oggetto
     private static Map<Stage, List<Creature>> monstersMap = new EnumMap<>(Stage.class); //dato che so giá la struttura che deve avere l'hashmap perché uso Enum, uso EnumMap che permette una lettura piú veloce
     
     private static List<Item> items = new ArrayList<>(); //lista che contiene tutti gli oggetti caricati da DataLoader
@@ -48,18 +48,15 @@ public class GameCatalog {
                 droppableItems.add(shuffleItems.get(i));
             }
         }
-        System.out.println("Registry initialized. Objects in memory: " + itemsMap.size());
-        System.out.println("Shop Items: " + shopItems.size());
-        System.out.println("Droppable Items: " + droppableItems.size());
 
 
         List<Creature> monsters = dataLoader.loadMonsters();
-        for (Stage stage : Stage.values()){ //inizializzo la mappa con le chiavi Stage e liste vuote che conteranno i mostri con quel determinato stage
+        for (Stage stage : Stage.values()){ //ad ogni ID che in questo caso corrisponde allo stage, creo una lista vuota che contiene i mostri con quel determinato stage
             monstersMap.put(stage, new ArrayList<>());
         }
         for (Creature monster : monsters){ //cerca i mostri nella lista dei mostri che hanno uno stage definito e li inserisce nella mappa sotto lo stage corrispondente
             if (monster.getStage() != null){
-                Stage stageEnum = Stage.valueOf(monster.getStage()); //valueOf converte la stringa che rappresenta lo stage del mostro nella lista e lo converte in un elemento dell'enum Stage
+                Stage stageEnum = Stage.valueOf(monster.getStage()); //valueOf converte la stringa che rappresenta lo stage del mostro nella lista e lo converte in un elemento dell'enum Stage.
                 monstersMap.get(stageEnum).add(monster);             //é esattamente Stage. che determina in cosa deve essere trasformata la stringa o qualsiasi cosa ci sta dopo
             }
         }
@@ -88,8 +85,19 @@ public class GameCatalog {
         Random randomIndex = new Random();
         Creature copy = candidates.get(randomIndex.nextInt(candidates.size())); //sceglie un int casuale tra 0 e la dimensiuone della lista dei mostri per lo stage corrente
         Creature copyCreature = new Creature(copy); //crea una nuova istanza di Creature a partire dal mostro preso casualmente dalla lista
+        applyFloorModifier(copyCreature, level); //applica il modificatore di piano al mostro creato
         return copyCreature;
     }   
+
+    private static void applyFloorModifier(Creature monster, int level){
+        double modifier = 1 + (level - 1) * 0.1; // Aumento del 10% per ogni piano oltre il primo
+        monster.setMaxHP((int)(monster.getMaxHP() * modifier));
+        monster.setHP(monster.getMaxHP());
+        monster.setATK((int)(monster.getATK() * modifier));
+        monster.setMATK((int)(monster.getMATK() * modifier));
+        monster.setDEF((int)(monster.getDEF() * modifier));
+        monster.setMDEF((int)(monster.getMDEF() * modifier));
+    }
     
     public static Item lookupItem(int id) {
         return itemsMap.get(id);
@@ -102,7 +110,6 @@ public class GameCatalog {
         Random rng = new Random();
         int index = rng.nextInt(droppableItems.size());
         Item itemFound = droppableItems.remove(index);
-        System.out.println("Droppable item generated: " + itemFound.getName());
         return itemFound;
     }
 
@@ -112,6 +119,6 @@ public class GameCatalog {
 
     public static int getRandomGoldsAmount() {
         Random rng = new Random();
-        return rng.nextInt(50, 151); // Genera un numero casuale tra 50 e 150 (inclusivo)
+        return rng.nextInt(125, 201); // Genera un numero casuale tra 100 e 200 (inclusivo)
     }
 }

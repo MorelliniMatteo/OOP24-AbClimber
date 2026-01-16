@@ -1,8 +1,6 @@
 package it.unibo.abyssclimber.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-//TODO:Il gioco é da bilanciare
-
 public class Item {
     private int ID;
     private String name;
@@ -69,5 +67,35 @@ public class Item {
     public void setEffect(String effect) {this.effect = effect;}
     @JsonProperty("price")
     public void setPrice(int price) {this.price = price;}
-}
 
+    @Override
+    public String toString() {
+    StringBuilder sb = new StringBuilder();
+
+    if (maxHP > 0) {
+        sb.append("maxHP: ").append(this.maxHP);
+        sb.append(" | ");
+    }
+    if (HP > 0) {
+        sb.append("HP: ").append(this.HP);
+        sb.append(" | ");
+    }
+    if (ATK > 0) {
+        sb.append("ATK: ").append(this.ATK);
+        sb.append(" | ");
+    }
+    if (MATK > 0) {
+        sb.append("MATK: ").append(this.MATK);
+        sb.append(" | ");
+    }
+    if (DEF > 0) {
+        sb.append("DEF: ").append(this.DEF);
+        sb.append(" | ");
+    }
+    if (MDEF > 0) {
+        sb.append("MDEF: ").append(this.MDEF);
+        sb.append(" | ");
+    }
+    return sb.toString();
+    }
+}

@@ -107,13 +107,10 @@ public class CombatController  implements CombatPresenter{
     private void applyBackground(Pane bgPane, Creature monster) {
         if ( monster.getIsElite() && !monster.getStage().equalsIgnoreCase("BOSS")) {
             bgPane.getStyleClass().addAll("combat-bg-elite", "combat-bg");
-            System.out.println("elite BG.");
         } else if ( monster.getStage().equalsIgnoreCase("BOSS")) {
             bgPane.getStyleClass().addAll("combat-bg-boss", "combat-bg");
-            System.out.println("boss BG.");
         } else {
             bgPane.getStyleClass().addAll("combat-bg-normal", "combat-bg");
-            System.out.println("normal BG.");
         }
     }
 
@@ -135,7 +132,7 @@ public class CombatController  implements CombatPresenter{
         for ( int i = 0; i < player.getSelectedMoves().size(); i++ ) {
             Button b = buttonList.get(i);
             Move mv = player.getSelectedMoves().get(i);
-            b.setText(mv.getName() + "\n" + "Potenza " + mv.getPower() + " | Acc " + mv.getAcc() + " | Costo " +mv.getCost());
+            b.setText(mv.getName() + "\n" + "Power " + mv.getPower() + " | Accuracy " + mv.getAcc() + " | Cost " +mv.getCost());
             b.setUserData(mv);
             applyTipoStyle(b, mv.getElement());
         }

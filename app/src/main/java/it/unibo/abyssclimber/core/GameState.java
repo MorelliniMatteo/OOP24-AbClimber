@@ -97,18 +97,4 @@ public class GameState {
         RoomContext.get().clearCachedOptions(); // Reset cached room options
         GameCatalog.initialize();
     }
-
-    /**
-     * Restart but the moves, classes and element remain the same.
-     */
-    public void resetRunKeepBuild() throws Exception {
-        floor = 1;
-        RoomContext.get().setLastChosen(null);
-        RoomContext.get().clearCachedOptions();
-        GameCatalog.initialize();
-
-        if (player != null) {
-            player.resetRunKeepBuild();
-        }
-    }
 }

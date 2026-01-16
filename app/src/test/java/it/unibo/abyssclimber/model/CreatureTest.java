@@ -52,7 +52,7 @@ class CreatureTest {
         assertEquals(120, monster.getHP());
     }
 
-    // verifico che se gli hp sono meno di 0, il mostro é morto
+    // verifico che se gli hp sono 0 o meno di 0, il mostro é morto
     @Test
     void testIsDead() {
         Creature monster = new Creature(Tipo.LIGHTNING, "Slime");
@@ -64,5 +64,18 @@ class CreatureTest {
 
         monster.setHP(-5);
         assertTrue(monster.isDead());
+    }
+
+    // verifico che l'aumento di stamina non superi il massimo
+    @Test
+    void testPromoteToEliteStamina() {
+        Creature monster = new Creature(Tipo.NATURE, "Orco");
+        // di base si ha regStam 2 tranne quando si diventa elite
+        monster.setRegSTAM(2); 
+        
+        monster.promoteToElite();
+
+        // verifico che vada effettivamente a 3
+        assertEquals(3, monster.getRegSTAM(), "Elite dovrebbe aumentare regSTAM di 1");
     }
 }

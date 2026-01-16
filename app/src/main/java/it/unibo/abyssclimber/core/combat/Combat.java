@@ -8,15 +8,20 @@ import it.unibo.abyssclimber.core.GameCatalog;
 import it.unibo.abyssclimber.core.RoomContext;
 import it.unibo.abyssclimber.core.RoomOption;
 import it.unibo.abyssclimber.core.RoomType;
+import it.unibo.abyssclimber.core.SceneId;
+import it.unibo.abyssclimber.core.SceneRouter;
 import it.unibo.abyssclimber.model.Creature;
 import it.unibo.abyssclimber.model.Item;
 import it.unibo.abyssclimber.model.Player;
+import it.unibo.abyssclimber.ui.combat.CombatController;
 
 //Main combat method. Ineracts with CombatController.
 public class Combat {
     private int turn = 1;
     private boolean playerTurn = true;
     private Player player;
+    @SuppressWarnings("unused")
+    private Creature creature;
     private Creature monster;
     private CombatPresenter controller;
     private Random random = new Random();
@@ -28,6 +33,14 @@ public class Combat {
         this.player = creature1;
         this.monster = creature2;
         this.enemyMoves = new ArrayList<>(LoadEnemyMoves.load(creature2));
+        this.combatLog = log;
+        this.controller = controller;
+        this.controller.setCombatEnd(false);
+    }
+    //Constructor for 2 creatures.
+    public Combat(Creature creature1, Creature creature2, CombatLog log, CombatController controller) {
+        this.creature = creature1;
+        this.monster = creature2;
         this.combatLog = log;
         this.controller = controller;
         this.controller.setCombatEnd(false);
@@ -47,9 +60,9 @@ public class Combat {
             return 0;
         }
         if (attack.getType() == 1){
-            dmg = (int) Math.floor(Math.max(0,(attacker.getATK() - target.getDEF()) * weak * (1 + (attack.getPower()/100))));
+            dmg = (int) Math.floor(Math.max(0,(attacker.getATK() - target.getDEF()) * weak * (1 + (attack.getPower()/100.0))));
         } else {
-            dmg = (int) Math.floor(Math.max(0,(attacker.getMATK() - target.getMDEF())* weak * (1 + (attack.getPower()/100))));
+            dmg = (int) Math.floor(Math.max(0,(attacker.getMATK() - target.getMDEF())* weak * (1 + (attack.getPower()/100.0))));
         }
         dmg = applyCrit(dmg, attacker, attack, random);
         target.setHP(Math.max(0, target.getHP() - dmg ));
@@ -91,7 +104,6 @@ public class Combat {
         if (monster.isDead()) {
             controller.setCombatEnd(true);
             combatLog.logCombat("" + monster.getName() + " died. You win.\n", LogType.NORMAL);
-            System.out.println("You win.\n");
             boolean finalBossFight = isFinalBossFight();
             enemyDrop();
             controller.renderLog();
@@ -108,10 +120,6 @@ public class Combat {
     //Enemy turn.
     private void monsterTurn() {
         playerTurn = true;
-
-        //TODO: remove
-        System.out.println("Monster stamina: " + monster.getSTAM());
-        System.out.println("Monster stamina regen: " + monster.getRegSTAM());
 
         if (monster.getSTAM() >= monster.getMaxSTAM()) {
             dmgCalc(enemyMoves.getLast(), monster, player);

@@ -55,31 +55,31 @@ public final class RoomGenerator {
         return new RoomOption(
                 RoomType.BOSS_ELITE,
                 "Boss Elite",
-                "Sfida il guardiano del piano " + floor
+                "Challenge the floor guardian " + floor
         );
     }
 
     private static RoomOption finalBossOption() {
         return new RoomOption(
                 RoomType.FINAL_BOSS,
-                "Boss Finale",
-                "La sfida definitiva ti attende"
+                "Final Boss",
+                "The final challenge awaits!"
         );
     }
 
     private static RoomOption fightOption(int floor) {
         return new RoomOption(
                 RoomType.FIGHT,
-                "Combattimento",
-                "Nemici sempre più forti (Piano " + floor + ")"
+                "Combat Room",
+                "Enemies get stronger (Floor " + floor + ")"
         );
     }
 
     private static RoomOption shopOption(int floor) {
         return new RoomOption(
                 RoomType.SHOP,
-                "Negozio",
-                "Spendi oro e potenziati"
+                "Shop",
+                "Spend gold and power up!"
         );
     }
 }

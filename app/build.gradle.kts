@@ -28,6 +28,8 @@ javafx {
 
 val javafxVersion = "21.0.9"
 
+val javafxVersion = "21.0.9"
+
 dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.11.0")
     implementation(libs.guava)
@@ -55,7 +57,7 @@ dependencies {
 }
 
 application {
-    mainClass.set((project.findProperty("mainClass") as String?) ?: "it.unibo.abyssclimber.MainApp")
+    mainClass.set( "it.unibo.abyssclimber.Launcher")
 }
 
 tasks.test {
@@ -66,6 +68,13 @@ tasks.test {
     }
 }
 
-tasks.named<JavaExec>("run") {
-    standardInput = System.`in`
+tasks.jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE 
+    manifest {
+        attributes("Main-Class" to "it.unibo.abyssclimber.Launcher") 
+    }
+    from (
+        configurations.runtimeClasspath.get().map { 
+            file -> if (file.isDirectory) file else zipTree(file)}
+    )
 }

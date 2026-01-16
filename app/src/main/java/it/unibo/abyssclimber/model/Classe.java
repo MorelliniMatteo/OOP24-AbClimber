@@ -1,9 +1,9 @@
 package it.unibo.abyssclimber.model;
 
 public enum Classe {
-    CAVALIERE("Knight", 250, 20, 1, 25, 15, 20, 1.5),
-    MAGO("Mage", 250, 1, 20, 15, 25, 20, 1.5),
-    SOLDATO("Soldier", 300, 15, 15, 20, 20, 25, 1.5);
+    CAVALIERE("Knight", 250, 25, 1, 30, 20, 20, 1.5),
+    MAGO("Mage", 250, 1, 25, 20, 30, 20, 1.5),
+    SOLDATO("Soldier", 300, 20, 20, 25, 25, 25, 2.0);
 
     private final String name;
     private final int cMaxHP;

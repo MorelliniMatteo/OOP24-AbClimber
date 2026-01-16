@@ -3,7 +3,7 @@
     "ID": 1,
     "name": "Apprentice's Staff",
     "maxHP": 0,
-    "HP": 0, "ATK": 5, "MATK": 12, "DEF": 0, "MDEF": 0,
+    "HP": 0, "ATK": 3, "MATK": 10, "DEF": 0, "MDEF": 3,
     "effect": "None",
     "discovered": false,
     "price": 200
@@ -11,8 +11,8 @@
   {
     "ID": 2,
     "name": "Worn Dress",
-    "maxHP": 20,
-    "HP": 20, "ATK": 0, "MATK": 2, "DEF": 2, "MDEF": 5,
+    "maxHP": 15,
+    "HP": 15, "ATK": 0, "MATK": 3, "DEF": 2, "MDEF": 5,
     "effect": "None",
     "discovered": false,
     "price": 250
@@ -21,52 +21,52 @@
     "ID": 3,
     "name": "Worn out robe",
     "maxHP": 0,
-    "HP": 0, "ATK": 0, "MATK": 35, "DEF": 0, "MDEF": 0,
+    "HP": 0, "ATK": 0, "MATK": 20, "DEF": 0, "MDEF": 8,
     "effect": "None",
     "discovered": false,
-    "price": 750
+    "price": 600
   },
   {
     "ID": 4,
     "name": "Sage's Hat",
-    "maxHP": 30,
-    "HP": 30, "ATK": 0, "MATK": 15, "DEF": 5, "MDEF": 12,
+    "maxHP": 25,
+    "HP": 25, "ATK": 0, "MATK": 12, "DEF": 3, "MDEF": 10,
     "effect": "Increases MDEF",
     "discovered": false,
-    "price": 550
+    "price": 500
   },
   {
     "ID": 5,
     "name": "Mana Ring",
     "maxHP": 0,
-    "HP": 0, "ATK": 0, "MATK": 25, "DEF": 0, "MDEF": 10,
+    "HP": 0, "ATK": 0, "MATK": 18, "DEF": 0, "MDEF": 8,
     "effect": "Enhance spells",
     "discovered": false,
-    "price": 700
+    "price": 650
   },
   {
     "ID": 6,
     "name": "Void Robe",
-    "maxHP": 100,
-    "HP": 100, "ATK": 0, "MATK": 20, "DEF": 15, "MDEF": 30,
+    "maxHP": 80,
+    "HP": 80, "ATK": 0, "MATK": 15, "DEF": 10, "MDEF": 25,
     "effect": "Big HP bonus",
     "discovered": false,
-    "price": 1200
+    "price": 1000
   },
   {
     "ID": 7,
     "name": "Scepter of Oblivion",
     "maxHP": 0,
-    "HP": 0, "ATK": 15, "MATK": 70, "DEF": 0, "MDEF": 20,
+    "HP": 0, "ATK": 10, "MATK": 60, "DEF": 0, "MDEF": 15,
     "effect": "Maximizes magical damage",
     "discovered": false,
-    "price": 1900
+    "price": 1300
   },
   {
     "ID": 8,
     "name": "Rusty Sword",
     "maxHP": 0,
-    "HP": 0, "ATK": 15, "MATK": 0, "DEF": 0, "MDEF": 0,
+    "HP": 0, "ATK": 12, "MATK": 0, "DEF": 2, "MDEF": 0,
     "effect": "None",
     "discovered": false,
     "price": 200
@@ -74,8 +74,8 @@
   {
     "ID": 9,
     "name": "Leather bodice",
-    "maxHP": 40,
-    "HP": 40, "ATK": 0, "MATK": 0, "DEF": 10, "MDEF": 0,
+    "maxHP": 30,
+    "HP": 30, "ATK": 0, "MATK": 0, "DEF": 8, "MDEF": 3,
     "effect": "None",
     "discovered": false,
     "price": 300
@@ -83,53 +83,53 @@
   {
     "ID": 10,
     "name": "Captain's Blade",
-    "maxHP": 20,
-    "HP": 20, "ATK": 45, "MATK": 0, "DEF": 5, "MDEF": 0,
+    "maxHP": 15,
+    "HP": 15, "ATK": 30, "MATK": 0, "DEF": 4, "MDEF": 0,
     "effect": "Sharpened blade",
     "discovered": false,
-    "price": 1100
+    "price": 900
   },
   {
     "ID": 11,
     "name": "Iron Helmet",
-    "maxHP": 50,
-    "HP": 50, "ATK": 0, "MATK": 0, "DEF": 20, "MDEF": 5,
+    "maxHP": 40,
+    "HP": 40, "ATK": 0, "MATK": 0, "DEF": 15, "MDEF": 5,
     "effect": "Head protection",
     "discovered": false,
-    "price": 600
+    "price": 550
   },
   {
     "ID": 12,
     "name": "War Gloves",
-    "maxHP": 20,
-    "HP": 20, "ATK": 25, "MATK": 0, "DEF": 8, "MDEF": 0,
+    "maxHP": 15,
+    "HP": 15, "ATK": 15, "MATK": 0, "DEF": 5, "MDEF": 0,
     "effect": "Secure grip",
     "discovered": false,
-    "price": 500
+    "price": 450
   },
   {
     "ID": 13,
     "name": "Dragon's Armor",
-    "maxHP": 120,
-    "HP": 120, "ATK": 15, "MATK": 0, "DEF": 35, "MDEF": 15,
+    "maxHP": 100,
+    "HP": 100, "ATK": 10, "MATK": 0, "DEF": 25, "MDEF": 12,
     "effect": "High resistance",
     "discovered": false,
-    "price": 1600
+    "price": 1300
   },
   {
     "ID": 14,
     "name": "Blade of the Dawn",
-    "maxHP": 60,
-    "HP": 60, "ATK": 75, "MATK": 0, "DEF": 15, "MDEF": 15,
+    "maxHP": 45,
+    "HP": 45, "ATK": 60, "MATK": 5, "DEF": 8, "MDEF": 8,
     "effect": "High pure damage",
     "discovered": false,
-    "price": 1950
+    "price": 1500
   },
   {
     "ID": 15,
     "name": "Nailed Mace",
     "maxHP": 0,
-    "HP": 0, "ATK": 12, "MATK": 0, "DEF": 2, "MDEF": 0,
+    "HP": 0, "ATK": 10, "MATK": 0, "DEF": 1, "MDEF": 0,
     "effect": "None",
     "discovered": false,
     "price": 150
@@ -137,55 +137,55 @@
   {
     "ID": 16,
     "name": "Wooden Shield",
-    "maxHP": 50,
-    "HP": 50, "ATK": 0, "MATK": 0, "DEF": 15, "MDEF": 0,
+    "maxHP": 35,
+    "HP": 35, "ATK": 0, "MATK": 0, "DEF": 10, "MDEF": 2,
     "effect": "Basic parry",
     "discovered": false,
-    "price": 450
+    "price": 400
   },
   {
     "ID": 17,
     "name": "Bipenne Axe",
     "maxHP": 0,
-    "HP": 0, "ATK": 35, "MATK": 0, "DEF": 0, "MDEF": 0,
+    "HP": 0, "ATK": 25, "MATK": 0, "DEF": 0, "MDEF": 0,
     "effect": "Heavy",
     "discovered": false,
-    "price": 850
+    "price": 750
   },
   {
     "ID": 18,
     "name": "Plate Armor",
-    "maxHP": 80,
-    "HP": 80, "ATK": 0, "MATK": 0, "DEF": 25, "MDEF": 10,
+    "maxHP": 60,
+    "HP": 60, "ATK": 0, "MATK": 0, "DEF": 18, "MDEF": 5,
     "effect": "High physical defense",
     "discovered": false,
-    "price": 1000
+    "price": 900
   },
   {
     "ID": 19,
     "name": "Rock Amulet",
-    "maxHP": 60,
-    "HP": 60, "ATK": 0, "MATK": 0, "DEF": 15, "MDEF": 15,
+    "maxHP": 50,
+    "HP": 50, "ATK": 0, "MATK": 0, "DEF": 10, "MDEF": 10,
     "effect": "Extra vitality",
     "discovered": false,
-    "price": 950
+    "price": 850
   },
   {
     "ID": 20,
     "name": "Immortal Aegis",
-    "maxHP": 200,
-    "HP": 200, "ATK": 0, "MATK": 0, "DEF": 50, "MDEF": 30,
+    "maxHP": 150,
+    "HP": 150, "ATK": 0, "MATK": 0, "DEF": 40, "MDEF": 30,
     "effect": "Supreme defense",
     "discovered": false,
-    "price": 2000
+    "price": 1400
   },
   {
     "ID": 21,
     "name": "Titan's Hammer",
-    "maxHP": 80,
-    "HP": 80, "ATK": 60, "MATK": 0, "DEF": 20, "MDEF": 0,
+    "maxHP": 55,
+    "HP": 55, "ATK": 50, "MATK": 0, "DEF": 20, "MDEF": 0,
     "effect": "Massive impact",
     "discovered": false,
-    "price": 1700
+    "price": 1350
   }
 ]

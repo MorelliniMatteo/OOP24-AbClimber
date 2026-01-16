@@ -1,4 +1,4 @@
-package it.unibo.abyssclimber.ui.assets; // O il tuo package abituale
+package it.unibo.abyssclimber.ui.assets;
 
 import javafx.scene.image.Image;
 import java.util.HashMap;
@@ -10,7 +10,7 @@ public class CreaturesAssets {
     private static final Map<Integer, String> ID_TO_PATH_MAP = new HashMap<>();
 
     static {
-        // Qui colleghi l'ID del JSON al file immagine
+        // collego l'ID del JSON al file immagine
         ID_TO_PATH_MAP.put(1, "assets/images/creatures/slimy_slime.png");
         ID_TO_PATH_MAP.put(2, "assets/images/creatures/black_rat.png");
         ID_TO_PATH_MAP.put(3, "assets/images/creatures/wandering_flame.png");
@@ -45,7 +45,7 @@ public class CreaturesAssets {
         try {
             return new Image(CreaturesAssets.class.getResourceAsStream("/" + path));
         } catch (Exception e) {
-            System.err.println("Errore caricamento immagine: " + path);
+            System.err.println("Error in loading images: " + path);
             return null;
         }
     }

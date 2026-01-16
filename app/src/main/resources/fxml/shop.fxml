@@ -2,47 +2,25 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<!-- 
-    BorderPane is used to easily separate top HUD and center content.
--->
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="it.unibo.abyssclimber.ui.shop.ShopController"
             prefWidth="1280" prefHeight="720">
 
-    <!-- ================= TOP HUD ================= -->
-    <!-- 
-        Top bar showing player information (floor, HP, gold).
-        HBox aligns elements horizontally.
-    -->
     <top>
         <HBox spacing="20" alignment="CENTER_LEFT"
               style="-fx-padding: 16;"
               styleClass="hud">
 
-            <!-- Current floor label -->
             <Label fx:id="floorLabel" styleClass="hud-text"/>
 
-            <!-- Player HP label -->
             <Label fx:id="hpLabel" styleClass="hud-text"/>
 
-            <!-- Player gold label -->
             <Label fx:id="goldLabel" styleClass="hud-text"/>
         </HBox>
     </top>
 
-    <!-- ================= SHOP ITEMS GRID ================= -->
     <center>
-        <!-- 
-            GridPane used to arrange shop items in a 2x2 grid.
-        -->
         <GridPane hgap="40" vgap="40" alignment="CENTER">
-
-            <!-- ========== ITEM SLOT 1 ========== -->
-            <!-- 
-                VBox represents a clickable item card.
-                onMouseClicked is used instead of a Button to make
-                the whole card selectable.
-            -->
             <VBox fx:id="box1"
                   styleClass="item-card"
                   onMouseClicked="#onSlot1Clicked"
@@ -54,30 +32,25 @@
                   spacing="15"
                   style="-fx-padding: 20;">
 
-                <!-- Item name -->
                 <Label fx:id="shopSlot1Name"
-                       text="VUOTO"
+                       text="Empty"
                        styleClass="item-title"
                        wrapText="true"
                        textAlignment="CENTER"/>
 
-                <!-- Visual separator between name and stats -->
                 <Separator opacity="0.5" prefWidth="300"/>
 
-                <!-- Main stats of the item -->
                 <Label fx:id="shopSlot1Stats"
                        text="---"
                        styleClass="stat-primary"
                        wrapText="true"
                        textAlignment="CENTER"/>
 
-                <!-- Item price -->
                 <Label fx:id="shopSlot1Price"
                        text=""
                        styleClass="stat-secondary"/>
             </VBox>
 
-            <!-- ========== ITEM SLOT 2 ========== -->
             <VBox fx:id="box2"
                   styleClass="item-card"
                   onMouseClicked="#onSlot2Clicked"
@@ -89,7 +62,7 @@
                   spacing="15"
                   style="-fx-padding: 20;">
 
-                <Label fx:id="shopSlot2Name" text="VUOTO"
+                <Label fx:id="shopSlot2Name" text="Empty"
                        styleClass="item-title"
                        wrapText="true"
                        textAlignment="CENTER"/>
@@ -106,7 +79,6 @@
                        styleClass="stat-secondary"/>
             </VBox>
 
-            <!-- ========== ITEM SLOT 3 ========== -->
             <VBox fx:id="box3"
                   styleClass="item-card"
                   onMouseClicked="#onSlot3Clicked"
@@ -118,7 +90,7 @@
                   spacing="15"
                   style="-fx-padding: 20;">
 
-                <Label fx:id="shopSlot3Name" text="VUOTO"
+                <Label fx:id="shopSlot3Name" text="Empty"
                        styleClass="item-title"
                        wrapText="true"
                        textAlignment="CENTER"/>
@@ -135,7 +107,6 @@
                        styleClass="stat-secondary"/>
             </VBox>
 
-            <!-- ========== ITEM SLOT 4 ========== -->
             <VBox fx:id="box4"
                   styleClass="item-card"
                   onMouseClicked="#onSlot4Clicked"
@@ -147,7 +118,7 @@
                   spacing="15"
                   style="-fx-padding: 20;">
 
-                <Label fx:id="shopSlot4Name" text="VUOTO"
+                <Label fx:id="shopSlot4Name" text="Empty"
                        styleClass="item-title"
                        wrapText="true"
                        textAlignment="CENTER"/>
@@ -164,11 +135,6 @@
                        styleClass="stat-secondary"/>
             </VBox>
 
-            <!-- ================= BACK BUTTON ================= -->
-            <!-- 
-                Button to return to the previous shop screen.
-                columnSpan=2 centers it under the grid.
-            -->
             <Button text="RETURN TO THE STORE SCREEN"
                     onAction="#onBackClicked"
                     GridPane.columnIndex="0"

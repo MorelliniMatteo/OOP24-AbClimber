@@ -48,9 +48,8 @@ public final class SceneRouter {
             case BOSS_ROOM           -> "combatGUI.fxml";
             case FINAL_BOSS_ROOM     -> "combatGUI.fxml";
 
-            case ROOM_PLACEHOLDER    -> "room_placeholder.fxml";
             case GAME_OVER           -> "game_over.fxml";
-            case SHOP                -> "shop.fxml"; 
+            case SHOP                -> "shop.fxml";
             case WIN                 -> "win_screen.fxml";
         };
 
@@ -68,7 +67,6 @@ public final class SceneRouter {
                 loader.setControllerFactory(param -> new CombatController(true));
             }
             Parent root = loader.load();
-
 
             // Create the scene with a fixed window size
             Scene scene = new Scene(root, 1280, 720);

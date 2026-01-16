@@ -54,16 +54,15 @@ public class Creature {
 
     public void heal(int amount) {
         this.HP += amount;
-        // Controllo di sicurezza: non superare mai il massimo
+        // controllo di sicurezza per non superare il maxHP
         if (this.HP > this.maxHP) {
             this.HP = this.maxHP;
         }
-        System.out.println(this.name + " healed for " + amount + ". HP: " + this.HP + "/" + this.maxHP);
     }
 
+    //permette di promuovere un mostro a elite, aumentando le sue statitstiche del 20%
     public void promoteToElite() {
         if (!this.isElite) {
-            System.out.println("Promoting " + this.name + " to Elite.");
             this.maxHP = (int) (this.HP * 1.2);
             this.HP = this.maxHP;
             this.ATK = (int) (this.ATK * 1.2);

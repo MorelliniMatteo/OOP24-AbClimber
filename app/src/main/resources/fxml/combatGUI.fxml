@@ -82,7 +82,7 @@
                                 <children>
                                   <Label fx:id="labelHP" text="HP" styleClass="label-button-like" VBox.vgrow="ALWAYS" alignment="CENTER" maxWidth="Infinity" maxHeight="Infinity"/>
                                   <Label fx:id="labelMP" text="MP" styleClass="label-button-like" VBox.vgrow="ALWAYS" alignment="CENTER" maxWidth="Infinity" maxHeight="Infinity"/>
-                                  <Button text="≡" styleClass="label-button-like" onAction="#toggleDrawer" VBox.vgrow="ALWAYS" alignment="CENTER" maxWidth="Infinity" maxHeight="Infinity"/>
+                                  <Button text="Stats" styleClass="label-button-like" onAction="#toggleDrawer" VBox.vgrow="ALWAYS" alignment="CENTER" maxWidth="Infinity" maxHeight="Infinity"/>
                                 </children>
                               </VBox>
                               <GridPane alignment="CENTER_RIGHT" gridLinesVisible="false" HBox.hgrow="ALWAYS">

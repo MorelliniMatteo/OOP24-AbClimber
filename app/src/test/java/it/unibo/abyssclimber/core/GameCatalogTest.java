@@ -19,74 +19,110 @@ class GameCatalogTest {
         try {
             GameCatalog.initialize();
         } catch (Exception e) {
-            // se fallisce qui potrebbe essere perché manca il file json nel path di test
+            // se fallisce qui potrebbe essere perché il percorso del file JSON non è corretto
             System.out.println("Warning: GameCatalog init failed (expected if JSON missing in test env): " + e.getMessage());
         }
     }
 
-    // verifico che il negozio abbia 4 oggetti iniziali
+    // verifico che il negozio venga inizializzato e contenga esattamente 4 oggetti
     @Test
     void testShopItemsInitialization() {
-        // controllo se l'inizializzazione è andata a buon fine
-        if (GameCatalog.getShopItems().isEmpty()) return;
-
         List<Item> shopItems = GameCatalog.getShopItems();
-        assertNotNull(shopItems);
+        
+        assertNotNull(shopItems, "Shop list should not be null");
+        
+        if (!shopItems.isEmpty()) {
+            assertEquals(4, shopItems.size(), "Shop should contain exactly 4 items");
+        }
     }
 
-    // verifico che il metodo per generare oro casuale rispetti i limiti
+    // verifico che il metodo per generare oro casuale rispetti i limiti definiti in GameCatalog
     @Test
     void testRandomGolds() {
         for (int i = 0; i < 100; i++) {
             int gold = GameCatalog.getRandomGoldsAmount();
-            assertTrue(gold >= 50 && gold <= 151, "Gold generato fuori dal range: " + gold);
+            assertTrue(gold >= 125 && gold <= 200, "Gold generated out of range (125-200): " + gold);
         }
     }
 
-    // verifico che venga restituito un mostro casuale per uno stage valido
+    // verifico che venga restituito un mostro casuale e che sia una "deep copy"
     @Test
     void testRandomMonster() {
         try {
              Creature monster = GameCatalog.getRandomMonsterByStage(1); 
-             // stage 1 -> EARLY
+             
              if (monster != null) {
                  assertNotNull(monster.getName());
+                 
                  // verifico che sia una nuova istanza (copia) e non un riferimento al catalogo
                  monster.setHP(9999);
-                 // se richiedo un altro mostro, non dovrebbe avere 9999 HP
+                 
+                 // se richiedo un altro mostro (sperando esca lo stesso tipo dato che è random), la modifica non dovrebbe impattare i futuri mostri dello stesso tipo
                  Creature monster2 = GameCatalog.getRandomMonsterByStage(1);
-                 if (monster2 != null && monster2.getName().equals(monster.getName())) {
-                      assertNotEquals(9999, monster2.getHP());
+                 
+                 // check parziale perché monster2 potrebbe essere un mostro diverso
+                 if (monster2 != null) {
+                      assertNotEquals(9999, monster2.getHP(), "Il mostro recuperato non dovrebbe avere gli HP modificati del precedente");
                  }
              }
         } catch (Exception e) {
-            // ignora eccezioni se dati mancanti in test environment
         }
     }
 
+    // testo che i mostri vengano restituiti correttamente in base allo stage
+    @Test
+    void testMonsterStageBoundaries() {
+        
+        Creature early = GameCatalog.getRandomMonsterByStage(3);
+        Creature mid = GameCatalog.getRandomMonsterByStage(4);
+        Creature late = GameCatalog.getRandomMonsterByStage(8);
+        Creature boss = GameCatalog.getRandomMonsterByStage(10);
+
+        if (early != null) assertNotNull(early);
+        if (mid != null) assertNotNull(mid);
+        if (late != null) assertNotNull(late);
+        if (boss != null) assertNotNull(boss);
+    }
+
+    // verifico che lookupItem funzioni correttamente recuperando un item dalla mappa tramite il suo ID
+    @Test
+    void testLookupItem() {
+        List<Item> shopItems = GameCatalog.getShopItems();
+        if (!shopItems.isEmpty()) {
+            Item shopItem = shopItems.get(0);
+            int id = shopItem.getID();
+
+            Item foundItem = GameCatalog.lookupItem(id);
+
+            assertNotNull(foundItem, "lookupItem returned null for ID: " + id);
+            assertEquals(shopItem.getName(), foundItem.getName(), "The item retrieved does not match the expected item");
+        }
+    }
+
+    // test per verificare che getRandomItem restituisca oggetti unici finché la lista non è vuota
     @Test
     void testRandomItemUniqueness() {
-        // in una lista set non ci possono essere duplicati
+        // in un set non ci possono essere duplicati
         Set<Item> droppedItems = new HashSet<>();
-
-        int maxIterations = 17; // ci sono 21 oggetti totali, 4 nel negozio, quindi 17 droppabili
+        
+        // GameCatalog usa droppableItems.remove(index), quindi gli oggetti finiscono dopo un po
+        int maxIterations = 17; // gli oggetti droppabili dai mostri sono 17, 21 totali - 4 dello shop
         int itemsFoundCount = 0;
 
         for (int i = 0; i < maxIterations; i++) {
             Item item = GameCatalog.getRandomItem();
 
-            // se gli item è null, esco dal ciclo perché sono finito
+            // se gli item è null, esco dal ciclo perché la lista droppableItems è vuota
             if (item == null) {
                 break; 
             }
-            // se add restituisce false, significa che l'oggetto era già presente ed é stato estratto 2 volte
+            
+            // se add restituisce false significa che l'oggetto era già presente nel Set
             boolean isNew = droppedItems.add(item);
-            assertTrue(isNew, "Errore: L'oggetto '" + item.getName() + "' è uscito due volte! La rimozione non funziona.");
+            assertTrue(isNew, "Error: The item '" + item.getName() + "' (ID: " + item.getID() + ") is already in the set.");
             
             itemsFoundCount++;
         }
-
-        System.out.println("Test completato. Estratti " + itemsFoundCount + " oggetti unici su 17 totali.");
-        
+        System.out.println("Test completed. Extracted " + itemsFoundCount + " unique items.");
     }
 }

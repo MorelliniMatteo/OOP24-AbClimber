@@ -12,9 +12,6 @@ public enum SceneId {
     BOSS_ROOM,
     FINAL_BOSS_ROOM,
 
-    // placeholder for actual room scenes (kept for safety)
-    ROOM_PLACEHOLDER,
-
     GAME_OVER,
     WIN
 }

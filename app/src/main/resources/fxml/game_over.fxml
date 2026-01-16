@@ -10,7 +10,7 @@
         <Label fx:id="titleLabel" text="GAME OVER" styleClass="title"/>
     </center>
     <bottom>
-        <Label text="Premi in qualsiasi parte dello schermo per tornare al menu principale."
+        <Label text="Click anywhere on the screen to return to the main menu."
                styleClass="subtitle"
                BorderPane.alignment="CENTER"/>
     </bottom>

@@ -29,11 +29,11 @@ public final class AssetManager {
             String full = "/assets/" + p;
             try (InputStream is = AssetManager.class.getResourceAsStream(full)) {
                 if (is == null) {
-                    throw new IllegalArgumentException("Immagine non trovata: " + full);
+                    throw new IllegalArgumentException("Image not found: " + full);
                 }
                 return new Image(is);
             } catch (Exception e) {
-                throw new RuntimeException("Errore caricando immagine: " + full, e);
+                throw new RuntimeException("Error loading image: " + full, e);
             }
         });
     }

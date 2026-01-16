@@ -1,4 +1,3 @@
-/*
 package it.unibo.abyssclimber.model;
 
 import org.junit.jupiter.api.Test;
@@ -13,17 +12,21 @@ class PlayerTest {
         Player player = new Player("Hero", Tipo.FIRE, testClass);
 
         assertEquals("Hero", player.getName());
-        assertEquals(120, player.getHP());
+        int expectedHP = 120 + testClass.getcMaxHP();
+        assertEquals(expectedHP, player.getHP(), "Hp should be (120 + Bonus Classe)");
     }
 
     // verifico se l'applicazione della classe somma le statistiche correttamente
     @Test
     void testApplicaClasse() {
+        Classe classeSoldato = Classe.SOLDATO;
         Player player = new Player("Hero", Tipo.FIRE, Classe.SOLDATO);
-        player.applicaClasse(Classe.SOLDATO);
 
-        assertEquals(420, player.getHP(), "HP dovrebbe essere 120 (base) + 300 (Soldato)");
-        assertEquals(30, player.getATK(), "ATK dovrebbe essere 15 (base) + 15 (Soldato)");
+        int expectedHP = 120 + classeSoldato.getcMaxHP();
+        int expectedATK = 15 + classeSoldato.getcATK();
+
+        assertEquals(expectedHP, player.getHP(), "Hp not correct after Soldier creation");
+        assertEquals(expectedATK, player.getATK(), "Atk not correct after Soldier creation");
     }
 
     // verifico se aggiungere un oggetto all'inventario funziona e applica le stats
@@ -31,13 +34,14 @@ class PlayerTest {
     void testApplyItemStats() {
         Player player = new Player("Hero", Tipo.FIRE, Classe.MAGO);
         int initialDef = player.getDEF();
-
+        int initialMDef = player.getMDEF();
+        
         // Item: name, maxHP, HP, ATK, MATK, DEF, MDEF, discovered, id, effect, price
         Item elmo = new Item(1, "Elmo Test", 0, 0, 0, 0, 10, 5, "None", true, 100);
         player.applyItemStats(elmo);
 
-        assertEquals(initialDef + 10, player.getDEF(), "La difesa dovrebbe aumentare di 10");
-        assertEquals(player.getMDEF(), 10, "MDEF base (5) + Item (5) dovrebbe fare 10");
+        assertEquals(initialDef + 10, player.getDEF(), "The DEF should increase by 10");
+        assertEquals(initialMDef + 5, player.getMDEF(), "MDEF (5) + Item (5) should be 10");
     }
 
     // verifico se il metodo setGold funziona come addGold
@@ -66,7 +70,7 @@ class PlayerTest {
 
         p.applyItemStats(potion);
 
-        assertEquals(60, p.getHP(), "La pozione dovrebbe portare la vita da 10 a 60");
+        assertEquals(60, p.getHP(), "The potion should bring HP to 60");
     }
 
     // verifico che gli item che curano non facciano superare il MaxHP
@@ -81,7 +85,7 @@ class PlayerTest {
         
         p.applyItemStats(potion);
 
-        assertEquals(100, p.getHP(), "La cura non deve superare 100 HP");
+        assertEquals(100, p.getHP(), "The heal should not exceed MaxHP of 100");
     }
 
     // verifico che equipaggiare un oggetto che aumenta MaxHP curi anche il giocatore della stessa quantità
@@ -95,8 +99,7 @@ class PlayerTest {
         
         p.applyItemStats(armor);
 
-        assertEquals(150, p.getMaxHP(), "Il MaxHP deve aumentare a 150");
-        assertEquals(150, p.getHP(), "Gli HP attuali devono salire a 150");
+        assertEquals(150, p.getMaxHP(), "MaxHP should increase to 150");
+        assertEquals(150, p.getHP(), "Hp should also increase to 150");
     }
 }
-*/
