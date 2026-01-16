@@ -42,7 +42,7 @@ public final class ElementUtils {
     }
 
     //Calls computeEffect, the main method to be used.
-    public static double getEffect (MoveLoader.Move attacker, Creature target){
+    public static double getEffect (CombatMove attacker, Creature target){
         return computeEffect(attacker.getElement(), target.getElement());
     }
 
@@ -52,13 +52,13 @@ public final class ElementUtils {
     }
 
     //Determines the log to be printed.
-    public static void weakPhrase(double weak, CombatLog log){
+    public static String weakPhrase(double weak){
         if(weak < 1){
-            log.logCombat("It's not very effective.\n", LogType.NORMAL);
+             return "It's not very effective.\n";
         } else if (weak > 1) {
-            log.logCombat("It's super effective.\n", LogType.NORMAL);
+            return "It's super effective.\n";
         } else {
-
+            return "";
         }
 
     }

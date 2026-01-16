@@ -4,9 +4,13 @@ import java.util.List;
 
 import it.unibo.abyssclimber.core.GameCatalog;
 import it.unibo.abyssclimber.core.GameState;
+import it.unibo.abyssclimber.core.SceneId;
+import it.unibo.abyssclimber.core.SceneRouter;
 import it.unibo.abyssclimber.core.combat.BattleText;
 import it.unibo.abyssclimber.core.combat.Combat;
 import it.unibo.abyssclimber.core.combat.CombatLog;
+import it.unibo.abyssclimber.core.combat.CombatMove;
+import it.unibo.abyssclimber.core.combat.CombatPresenter;
 import it.unibo.abyssclimber.core.combat.LogType;
 import it.unibo.abyssclimber.core.combat.MoveLoader.Move;
 import it.unibo.abyssclimber.model.Creature;
@@ -15,6 +19,7 @@ import it.unibo.abyssclimber.model.Tipo;
 import it.unibo.abyssclimber.ui.assets.CreaturesAssets;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,7 +34,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 
-public class CombatController {
+public class CombatController  implements CombatPresenter{
     @FXML private Button move1Button;
     @FXML private Button move2Button;
     @FXML private Button move3Button;
@@ -82,15 +87,9 @@ public class CombatController {
         System.out.println("ID: " + monster.getId());
         System.out.println("Monster: " + monster.getName());
         loadMonsterImage();
-        drawerATK.setText("ATK: " + player.getATK());
-        drawerMATK.setText("MATK: " + player.getMATK());
-        drawerDEF.setText("DEF: " + player.getDEF());
-        drawerMDEF.setText("MDEF: " + player.getMDEF());
-        drawerCR.setText("Crit \nRate: " + player.getCrit() + "%");
-        drawerCDM.setText("Crit \nDamage: " + (int)(player.getCritDMG()*100) + "%");
+        drawerSet();
         player.setSTAM(player.getRegSTAM());
-        labelHP.setText("HP: " + player.getHP() + "/" + player.getMaxHP());
-        labelMP.setText("MP: " + player.getSTAM() + "/" + player.getMaxSTAM() + " +" + player.getRegSTAM());
+        updateStats();
         combatLog.logCombat("Room entered. Enemy is a " + monster.getName() + ".", LogType.NORMAL);
         this.renderLog();
         enableMoveButtons();
@@ -101,8 +100,6 @@ public class CombatController {
     public void setElite(boolean b) {
         if (b) {
             monster.promoteToElite();
-            //TODO: REMOVE
-            System.err.println("Bloccato dopo Elite");
         }
     }
 
@@ -148,7 +145,7 @@ public class CombatController {
     @FXML
     private void onMovePressed(ActionEvent e){
         Button clicked = (Button) e.getSource();
-        Move move = (Move) clicked.getUserData();
+        CombatMove move = (CombatMove) clicked.getUserData();
         disableMoveButtons();
         combat.fight(move);
         enableMoveButtons();
@@ -186,12 +183,14 @@ public class CombatController {
 
     //Method to update the player HP and MP in the combat screen. 
     //Other stats cannot change during a battle, and as such do not need to be updated.
+    @Override
     public void updateStats() {
         labelHP.setText("HP: " + player.getHP() + "/" + player.getMaxHP());
         labelMP.setText("MP: " + player.getSTAM() + "/" + player.getMaxSTAM() + " +" + player.getRegSTAM());
     }
 
     //Flag on combat end.
+    @Override
     public void setCombatEnd(boolean b) {
         combatEnded = b;
         if (b) {
@@ -206,5 +205,43 @@ public class CombatController {
         double targetWidth = drawerOpen ? 0 : 150;
         Timeline timeline = new Timeline( new KeyFrame(Duration.millis(250), new KeyValue(drawer.prefWidthProperty(), targetWidth) ) ); timeline.play();
         drawerOpen = !drawerOpen;
+    }
+
+    @Override
+    public void onTurnStart(int turn) {
+        combatLog.clearEvents();
+        combatLog.logCombat("Turn " + turn, LogType.NORMAL);
+        renderLog();
+    }
+
+    @Override
+    public void onCombatEnd(boolean finalBoss, boolean elite, boolean playerWon) {
+        PauseTransition pause = new PauseTransition(Duration.seconds(5));
+            pause.setOnFinished(e -> {
+                if (playerWon) {
+
+                    if (finalBoss) {
+                        SceneRouter.goTo(SceneId.WIN);
+                        return;
+                    }
+                    if (monster.getIsElite()) {
+                        GameState.get().nextFloor();
+                    }
+                    SceneRouter.goTo(SceneId.ROOM_SELECTION);
+
+                } else {
+                    SceneRouter.goTo(SceneId.GAME_OVER);
+                }
+            });
+        pause.play();
+    }
+
+    private void drawerSet() {
+        drawerATK.setText("ATK: " + player.getATK());
+        drawerMATK.setText("MATK: " + player.getMATK());
+        drawerDEF.setText("DEF: " + player.getDEF());
+        drawerMDEF.setText("MDEF: " + player.getMDEF());
+        drawerCR.setText("Crit \nRate: " + player.getCrit() + "%");
+        drawerCDM.setText("Crit \nDamage: " + (int)(player.getCritDMG()*100) + "%");
     }
 }

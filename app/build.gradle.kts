@@ -26,6 +26,8 @@ javafx {
     )
 }
 
+val javafxVersion = "21.0.9"
+
 dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.11.0")
     implementation(libs.guava)
@@ -33,6 +35,23 @@ dependencies {
     testImplementation("org.mockito:mockito-core:5.11.0")
     testImplementation("org.mockito:mockito-junit-jupiter:5.11.0")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    runtimeOnly("org.openjfx:javafx-graphics:$javafxVersion:win")
+    runtimeOnly("org.openjfx:javafx-base:$javafxVersion:win")
+    runtimeOnly("org.openjfx:javafx-controls:$javafxVersion:win")
+    runtimeOnly("org.openjfx:javafx-fxml:$javafxVersion:win")
+    runtimeOnly("org.openjfx:javafx-graphics:$javafxVersion:linux")
+    runtimeOnly("org.openjfx:javafx-base:$javafxVersion:linux")
+    runtimeOnly("org.openjfx:javafx-controls:$javafxVersion:linux")
+    runtimeOnly("org.openjfx:javafx-fxml:$javafxVersion:linux")
+    runtimeOnly("org.openjfx:javafx-graphics:$javafxVersion:mac")
+    runtimeOnly("org.openjfx:javafx-base:$javafxVersion:mac")
+    runtimeOnly("org.openjfx:javafx-controls:$javafxVersion:mac")
+    runtimeOnly("org.openjfx:javafx-fxml:$javafxVersion:mac")
+    runtimeOnly("org.openjfx:javafx-graphics:$javafxVersion:mac-aarch64")
+    runtimeOnly("org.openjfx:javafx-base:$javafxVersion:mac-aarch64")
+    runtimeOnly("org.openjfx:javafx-controls:$javafxVersion:mac-aarch64")
+    runtimeOnly("org.openjfx:javafx-fxml:$javafxVersion:mac-aarch64")
+    
 }
 
 application {
