@@ -3,7 +3,9 @@ package it.unibo.abyssclimber.core.combat;
 import it.unibo.abyssclimber.model.GameEntity;
 import it.unibo.abyssclimber.model.Tipo;
 
-//Class that manages elemental weaknesses and the appropriate log types.
+/**
+ * Class that manages elemental weaknesses and it's relevant {@link CombatLog} entry.
+ */
 public final class ElementUtils {
 
     //Computes if the move is super-effective or not very effective.

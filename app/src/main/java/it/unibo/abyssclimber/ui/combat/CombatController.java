@@ -14,6 +14,7 @@ import it.unibo.abyssclimber.core.combat.CombatPresenter;
 import it.unibo.abyssclimber.core.combat.LogType;
 import it.unibo.abyssclimber.core.combat.MoveLoader.Move;
 import it.unibo.abyssclimber.model.Creature;
+import it.unibo.abyssclimber.model.Difficulty;
 import it.unibo.abyssclimber.model.Player;
 import it.unibo.abyssclimber.model.Tipo;
 import it.unibo.abyssclimber.ui.assets.CreaturesAssets;
@@ -34,6 +35,9 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 
+/**
+ * Class responsible for handling the combat GUI cycle.
+ */
 public class CombatController  implements CombatPresenter{
     @FXML private Button move1Button;
     @FXML private Button move2Button;
@@ -67,12 +71,14 @@ public class CombatController  implements CombatPresenter{
     public CombatController() {
         this.player = GameState.get().getPlayer();
         this.monster = GameCatalog.getRandomMonsterByStage(Math.min(9, GameState.get().getFloor()));
+        this.monster.applyDifficultyMultiplier(Difficulty.getDifficultyMultiplier());
     }
 
     //Constructor used when enemies are elite. Called by factory ovveride. 
     public CombatController(boolean b) {
         this.player = GameState.get().getPlayer();
         this.monster = GameCatalog.getRandomMonsterByStage(GameState.get().getFloor());
+        this.monster.applyDifficultyMultiplier(Difficulty.getDifficultyMultiplier());
         setElite(b);
     }
     
@@ -121,13 +127,21 @@ public class CombatController  implements CombatPresenter{
     }
 
     //Changes the move buttons color to match their element.
+    /**
+     * Changes the move buttons color to match their element.
+     * Styles are stored in combat.css 
+     * @param b the button to color
+     * @param tipo the {@link Tipo} of the {@link CombatMove} assigned to the button
+     */
     private void applyTipoStyle(Button b, Tipo tipo){
         b.getStyleClass().removeIf(s -> s.startsWith("tipo-"));
         b.getStyleClass().add("tipo-" + tipo.name().toLowerCase());
     }
 
-    //Writes the values needed to the move button's text and sets the move as user data.
-    //Then calls the method to colour the buttons.
+    /**
+     * Writes the values of the {@link CombatMove} values on the move button, sets their user data and applies a background colour.
+     * @param player the active {@link Player}, necessary to obtain the selected {@link CombatMove} on character creation.
+     */
     private void setMoveButton (Player player){
         for ( int i = 0; i < player.getSelectedMoves().size(); i++ ) {
             Button b = buttonList.get(i);

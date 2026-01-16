@@ -3,27 +3,41 @@ package it.unibo.abyssclimber.core.combat;
 import java.util.ArrayList;
 import java.util.List;
 
-//Class that manages all the combat logging methods,
+/**
+ * Class that manages all the combat logging.
+ */
 public class CombatLog {
 
     private final List<List<BattleText>> events = new ArrayList<>();
     
-    //Adds a new "line". A list of BattleText for split colouring.
+    /**
+     * Adds a new line to the log. 
+     * @param text a list of {@link BattleText} that will be rendered depending on their {@link LogType}.
+     */
     public void logCombat(List<BattleText> text) {
         events.add(text);
     }
 
-    //Adds a new line made of a string to the log.
+    /**
+     * Creates a new line from a single string.
+     * @param text the string to be added.
+     * @param type the {@link LogType} to be used.
+     */
     public void logCombat(String text, LogType type) {
         events.add(List.of(new BattleText(text, type)));
     }
 
-    //Returns all the queued logs.
+    /**
+     * Returns the complete list of logs to print-
+     * @return a list of list of {@link BattleText}. It is the entire log to print.
+     */
     public List<List<BattleText>> getEvents() {
         return List.copyOf(events);
     }
 
-    //Delets all logs.
+    /**
+     * Deletes all logs.
+     */
     public void clearEvents() {
         events.clear();
     }

@@ -9,12 +9,19 @@ import java.util.TreeSet;
 import it.unibo.abyssclimber.core.combat.MoveLoader.Move;
 import it.unibo.abyssclimber.model.Creature;
 
-//Loads enemy moves randomly from the moves.json . 
-//Begins by loading a cost 1 move, this prevents the from softlocking itself for not having a move it can use.
-//The final boss loads an extra, unique move.
+/**
+ * Class that creates a randomly selected list of {@link CombatMove} that an enemy will use in this instance of {@link Combat}.
+ * It is guarded against softlocks by giving at least 1 one cost move to the monster.
+ * If the monster to call this method is the final boss of the game it also includes a special unique boss {@link CombatMove}.
+ */
 public final class LoadEnemyMoves {
     private LoadEnemyMoves() {};
 
+    /**
+     * The list 
+     * @param creature the creature that will make use of these moves.
+     * @return a sorted ArrayList of selected moves. With weaker moves on a lower index than stronger moves.
+     */
     public static ArrayList<CombatMove> load(Creature creature){
         TreeSet<CombatMove> moveSet = new TreeSet<CombatMove>(Comparator.comparingInt(CombatMove::getCost).thenComparingInt(CombatMove::getId));
         Random random = new Random();

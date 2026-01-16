@@ -15,7 +15,12 @@ import it.unibo.abyssclimber.model.GameEntity;
 import it.unibo.abyssclimber.model.Item;
 import it.unibo.abyssclimber.model.Player;
 
-//Main combat method. Ineracts with CombatController.
+/**
+ * Manages a turn based combat between {@link Player} & {@link Creature}.
+ * This class is responsible for the turn order, damage application and enemy drops.
+ * Interacts with {@link CombatPresenter} and {@link CombatLog} for the turn to turn actions.
+ * Interacts with {@link GameCatalog} to determine rewards on victory.
+ */
 public class Combat {
     private int turn = 1;
     private boolean playerTurn = true;
@@ -36,7 +41,15 @@ public class Combat {
         this.controller.setCombatEnd(false);
     }
 
-    //Calculates damage, creates logs to print (conditional: critical hit, miss), calculates stamina remaning after cost.
+    /**
+     * Calculates and applies damage from a single attack, logs combat messages, updates stamina and UI.
+     * Uses {@code ElementUtils.getEffect()} to determine the elemental effectiveness of the attack.
+     * Checks for misses and critical hits and applies the damage to the target.
+     * @param attack a {@code CombatMove} that is used duraing the calculation.
+     * @param attacker the {@code GameEntity} responsible for invoking the dmgCalc method.
+     * @param target the {@code GameEntity} that will be subjected to the effects of the {@code CombatMove}.
+     * @return the amount dealt to the target.
+     */
     private int dmgCalc(CombatMove attack, GameEntity attacker, GameEntity target){
         int dmg = 0;
         double weak = 0;
@@ -79,8 +92,15 @@ public class Combat {
         } 
         return damage;
     }
-    //Player's turn. At the end calls the monster's turn.
-    //Assigns dropped gold/items.
+
+    /**
+     * Executes the player's turn.
+     * It is guarded to prevent multiple inputs or inputs after one of the 2 {@code GameEntity} is dead.
+     * 
+     * If the player doesn't have enough mana points to use a move it display a message in the {@ CombatLog} and allows the player to try a different move.
+     * When a monster is defeated invokes the {@code enemyDrop()} method to assign the rewards to the player.
+     * @param move the {@code CombatMove} the user has selected.
+     */
     private void playerTurn(CombatMove move) {
         if ( !playerTurn || player.getHP() <= 0 || monster.getHP() <= 0) return;
         else if (move.getCost() > player.getSTAM()) {
@@ -107,7 +127,12 @@ public class Combat {
         turn++;
     }
 
-    //Enemy turn.
+    /**
+     * Edxecutes the enemy turn.
+     * It creates a list of the actions the enemy can make that turn, depending on the action cost and the stamina it has available.
+     * As a fallback uses the weakest move if for some reason the user has no avaible moves.
+     * Finally handles lose condition on user death.
+     */
     private void monsterTurn() {
         playerTurn = true;
 
@@ -137,7 +162,12 @@ public class Combat {
 
     }
     
-    //Clears logs for a new turn then calls the player turn, only public method needed.
+    /**
+     * Executes a single turn of combat.
+     * This method clears and prepares the combat log for a new turn via {@code CombatPresenter.onTurnStart(turn)}
+     * It is guarded to prevent multiple inputs at the same time and invokes the player turn.
+     * @param move a {@code CombatMove} that is passed from a GUI button on user onClick. It is stored in the button's userData.
+     */
     public void fight(CombatMove move) {
         controller.onTurnStart(turn);
         if ( playerTurn ) {
@@ -152,6 +182,13 @@ public class Combat {
         return option != null && option.type() == RoomType.FINAL_BOSS;
     }
 
+    /**
+    * Method that handles what rewards the enemy give on their defeat.
+    * 
+    * If the enemy was the final boss of the game, no rewards are granted.
+    * If the enemy is an elite the reward is one single {@code Item} obtained from the {@code GameCatalog.getRandomItem}.
+    * If the enemy is not an elite the reward is a random amount of gold obtained via {@code GameCatalog.getRandomGoldsAmount()}. 
+    */
     private void enemyDrop() {
         if (isFinalBossFight()) {
             return;

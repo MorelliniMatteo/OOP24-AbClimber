@@ -11,14 +11,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import it.unibo.abyssclimber.model.Tipo;
 
-//Class that loads all moves in the game from moves.json
+/**
+ * Class responsible for loading all moves from moves.json
+ */
 public class MoveLoader {
 
     private static ArrayList<BaseMove> baseMoves;
     private static ArrayList<Move> fullMoves;
     private static ArrayList<Move> moves = new ArrayList<>();
     
-    //The Move class is the result from loading JSON from moves.json
+    /**
+     * Usable move for both the player and the monster.
+     */
     public static class Move implements CombatMove{
         private String name;
         private int power;
@@ -33,6 +37,7 @@ public class MoveLoader {
             return "Move{name='" + this.getName() + "', power=" + this.getPower() + ", acc=" + this.getAcc() + ", type=" + this.getType() + ", cost=" + this.getCost() + ", type=" + this.getElement() + ", ID=" + this.getId() + "}";
         }
 
+        //Jackson constructor.
         public Move () {
 
         }
@@ -65,8 +70,10 @@ public class MoveLoader {
 
     }
 
-    //Generates the first 8 moves composed of Element + Attack for physical moves
-    // and Element + Swirl for magical moves. These are the 1 cost moves.
+    /**
+     * Generates the first 8 moves that have a name composed of {@link Tipo} + {@link BaseMove} name. 
+     * @param bml list of {@link BaseMove} loaded from JSON to be upgraded to {@link CombatMove}
+     */
     public static void baseMoveAssign(ArrayList<BaseMove> bml){
         int idCounter = 0;
         for (BaseMove bm : bml){
@@ -80,7 +87,10 @@ public class MoveLoader {
         moves.addAll(fullMoves);
     }
    
-    //Loads moves from moves.json uscking Jackson
+    /**
+     * Method that reads the {@link BaseMove} and {@link CombatMove} from moves.json
+     * @throws IOException if the json file is missing/moved
+     */
     public static void loadMovesJSON() throws IOException{
         InputStream movesFile = MoveLoader.class.getResourceAsStream("/liste/moves.json");
         ObjectMapper mapper = new ObjectMapper();
@@ -102,6 +112,10 @@ public class MoveLoader {
 
     }
 
+    /**
+     * Method that starts loading the list of moves from moves.json and the upgrade from a {@link BaseMove} to a {@link CombatMove}
+     * @throws IOException originating in loadMovesJSON and is passed to the caller for handling.
+     */
     public static void loadMoves() throws IOException{
         loadMovesJSON();
         baseMoveAssign(baseMoves);
