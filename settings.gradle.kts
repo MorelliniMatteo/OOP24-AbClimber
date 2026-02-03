@@ -11,4 +11,3 @@ plugins {
 }
 
 rootProject.name = "OOP24-AbyssClimber"
-include("app")

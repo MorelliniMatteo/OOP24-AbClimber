@@ -16,8 +16,16 @@ java {
     }
 }
 
+val javafxVersion = "21.0.9"
+val javafxModules = listOf(
+        "javafx-base",
+        "javafx-controls",
+        "javafx-fxml",
+        "javafx-graphics"
+    )
+
 javafx {
-    version = "21.0.9"
+    version = javafxVersion
     modules = listOf(
         "javafx.base",
         "javafx.controls",
@@ -26,7 +34,7 @@ javafx {
     )
 }
 
-val javafxVersion = "21.0.9"
+val platforms = listOf("win", "linux", "mac", "mac-aarch64")
 
 dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.11.0")
@@ -35,22 +43,11 @@ dependencies {
     testImplementation("org.mockito:mockito-core:5.11.0")
     testImplementation("org.mockito:mockito-junit-jupiter:5.11.0")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    runtimeOnly("org.openjfx:javafx-graphics:$javafxVersion:win")
-    runtimeOnly("org.openjfx:javafx-base:$javafxVersion:win")
-    runtimeOnly("org.openjfx:javafx-controls:$javafxVersion:win")
-    runtimeOnly("org.openjfx:javafx-fxml:$javafxVersion:win")
-    runtimeOnly("org.openjfx:javafx-graphics:$javafxVersion:linux")
-    runtimeOnly("org.openjfx:javafx-base:$javafxVersion:linux")
-    runtimeOnly("org.openjfx:javafx-controls:$javafxVersion:linux")
-    runtimeOnly("org.openjfx:javafx-fxml:$javafxVersion:linux")
-    runtimeOnly("org.openjfx:javafx-graphics:$javafxVersion:mac")
-    runtimeOnly("org.openjfx:javafx-base:$javafxVersion:mac")
-    runtimeOnly("org.openjfx:javafx-controls:$javafxVersion:mac")
-    runtimeOnly("org.openjfx:javafx-fxml:$javafxVersion:mac")
-    runtimeOnly("org.openjfx:javafx-graphics:$javafxVersion:mac-aarch64")
-    runtimeOnly("org.openjfx:javafx-base:$javafxVersion:mac-aarch64")
-    runtimeOnly("org.openjfx:javafx-controls:$javafxVersion:mac-aarch64")
-    runtimeOnly("org.openjfx:javafx-fxml:$javafxVersion:mac-aarch64")
+    
+    platforms.forEach{ platform -> 
+        javafxModules.forEach { module ->
+            runtimeOnly("org.openjfx:$module:$javafxVersion:$platform")
+        }}
     
 }
 
@@ -62,11 +59,12 @@ tasks.test {
     useJUnitPlatform()
 
     testLogging {
-        events(TestLogEvent.FAILED, TestLogEvent.SKIPPED) 
+        events(TestLogEvent.FAILED, TestLogEvent.SKIPPED, TestLogEvent.PASSED) 
     }
 }
 
 tasks.jar {
+    archiveFileName = "AbClimber.jar"
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE 
     manifest {
         attributes("Main-Class" to "it.unibo.abyssclimber.Launcher") 
@@ -75,4 +73,8 @@ tasks.jar {
         configurations.runtimeClasspath.get().map { 
             file -> if (file.isDirectory) file else zipTree(file)}
     )
+}
+
+tasks.build {
+    dependsOn("jar")
 }
