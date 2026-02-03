@@ -38,7 +38,6 @@ val platforms = listOf("win", "linux", "mac", "mac-aarch64")
 
 dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.11.0")
-    implementation(libs.guava)
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.13.0")
     testImplementation("org.mockito:mockito-core:5.11.0")
     testImplementation("org.mockito:mockito-junit-jupiter:5.11.0")
